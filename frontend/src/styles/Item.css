@@ -1,0 +1,18 @@
+.Item {
+    background-color: rgb(221, 192, 150);
+    padding: 2rem 2rem 2rem 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.item-data{
+    background-color: rgb(226, 177, 108);
+    padding: 1rem 2.5rem 1rem 2.5rem;
+    margin: 0.4rem;
+}
+
+.item-crud-options {
+    
+}

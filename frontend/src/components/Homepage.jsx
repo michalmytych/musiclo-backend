@@ -4,6 +4,7 @@ import List from './List';
 import Search from './Search';
 import Filter from './Filter';
 import Sort from './Sort';
+ //import Confirm from './Confirm';
 
 import '../styles/Homepage.css';
 

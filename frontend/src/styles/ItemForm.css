@@ -1,0 +1,8 @@
+.above-box {
+    padding: 3rem 6rem 3rem 6rem;
+    width: 40rem;
+    background-color: rgb(180, 135, 61);
+    position: absolute;
+    left: 17rem;
+    top: 10rem;
+}
