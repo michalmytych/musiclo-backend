@@ -6,7 +6,7 @@
 .btn {
   border: none;
   cursor: pointer;
-  padding: 1rem 2.5rem 1rem 2.5rem;
+  padding: 0.6rem 2rem 0.6rem 2rem;
   margin: 0.4rem;
   background-color: rgb(190, 238, 134);
 }
@@ -37,4 +37,11 @@
 
 .del-btn:active{
   background-color: rgb(202, 60, 60);
+}
+
+ul, li{
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }

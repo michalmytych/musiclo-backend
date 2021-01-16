@@ -91,7 +91,7 @@ export var ALBUMS = [
         "release_date"      : "2004-01-12"
     },
     {
-        "id"                : "4evw6IBex3N8x1oA2axMTH",
+        "id"                : "4evw6IBexdw8x1oA2axMTH",
         "name"              : "Master of Puppets",
         "artist_ids"        : ['77tT1kLj6mCWtFNqiOmP9H'],
         "explicit"          : false,
@@ -112,23 +112,22 @@ export var ARTISTS = [
     {
         "id"                : "2d0hyoQ5ynDBnkvAbJKORj",
         "name"              : "Testosteron",
-        "albums_id"         : [ "2eia0myWFgoHuttJytCxgX" ],
+        "albums_id"         : [ "2eia0myWFgoHuttJytCxgX" ]
     },
     {
-        "id"                : "77tT1kLj6mCWtFNqiOmP9H",
+        "id"                : "77tT1sLj6mCWtFNqiOmP9H",
         "name"              : "Missonman",
-        "albums_id"         : [ "4evw6IBex3N8x1oA2axMTH" ],
+        "albums_id"         : [ "4evw6IBex3N8x1oA2axMTH" ]
     },
     {
         "id"                : "77tT1kLj6mCWtFNqiOmP9H",
         "name"              : "Metallica",
-        "albums_id"         : [ "4evw6IBex3N8x1oA2axMTH" ],
+        "albums_id"         : [ "4evw6IBex3N8x1oA2axMTH" ]
     },
     {
         "id"                : "1KsASRNugxU85T0u6zSg32",
         "name"              : "Vapourous",
-        "albums_id"         : [ "5JnLg2nd43M3NS4NfVrIdQ" ],
-        "artist_ids"        : ['1KsASRNugxU85T0u6zSg32'],
+        "albums_id"         : [ "5JnLg2nd43M3NS4NfVrIdQ" ]
     }
 ];
 

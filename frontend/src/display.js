@@ -9,3 +9,12 @@ export function handleCategoryViewChange(category) {
 export function setActiveCategoryStyles(id) {
     document.getElementById(id).classList.add('active-category');
 }
+
+export function setElementDisplay(id, mode) {
+    document.getElementById(id).style.display = mode;
+}
+
+export function setDateInputValue(input_id) {
+    var today = new Date().toISOString().slice(0,10);
+    document.getElementById(input_id).value = today;
+}

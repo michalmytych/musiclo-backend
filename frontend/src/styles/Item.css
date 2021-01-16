@@ -1,7 +1,7 @@
 .Item {
     background-color: rgb(221, 192, 150);
-    padding: 2rem 2rem 2rem 2rem;
-    margin-bottom: 1rem;
+    padding: 0.6rem 0.6rem 0.6rem 0.6rem;
+    margin-bottom: 0.6rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -9,10 +9,10 @@
 
 .item-data{
     background-color: rgb(226, 177, 108);
-    padding: 1rem 2.5rem 1rem 2.5rem;
-    margin: 0.4rem;
+    padding: 0.6rem 0.6rem 0.6rem 0.6rem;
 }
 
 .item-crud-options {
-    
+    background-color: rgb(218, 178, 118);
+    padding-top: 1rem;
 }

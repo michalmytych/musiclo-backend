@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 
 import '../styles/Item.css';
 
@@ -7,11 +7,12 @@ import EditBtn from './EditBtn';
 import Confirm from './Confirm';
 import ItemForm from './ItemForm';
 
-
 import {
     deleteItemRequest,
     putEditedItemRequest
 } from '../requests.js';
+
+import { setElementDisplay } from '../display';
 
 
 export default class Item extends Component {
@@ -35,27 +36,21 @@ export default class Item extends Component {
         });
     }
 
-    // CRUD methods:
+    // CRUD methods for single item instance
     deleteItem = (item_id) => {
-        const item_category = this.props.category;
-        deleteItemRequest(item_category, item_id);
-        /* 
-        1. Wyslij request usuwajacy item o kategorii i id okreslonej w parametrach
-        2. Ewentualnie zmień state List.jsx aby lista się odświeżyła
-        */
+        deleteItemRequest(this.props.category, item_id);
+        setElementDisplay("item_row_" + item_id, 'none');
     }
 
     editItem = (object, category) => {
         putEditedItemRequest(object, category);
-        /* 
-        1. Wyslij request usuwajacy item o kategorii i id okreslonej w parametrach
-        2. Ewentualnie zmień state List.jsx aby lista się odświeżyła
-        */
+        // tu trzeba wymusić ponowny request do bazy
+        // i wyrenderowanie komponentu List.jsx
     }
 
     render() {
         return (
-            <Fragment>
+            <div id={"item_row_" + this.props.item.id}>
             {
                 this.state.show_confirmation_box ?
                 <Confirm 
@@ -69,12 +64,10 @@ export default class Item extends Component {
             {
                 this.state.show_edition_box ?
                 <ItemForm
-                    category={this.props.category}
-                    setEditedItem={item=>{this.setState(item)}}               
+                    category={this.props.category}            
                     instance={this.props.item}
-                    onSave={() => this.editItem(
-                        this.state.edited_object,
-                        this.props.category
+                    onSave={(edited_object) => this.editItem(
+                        this.props.category, edited_object
                     )}
                     toggler={this.toggleEditionFormDisplay} />
                 : null
@@ -83,19 +76,49 @@ export default class Item extends Component {
                 <div className='item-data'>
                     {
                         this.props.category==='songs' ?
-                        <h5>Piosenka: {this.props.item.name}</h5>
+                        <div>
+                            <h5>Piosenka: {this.props.item.name}</h5>
+                            <iframe 
+                                src={"https://open.spotify.com/embed/track/"+this.props.item.id} 
+                                width="350" 
+                                height="80" 
+                                frameborder="0" 
+                                allowtransparency="true"
+                                allow="encrypted-media">                            
+                            </iframe>
+                        </div>                                            
                         :
                         null
                     }
                     {
                         this.props.category==='albums' ?
-                        <h5>Album: {this.props.item.name}</h5>
+                        <div>
+                            <h5>Album: {this.props.item.name}</h5>
+                            <iframe 
+                                src={"https://open.spotify.com/embed/album/"+this.props.item.id} 
+                                width="300" 
+                                height="80" 
+                                frameborder="0" 
+                                allowtransparency="true" 
+                                allow="encrypted-media">                            
+                            </iframe>                        
+                        </div>
                         :
                         null
                     }
                     {
                         this.props.category==='artists' ?
-                        <h5>Artysta: {this.props.item.name}</h5>
+                        <div>
+                            <h5>Artysta: {this.props.item.name}</h5>
+                            <iframe 
+                                src={"https://open.spotify.com/embed/artist/"+this.props.item.id} 
+                                width="300" 
+                                height="80" 
+                                frameborder="0" 
+                                allowtransparency="true" 
+                                allow="encrypted-media">                            
+                            </iframe>                           
+                        </div>
                         :
                         null
                     }   
@@ -111,7 +134,7 @@ export default class Item extends Component {
                         }}/>
                 </div>
             </div>
-            </Fragment>
+            </div>
         )
     }
 }

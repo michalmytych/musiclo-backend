@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Item from './Item';
+
+import { getItemsListRequest } from '../requests';
 
 import { 
     handleCategoryViewChange,
@@ -8,57 +10,64 @@ import {
 } from '../display';
 import '../styles/List.css';
 
-// temp
-import { SONGS, ALBUMS, ARTISTS } from '../temporary';
-
 
 export default class List extends Component {
     state = {
         category            : 'songs',    // can be: songs, albums, artists
-        //songs               : {'category' : 'songs', 'items' : [ 'song1', 'song2', 'song3']},
-        songs               : {"category": 'songs', "items": SONGS},
-        //albums              : {'category' : 'albums', 'items' : [ 'album1', 'album2', 'album3']},
-        albums              : {"category": 'albums', "items": ALBUMS},
-        //artists             : {'category' : 'artists', 'items' : [ 'arits1', 'artist2', 'artist3']},
-        artists             : {"category": 'artists', "items": ARTISTS},
+        songs               : {"category": 'songs', "items": []},
+        albums              : {"category": 'albums', "items": []},
+        artists             : {"category": 'artists', "items": []},
         filtering_options   : {'songs' : 1, 'albums' : 2, 'artists' : 3},
         sorting_options     : {'songs' : 1, 'albums' : 2, 'artists' : 3}
     };
+
+    // CRUD method for list view
+    getItemsList(category) {
+        if (this.state[category].items.length === 0) {
+            const LIST = getItemsListRequest(category);
+            this.setState({
+                [category] : {"category" : category, "items" : LIST}
+            });
+        }        
+    }
 
     renderItems(LIST) {
         switch (LIST.category) {
             case 'songs':
                 return (
-                    <ul>
+                    <Fragment>
                         {LIST.items.map(song => (
-                            <Item
-                                category={LIST.category}
-                                key={song.id} 
-                                item={song}/>
+                            <li key={song.id} >
+                                <Item
+                                    category={LIST.category}                                    
+                                    item={song}/>
+                            </li>
                         ))}
-                    </ul>
+                    </Fragment>
                 );
             case 'albums':
                 return (
-                    <ul>
+                    <Fragment>
                         {LIST.items.map(album => (
-                            <Item
-                                category={LIST.category}
-                                key={album.id} 
-                                item={album}/>
+                            <li key={album.id} >
+                                <Item
+                                    category={LIST.category}                                    
+                                    item={album}/>
+                            </li>
                         ))}
-                    </ul>
+                    </Fragment>                    
                 );
             case 'artists':
                 return (
-                    <ul>
+                    <Fragment>
                         {LIST.items.map(artist => (
-                            <Item    
-                                category={LIST.category}
-                                key={artist.id} 
-                                item={artist}/>
+                            <li key={artist.id} >
+                                <Item
+                                    category={LIST.category}                                    
+                                    item={artist}/>
+                            </li>
                         ))}
-                    </ul>
+                    </Fragment>        
                 );
             default:
                 return (
@@ -69,12 +78,14 @@ export default class List extends Component {
 
     handleCategorySwitch = (category) => {
         this.setState({
-            category: category
+            "category": category
         });
+        this.getItemsList(category);
         handleCategoryViewChange(category);
     }
 
     componentDidMount() {
+        this.getItemsList(this.state.category);
         setActiveCategoryStyles('songs-swt');
     }
 
@@ -96,9 +107,11 @@ export default class List extends Component {
                         className="artists-switch-btn">Artyści</div>
                 </div>
                 <div className="items-wrapper">
-                    {this.state.category==='songs'   ? this.renderItems(this.state.songs)    : null}
-                    {this.state.category==='albums'  ? this.renderItems(this.state.albums)   : null}
-                    {this.state.category==='artists' ? this.renderItems(this.state.artists)  : null}
+                    <ul>
+                        {this.state.category==='songs'   ? this.renderItems(this.state.songs)   : null}
+                        {this.state.category==='albums'  ? this.renderItems(this.state.albums)  : null}
+                        {this.state.category==='artists' ? this.renderItems(this.state.artists) : null}
+                    </ul>
                 </div>                
             </div>
         )

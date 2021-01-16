@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
+import SongForm from './SongForm';
+import AlbumForm from './AlbumForm';
+
 import "../styles/ItemForm.css";
 
 /*
@@ -10,6 +13,81 @@ import "../styles/ItemForm.css";
 
 
 export default class ItemForm extends Component {
+    state = {
+        "edited_song"   : false,
+        "edited_album"  : false,
+        "edited_artist" : false
+    };
+
+    setEditedItemObj(key, obj) {
+        this.setState({
+            [key] : obj,
+        });
+    }
+
+    componentDidUpdate() {
+        if (this.state.edited_song) {
+            this.props.onSave(this.state.edited_song);
+        }
+        if (this.state.edited_album) {
+            this.props.onSave(this.state.edited_album);
+        }
+        if (this.state.edited_artist) {
+            this.props.onSave(this.state.edited_artist);
+        }
+    }
+
+    render() {
+        return (
+            <Fragment>
+                <div className="above-box">
+                    {
+                        this.props.category==="songs" ? 
+                        <SongForm 
+                            _editing={true}
+                            category={this.props.category}
+                            instance={this.props.instance}
+                            getEditedSong={s=>{this.setEditedItemObj("edited_song", s)}}/>
+                        : 
+                        null
+                    }
+                    {
+                        this.props.category==="albums" ? 
+                        <AlbumForm 
+                            _editing={true}
+                            category={this.props.category}
+                            instance={this.props.instance}
+                            getEditedAlbum={a=>{this.setEditedItemObj("edited_album", a)}}/>
+                        : 
+                        null
+                    }                    
+                    <button onClick={this.props.toggler}>Anuluj</button>
+                </div>
+            </Fragment>
+        )
+    }
+}
+
+
+
+/*
+
+                    {
+                        this.props.category==="albums" ?
+                        <SongForm getEditedAlbum={a=>{this.setEditedAlbum(a)}}/>                
+                        : 
+                        null                        
+                    }
+                    {
+                        this.props.category==="artists" ?
+                        <SongForm getEditedArtist={a=>{this.setEditedArtist(a)}}/>
+                        : 
+                        null
+                    }
+
+
+
+
     renderSongForm() {
         return (
             <div className="above-box">
@@ -54,12 +132,4 @@ export default class ItemForm extends Component {
                 this.renderArtistForm();
         }
     }
-    
-    render() {
-        return (
-            <Fragment>
-                {this.selectAndRenderForm()}
-            </Fragment>
-        )
-    }
-}
+*/
