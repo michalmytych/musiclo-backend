@@ -14,10 +14,10 @@ export default class SongForm extends Component {
             "name"              : "",
             "album_id"          : "",
             "explicit"          : false,
-            "danceability"      : 50,
-            "energy"            : 50,
-            "acousticness"      : 50,
-            "instrumentalness"  : 50,
+            "danceability"      : 0.50,
+            "energy"            : 0.50,
+            "acousticness"      : 0.50,
+            "instrumentalness"  : 0.50,
             "key"               : 0,
             "mode"              : 0,
             "release_date"      : ""
@@ -36,7 +36,7 @@ export default class SongForm extends Component {
         this.props.getEditedSong(this.state);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if (this.props._editing) {
             this.setState({
                 "name"              : this.props.instance.name,
@@ -85,16 +85,18 @@ export default class SongForm extends Component {
                     type="range" 
                     name="danceability" 
                     value={this.state.danceability}
-                    min="0" 
-                    max="100"/>
+                    min="0"
+                    step="0.01" 
+                    max="1"/>
                 <p>Energia:</p>
                 <input
                     onChange={this.handleChange} 
                     type="range"
                     value={this.state.energy}
                     name="energy" 
-                    min="0" 
-                    max="100"/>
+                    min="0"
+                    step="0.01"  
+                    max="1"/>
                 <p>Akustyczność:</p>
                 <input 
                     onChange={this.handleChange}
@@ -102,7 +104,8 @@ export default class SongForm extends Component {
                     name="acousticness" 
                     value={this.state.acousticness}
                     min="0" 
-                    max="100"/>
+                    step="0.01" 
+                    max="1"/>
                 <p>Żywe instrumenty:</p>
                 <input 
                     onChange={this.handleChange} 
@@ -110,14 +113,15 @@ export default class SongForm extends Component {
                     value={this.state.instrumentalness}
                     name="instrumentalness" 
                     min="0" 
-                    max="100"/>                                                                                 
+                    step="0.01" 
+                    max="1"/>                                                                                 
                 <p>Klucz:</p>
                 <select
                     onChange={this.handleChange}  
                     value={this.state.key}
                     name="key">
                     {KEYS.map(key => (
-                        <option value={key.id} key={key.id} >
+                        <option value={key.id} key={key.id}>
                             {key.name}
                         </option>                        
                     ))}        

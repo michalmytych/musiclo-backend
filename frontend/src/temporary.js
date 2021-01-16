@@ -131,4 +131,43 @@ export var ARTISTS = [
     }
 ];
 
+/*
+TABELE:
+
+tracks {
+    "id"                : varchar(22) PRIMARY KEY
+    "name"              : varchar(128)
+    "albums_id"         : varchar(22) FOREIGN KEY
+    "artist_ids"        : varchar(22) FOREIGN KEY
+    "explicit"          : BOOL
+    "danceability"      : FLOAT (3)
+    "energy"            : FLOAT (3)
+    "key"               : CHOICE INT 1 - 11
+    "mode"              : BOOL
+    "acousticness"      : FLOAT (3)
+    "instrumentalness"  : FLOAT (3)
+    "liveness"          : FLOAT (3)
+    "valence"           : FLOAT (3)
+    "release_date"      : DATE
+}
+
+albums {
+    "id"                : varchar(22) PRIMARY KEY
+    "name"              : varchar(128)
+    "artist_ids"        : varchar(22) FOREIGN KEY
+    "explicit"          : BOOL
+    "release_date"      : DATE
+}
+
+artists {
+    "id"                : varchar(22) PRIMARY KEY
+    "name"              : varchar(128)
+    "albums_id"         : varchar(22) FOREIGN KEY
+}
+
+
+*/
+
+
+
 

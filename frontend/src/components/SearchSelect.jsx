@@ -60,9 +60,9 @@ export default class SearchSelect extends Component {
                 <input 
                     onChange={this.handleChange} 
                     type="text" 
-                    placeholder={"Znajdź " + this.props.category_name + "..."}></input>
+                    placeholder={"Znajdź..."}></input>
                 <div>
-                    <select>                            
+                    <select>                           
                         {
                         this.state.results ?
                             this.state.results.length ?
@@ -70,8 +70,8 @@ export default class SearchSelect extends Component {
                                 <option key={result.id} >
                                     {result.name}
                                 </option>                        
-                            )) : <option>{"Wybierz  " + this.props.category_name + "..."}</option>
-                        : <option>{"Wybierz  " + this.props.category_name + "..."}</option>
+                            )) : <option>{"Wybierz..."}</option>
+                        : <option>{"Wybierz..."}</option>
                         }
                     </select>
                 </div>

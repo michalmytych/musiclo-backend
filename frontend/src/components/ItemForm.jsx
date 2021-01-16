@@ -2,14 +2,9 @@ import React, { Component, Fragment } from 'react';
 
 import SongForm from './SongForm';
 import AlbumForm from './AlbumForm';
+import ArtistForm from './ArtistForm';
 
 import "../styles/ItemForm.css";
-
-/*
-
-    Kompletnie spierdolone
-
-*/
 
 
 export default class ItemForm extends Component {
@@ -60,7 +55,17 @@ export default class ItemForm extends Component {
                             getEditedAlbum={a=>{this.setEditedItemObj("edited_album", a)}}/>
                         : 
                         null
-                    }                    
+                    }     
+                    {
+                        this.props.category==="artists" ? 
+                        <ArtistForm 
+                            _editing={true}
+                            category={this.props.category}
+                            instance={this.props.instance}
+                            getEditedAlbum={a=>{this.setEditedItemObj("edited_artist", a)}}/>
+                        : 
+                        null
+                    }                                   
                     <button onClick={this.props.toggler}>Anuluj</button>
                 </div>
             </Fragment>

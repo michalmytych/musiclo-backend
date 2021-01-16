@@ -30,25 +30,16 @@ export function getSearchResultsRequest(category, search_input) {
         case 'artists':
             return ARTISTS;
         default:
-            return [{"name" : "Nie znaleziono."}]
+            return [{"name" : "Nie znaleziono."}];
     }
     // alert('REQ: Wyszukiwanie: ' + search_input + ' z kategorii ' + category);
 }
 
-
-/*
-
-!async function(){
-let data = await fetch("https://raw.githubusercontent.com/IbrahimTanyalcin/LEXICON/master/lexiconLogo.png")
-    .then((response) => response.blob())
-    .then(data => {
-        return data;
-    })
-    .catch(error => {
-        console.error(error);
-    });
-
-console.log(data);
-}();
-
-*/
+// good example of async "returning" data request
+export async function getCountriesDataRequest() {
+    var data = fetch('https://api.first.org/data/v1/countries/')
+    .then(response => response.json())
+    .then(data => { return data; })
+    .catch(function(error) {console.log('Request failed: ', error) });
+    return data;
+}

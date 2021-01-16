@@ -82,7 +82,7 @@ export default class Item extends Component {
                                 src={"https://open.spotify.com/embed/track/"+this.props.item.id} 
                                 width="350" 
                                 height="80" 
-                                frameborder="0" 
+                                frameBorder="0" 
                                 allowtransparency="true"
                                 allow="encrypted-media">                            
                             </iframe>
@@ -98,7 +98,7 @@ export default class Item extends Component {
                                 src={"https://open.spotify.com/embed/album/"+this.props.item.id} 
                                 width="300" 
                                 height="80" 
-                                frameborder="0" 
+                                frameBorder="0" 
                                 allowtransparency="true" 
                                 allow="encrypted-media">                            
                             </iframe>                        
@@ -114,7 +114,7 @@ export default class Item extends Component {
                                 src={"https://open.spotify.com/embed/artist/"+this.props.item.id} 
                                 width="300" 
                                 height="80" 
-                                frameborder="0" 
+                                frameBorder="0" 
                                 allowtransparency="true" 
                                 allow="encrypted-media">                            
                             </iframe>                           
