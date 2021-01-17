@@ -1,5 +1,5 @@
 .Item {
-    background-color: rgb(221, 192, 150);
+    background-color: rgb(39, 39, 39);
     padding: 0.6rem 0.6rem 0.6rem 0.6rem;
     margin-bottom: 0.6rem;
     display: flex;
@@ -8,11 +8,11 @@
 }
 
 .item-data{
-    background-color: rgb(226, 177, 108);
+    background-color: rgb(31, 31, 31);
     padding: 0.6rem 0.6rem 0.6rem 0.6rem;
 }
 
 .item-crud-options {
-    background-color: rgb(218, 178, 118);
+    background-color: rgb(42, 42, 42);
     padding-top: 1rem;
 }

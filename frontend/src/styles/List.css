@@ -1,10 +1,10 @@
 .List {
     /* padding: 2rem 2rem 2rem 2rem; */
-    background-color: rgb(250, 205, 139);
+    background-color: rgb(53, 53, 53);
 }
 
 .category-switch{
-    background-color: rgb(248, 182, 95);
+    background-color: rgb(68, 68, 68);
     margin-bottom: 1rem;
 }
 
@@ -20,23 +20,23 @@
     flex-grow: 1;
     padding: 1rem 1rem 1rem 1rem;
     cursor: pointer;
-    background-color: rgb(235, 204, 164);
+    background-color: rgb(34, 34, 34);
 }
 
 .all-switch-btn:hover,
 .songs-switch-btn:hover,
 .albums-switch-btn:hover,
 .artists-switch-btn:hover{
-    background-color: rgb(246, 211, 159);
+    background-color: rgb(95, 95, 95);
 }
 
 .all-switch-btn:active,
 .songs-switch-btn:active,
 .albums-switch-btn:active,
 .artists-switch-btn:active{
-    background-color: rgb(252, 234, 210);
+    background-color: rgb(39, 39, 39);
 }
 
 .active-category{
-    background-color: rgb(250, 205, 139);
+    background-color: rgb(53, 53, 53);
 }

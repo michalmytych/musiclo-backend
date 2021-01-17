@@ -24,18 +24,26 @@ export default class ArtistForm extends Component {
         });
     }
 
+    getSelectedAlbums(p) {
+        this.setState({"albums_ids" : p});
+    }
+
     handleSubmit() {
         this.props.getEditedArtist(this.state);
     }
 
     async componentDidMount() {
         if (this.props._editing) {
-            this.setState({
-                "name"          : this.props.instance.name,
-                "albums_ids"    : this.props.instance.albums_ids,
-                "description"   : "",                
-                "country"       : this.props.instance.country,
-            });
+            if (this.props._editing.instance) {
+                this.setState({
+                    "name"          : this.props.instance.name,
+                    "albums_ids"    : this.props.instance.albums_ids,
+                    "description"   : "",                
+                    "country"       : this.props.instance.country,
+                });
+            } else {
+                console.log("Błąd podczas pobierania obiektu.");
+            }            
         }
     }
 
@@ -67,7 +75,10 @@ export default class ArtistForm extends Component {
                     rows="4" cols="50">
                 </textarea>                    
                 <p>Albumy:</p>
-                <SearchSelect category={"albums"} />
+                <SearchSelect 
+                    _getInitialValue={(p) => this.getSelectedAlbums(p)}
+                    getValues={(p) => this.getSelectedAlbums(p)} 
+                    category={"albums"} />
                 {
                     <Fragment>
                         <p>Kraj:</p>

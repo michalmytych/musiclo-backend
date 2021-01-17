@@ -18,6 +18,10 @@ export default class AlbumForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    getSelectedArtists(p) {
+        this.setState({"artist_ids" : p});
+    }
+
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
@@ -32,7 +36,7 @@ export default class AlbumForm extends Component {
         if (this.props._editing) {
             this.setState({
                 "name"              : this.props.instance.name,
-                "artist_ids"        : this.props.instance.artist_ids,
+                "artists_ids"       : this.props.instance.artist_ids,
                 "explicit"          : this.props.instance.explicit,
                 "release_date"      : this.props.instance.release_date
             });
@@ -58,7 +62,10 @@ export default class AlbumForm extends Component {
                     value={this.state.name}
                     placeholder="Nazwa..."/>
                 <p>Artyści:</p>
-                <SearchSelect category={"artists"}/>
+                <SearchSelect 
+                    _getInitialValue={(p) => this.getSelectedArtists(p)}
+                    getValues={(p) => this.getSelectedArtists(p)} 
+                    category={"artists"} />
                 <p>Czy explicit:</p>
                 <input
                     onChange={this.handleChange}

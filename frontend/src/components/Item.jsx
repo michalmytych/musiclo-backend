@@ -6,6 +6,9 @@ import DeleteBtn from './DeleteBtn';
 import EditBtn from './EditBtn';
 import Confirm from './Confirm';
 import ItemForm from './ItemForm';
+import SpotifyPlugin from './SpotifyPlugin';
+import YouTubeSearch from './YouTubeSearch';
+import Details from './Details';
 
 import {
     deleteItemRequest,
@@ -23,6 +26,7 @@ export default class Item extends Component {
     };
 
     toggleConfirmationDisplay = () => {
+        alert('toggleConfirmationDisplay');
         this.setState({
             "show_edition_box" : false,
             "show_confirmation_box" : !this.state.show_confirmation_box
@@ -30,6 +34,7 @@ export default class Item extends Component {
     }
 
     toggleEditionFormDisplay = () => {
+        alert('toggleEditionFormDisplay');
         this.setState({
             "show_confirmation_box" : false,
             "show_edition_box"      : !this.state.show_edition_box
@@ -69,7 +74,7 @@ export default class Item extends Component {
                     onSave={(edited_object) => this.editItem(
                         this.props.category, edited_object
                     )}
-                    toggler={this.toggleEditionFormDisplay} />
+                toggler={this.toggleEditionFormDisplay} />
                 : null
             }
             <div className="Item">                             
@@ -78,14 +83,23 @@ export default class Item extends Component {
                         this.props.category==='songs' ?
                         <div>
                             <h5>Piosenka: {this.props.item.name}</h5>
-                            <iframe 
-                                src={"https://open.spotify.com/embed/track/"+this.props.item.id} 
-                                width="350" 
-                                height="80" 
-                                frameBorder="0" 
-                                allowtransparency="true"
-                                allow="encrypted-media">                            
-                            </iframe>
+                            {
+                                <Details 
+                                    item={this.props.item}
+                                    category={this.props.category}
+                                />
+                            }
+                            {
+                                this.props.item.spotify_link ?
+                                <SpotifyPlugin 
+                                    id={this.props.item.id}
+                                    category={this.props.category} 
+                                    link={this.props.item.spotify_link}/>
+                                :
+                                <YouTubeSearch 
+                                    category={this.props.category}
+                                    query={this.props.item.name}/>
+                            }
                         </div>                                            
                         :
                         null
@@ -94,14 +108,21 @@ export default class Item extends Component {
                         this.props.category==='albums' ?
                         <div>
                             <h5>Album: {this.props.item.name}</h5>
-                            <iframe 
-                                src={"https://open.spotify.com/embed/album/"+this.props.item.id} 
-                                width="300" 
-                                height="80" 
-                                frameBorder="0" 
-                                allowtransparency="true" 
-                                allow="encrypted-media">                            
-                            </iframe>                        
+                            <Details 
+                                    item={this.props.item}
+                                    category={this.props.category}
+                                />                        
+                            {
+                                this.props.item.spotify_link ?
+                                <SpotifyPlugin 
+                                    id={this.props.item.id}
+                                    category={this.props.category} 
+                                    link={this.props.item.spotify_link}/>
+                                :
+                                <YouTubeSearch 
+                                    category={this.props.category}
+                                    query={this.props.item.name}/>
+                            }                      
                         </div>
                         :
                         null
@@ -110,14 +131,21 @@ export default class Item extends Component {
                         this.props.category==='artists' ?
                         <div>
                             <h5>Artysta: {this.props.item.name}</h5>
-                            <iframe 
-                                src={"https://open.spotify.com/embed/artist/"+this.props.item.id} 
-                                width="300" 
-                                height="80" 
-                                frameBorder="0" 
-                                allowtransparency="true" 
-                                allow="encrypted-media">                            
-                            </iframe>                           
+                            <Details 
+                                    item={this.props.item}
+                                    category={this.props.category}
+                                />                            
+                            {
+                                this.props.item.spotify_link ?
+                                <SpotifyPlugin 
+                                    id={this.props.item.id}
+                                    category={this.props.category} 
+                                    link={this.props.item.spotify_link}/>
+                                :
+                                <YouTubeSearch 
+                                    category={this.props.category}
+                                    query={this.props.item.name}/>
+                            }                         
                         </div>
                         :
                         null
@@ -125,13 +153,9 @@ export default class Item extends Component {
                 </div>
                 <div className='item-crud-options'>
                     <EditBtn 
-                        handler={() => {
-                            this.toggleEditionFormDisplay();
-                        }}/>
+                        handler={() => this.toggleEditionFormDisplay()}/>
                     <DeleteBtn 
-                        handler={() => {
-                            this.toggleConfirmationDisplay();
-                        }}/>
+                        handler={() => this.toggleConfirmationDisplay()}/>
                 </div>
             </div>
             </div>

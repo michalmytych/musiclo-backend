@@ -1,6 +1,6 @@
 .Homepage {
     padding: 2rem 2rem 2rem 2rem;
-    background-color: antiquewhite;
+    background-color: rgb(0, 0, 0);
 }
 
 .crud-container {
@@ -15,6 +15,6 @@
 
 .display-menu {
     flex-grow: 0.5;
-    background-color: rgb(199, 137, 52);
+    background-color: rgb(41, 41, 41);
     padding: 1rem 1rem 1rem 1rem;
 }

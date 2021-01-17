@@ -8,50 +8,56 @@ export default class SearchSelect extends Component {
     constructor() {
         super();
         this.state = {
-            "results"       : [],
-            "category_name" : "",
-            "search_input"  : ""
+            "results"           : [],
+            "category_name"     : "",
+            "search_input"      : ""
         };
         this.handleChange = this.handleChange.bind(this);
-        //this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     async getSearchResults(category, search_input) {
-        var results = getSearchResultsRequest(category, search_input)
-        console.log(results);   
+        var results = getSearchResultsRequest(category, search_input)        
         this.setState({
-            "results" : results
+            "results"           : results,
+            "selected_options"  : []
         })
     }
 
-    setSearchCategory() {
+    setSearchCategory = () => {
         switch(this.props.category) {
             case 'songs':
                 this.setState({ "category_name" : "piosenkę" }); break;
-                // this.getSearchResults(this.props.category, this.state.search_input); break;
             case 'albums':
                 this.setState({ "category_name" : "album" }); break;
-                // this.getSearchResults(this.props.category, this.state.search_input); break;
             case 'artists':
                 this.setState({ "category_name" : "wykonawcę" }); break;
-                // this.getSearchResults(this.props.category, this.state.search_input); break;
             default:
                 this.setState({ "category_name" : "piosenkę" }); break;
-                // this.getSearchResults(this.props.category, this.state.search_input); break;
         }
     }
 
+    getSelectedOptions = (e) => {
+        let selected_values = Array.from(
+            e.target.selectedOptions, option => option.value
+        );
+        this.setState({ "selected_options" : selected_values });
+        this.props.getValues(selected_values);
+    }
+
+    setInitialValues = () => {
+        this.props._getInitialValue([]);
+    } 
+
     handleChange(event) {
-        console.clear();
-        console.log("Input: " + event.target.value);
         this.getSearchResults(this.props.category, event.target.value);
         this.setState({
             [event.target.name] : event.target.value
-        });   
+        });
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.setSearchCategory();
+        this.setInitialValues();
     }
 
     render() {
@@ -62,12 +68,14 @@ export default class SearchSelect extends Component {
                     type="text" 
                     placeholder={"Znajdź..."}></input>
                 <div>
-                    <select>                           
+                    <select 
+                        value={this.state.selected_options}
+                        id="search_select" multiple onChange={this.getSelectedOptions}>                           
                         {
                         this.state.results ?
                             this.state.results.length ?
                             this.state.results.map(result => (
-                                <option key={result.id} >
+                                <option value={result.id} key={result.id} >
                                     {result.name}
                                 </option>                        
                             )) : <option>{"Wybierz..."}</option>

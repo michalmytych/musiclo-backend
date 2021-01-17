@@ -23,12 +23,15 @@ export default class ItemForm extends Component {
     componentDidUpdate() {
         if (this.state.edited_song) {
             this.props.onSave(this.state.edited_song);
+            this.setState({"edited_song" : false});
         }
         if (this.state.edited_album) {
             this.props.onSave(this.state.edited_album);
+            this.setState({"edited_album" : false});
         }
         if (this.state.edited_artist) {
             this.props.onSave(this.state.edited_artist);
+            this.setState({"edited_artist" : false});
         }
     }
 
@@ -43,8 +46,7 @@ export default class ItemForm extends Component {
                             category={this.props.category}
                             instance={this.props.instance}
                             getEditedSong={s=>{this.setEditedItemObj("edited_song", s)}}/>
-                        : 
-                        null
+                        : null
                     }
                     {
                         this.props.category==="albums" ? 
@@ -53,8 +55,7 @@ export default class ItemForm extends Component {
                             category={this.props.category}
                             instance={this.props.instance}
                             getEditedAlbum={a=>{this.setEditedItemObj("edited_album", a)}}/>
-                        : 
-                        null
+                        : null
                     }     
                     {
                         this.props.category==="artists" ? 
@@ -62,9 +63,8 @@ export default class ItemForm extends Component {
                             _editing={true}
                             category={this.props.category}
                             instance={this.props.instance}
-                            getEditedAlbum={a=>{this.setEditedItemObj("edited_artist", a)}}/>
-                        : 
-                        null
+                            getEditedArtist={a=>{this.setEditedItemObj("edited_artist", a)}}/>
+                        : null
                     }                                   
                     <button onClick={this.props.toggler}>Anuluj</button>
                 </div>

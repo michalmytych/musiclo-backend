@@ -12,7 +12,8 @@ export default class SongForm extends Component {
         super();
         this.state = {
             "name"              : "",
-            "album_id"          : "",
+            "albums_ids"        : [],
+            "artists_ids"       : [],
             "explicit"          : false,
             "danceability"      : 0.50,
             "energy"            : 0.50,
@@ -20,10 +21,19 @@ export default class SongForm extends Component {
             "instrumentalness"  : 0.50,
             "key"               : 0,
             "mode"              : 0,
-            "release_date"      : ""
+            "release_date"      : "",
+            "spotify_link"      : ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    getSelectedArtists(p) {
+        this.setState({"artists_ids" : p});
+    }
+
+    getSelectedAlbums(p) {
+        this.setState({"albums_ids" : p});
     }
     
     handleChange(event) {
@@ -36,20 +46,26 @@ export default class SongForm extends Component {
         this.props.getEditedSong(this.state);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         if (this.props._editing) {
-            this.setState({
-                "name"              : this.props.instance.name,
-                "album_id"          : this.props.instance.album_id,
-                "explicit"          : this.props.instance.explicit,
-                "danceability"      : this.props.instance.danceability,
-                "energy"            : this.props.instance.energy,
-                "acousticness"      : this.props.instance.acousticness,
-                "instrumentalness"  : this.props.instance.instrumentalness,
-                "key"               : this.props.instance.key,
-                "mode"              : this.props.instance.mode,
-                "release_date"      : this.props.instance.release_date
-            });
+            if (this.props.instance) {
+                this.setState({
+                    "name"              : this.props.instance.name,
+                    "albums_ids"        : this.props.instance.albums_ids,
+                    "artists_ids"       : this.props.instance.artists_ids,
+                    "explicit"          : this.props.instance.explicit,
+                    "danceability"      : this.props.instance.danceability,
+                    "energy"            : this.props.instance.energy,
+                    "acousticness"      : this.props.instance.acousticness,
+                    "instrumentalness"  : this.props.instance.instrumentalness,
+                    "key"               : this.props.instance.key,
+                    "mode"              : this.props.instance.mode,
+                    "release_date"      : this.props.instance.release_date,
+                    "spotify_link"      : this.props.instance.spotify_link,
+                });
+            } else {
+                console.log("Błąd podczas pobierania obiektu.");
+            }
         } else {
             setDateInputValue('release_date_input');
         }
@@ -58,23 +74,37 @@ export default class SongForm extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                {
-                    this.props._editing ?
-                    <h4>Edytowanie piosenki {this.props.instance.name}</h4>
-                    :
-                    null
-                }
+                    {
+                        this.props._editing ?
+                            this.props.instance ?
+                                <h4>Edytowanie piosenki {this.props.instance.name}</h4>
+                            :
+                            <h4>Edytowanie</h4>
+                        :
+                        null
+                    }
                 <p>Wykonawca:</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 
                     name="name" 
+                    required
                     value={this.state.name}
                     placeholder="Nazwa..."/>
-                <p>Album:</p>
-                <SearchSelect category={"albums"}/>
+                <p>Artyści:</p>
+                <SearchSelect 
+                    required
+                    _getInitialValue={(p) => this.getSelectedArtists(p)}
+                    getValues={(p) => this.getSelectedArtists(p)} 
+                    category={"artists"} />
+                <p>Albumy:</p>
+                <SearchSelect 
+                    _getInitialValue={(p) => this.getSelectedAlbums(p)}
+                    getValues={(p) => this.getSelectedAlbums(p)} 
+                    category={"albums"}/>
                 <p>Czy explicit:</p>
                 <input
+                    required
                     onChange={this.handleChange}
                     type="checkbox" 
                     value={this.state.explicit}
@@ -136,11 +166,19 @@ export default class SongForm extends Component {
                 </select>
                 <p>Data wydania:</p>
                 <input 
+                    required
                     onChange={this.handleChange} 
                     id="release_date_input"
                     type="date" 
                     value={this.state.release_date}
-                    name="release_date"></input>                               
+                    name="release_date"></input>    
+                <p>Na spotify:</p>
+                <input 
+                    onChange={this.handleChange}
+                    type="text" 
+                    name="spotify_link" 
+                    value={this.state.spotify_link}
+                    placeholder="Wklej..."/>                                               
                 <button onClick={this.props.setEditedSong}>Zapisz</button>                    
             </form>
         )

@@ -1,9 +1,6 @@
 import React from 'react'
 
 
-/*
-    Przez props będzie przekazana funkcja showEditForm()
-*/
 
 export default function EditBtn(props) {
     return (

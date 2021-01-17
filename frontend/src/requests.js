@@ -1,23 +1,24 @@
 import { SONGS, ALBUMS, ARTISTS } from './temporary';
 
+
 export function getItemsListRequest(category) {
     switch(category) {
         case 'songs':
-            alert("REQ: Pobieram piosenki!"); return SONGS;
+            console.log("REQ: Pobieram piosenki!"); return SONGS;
         case 'albums':
-            alert("REQ: Pobieram albumy!"); return ALBUMS;
+            console.log("REQ: Pobieram albumy!"); return ALBUMS;
         case 'artists':
-            alert("REQ: Pobieram artystów!"); return ARTISTS;
+            console.log("REQ: Pobieram artystów!"); return ARTISTS;
         default:
-            alert("REQ: Pobieram piosenki!");
+            console.log("REQ: Pobieram piosenki!"); return SONGS;
     }
 }
 
 export async function deleteItemRequest(category, id) {
-    alert('REQ: Usuwanie elementu z kategorii ' + category + ' o id ' + id);
+    console.log('REQ: Usuwanie elementu z kategorii ' + category + ' o id ' + id);
 }
 
-export async function putEditedItemRequest(object, category) {
+export async function putEditedItemRequest(category, object) {
     alert('REQ: Zapisywanie obiektu: ' + object + ' z kategorii ' + category);
 }
 
@@ -32,7 +33,6 @@ export function getSearchResultsRequest(category, search_input) {
         default:
             return [{"name" : "Nie znaleziono."}];
     }
-    // alert('REQ: Wyszukiwanie: ' + search_input + ' z kategorii ' + category);
 }
 
 // good example of async "returning" data request
