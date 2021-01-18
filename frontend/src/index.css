@@ -12,3 +12,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.loader{
+  text-align: center;
+  padding-bottom: 5rem;
+}
+
+.loading-spinner {
+  width: 2rem;
+  position: relative;
+}

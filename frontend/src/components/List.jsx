@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+import InfiniteScroll from "react-infinite-scroll-component";
+
 import Item from './Item';
 
 import { getItemsListRequest } from '../requests';
@@ -18,7 +20,8 @@ export default class List extends Component {
         albums              : {"category": 'albums', "items": []},
         artists             : {"category": 'artists', "items": []},
         filtering_options   : {'songs' : 1, 'albums' : 2, 'artists' : 3},
-        sorting_options     : {'songs' : 1, 'albums' : 2, 'artists' : 3}
+        sorting_options     : {'songs' : 1, 'albums' : 2, 'artists' : 3},
+        page                : 0
     };
 
     // CRUD method for list view
@@ -31,65 +34,58 @@ export default class List extends Component {
         }        
     }
 
+    _getItemsList(args) {
+        var category = this.state.category;
+        //if (this.state[category].items.length === 0) {
+        const LIST = getItemsListRequest({ category: args.category, page: args.page});
+        this.setState({
+            [category] : {
+                "category" : category, 
+                "items" : this.state[category].items.concat(LIST)
+            }
+        });
+        console.log('buczak');
+    }
+
+    _getMoreItems = () => {
+        var page = this.state.page;
+        this.setState({
+            page : this.state.page+1
+        });
+        this._getItemsList({category: this.state.category, page: page+1});
+        console.log("xd");
+    }
+
     renderItems(LIST) {
-        switch (LIST.category) {
-            case 'songs':
-                return (
-                    <Fragment>
-                        {LIST.items.map(song => (
-                            <li key={song.id} >
-                                <Item
-                                    category={LIST.category}                                    
-                                    item={song}/>
-                            </li>
-                        ))}
-                    </Fragment>
-                );
-            case 'albums':
-                return (
-                    <Fragment>
-                        {LIST.items.map(album => (
-                            <li key={album.id} >
-                                <Item
-                                    category={LIST.category}                                    
-                                    item={album}/>
-                            </li>
-                        ))}
-                    </Fragment>                    
-                );
-            case 'artists':
-                return (
-                    <Fragment>
-                        {LIST.items.map(artist => (
-                            <li key={artist.id} >
-                                <Item
-                                    category={LIST.category}                                    
-                                    item={artist}/>
-                            </li>
-                        ))}
-                    </Fragment>        
-                );
-            default:
-                return (
-                    <h3>Brak zawartości</h3>
-                )
-        }
+        return (
+            <Fragment>
+                {LIST.items.map(song => (
+                    <li key={song.id} >
+                        <Item
+                            category={LIST.category}                                    
+                            item={song}/>
+                    </li>
+                ))}
+            </Fragment>
+        );
     }
 
     handleCategorySwitch = (category) => {
         this.setState({
             "category": category
         });
-        this.getItemsList(category);
+        this._getItemsList({category: category, page: this.state.page});
         handleCategoryViewChange(category);
     }
 
     componentDidMount() {
-        this.getItemsList(this.state.category);
+        this._getItemsList({category: this.state.category, page: this.state.page});
         setActiveCategoryStyles('songs-swt');
     }
 
     render() {
+        //var _ITEMS = this._renderItems(this.state.songs);
+
         return (
             <div className="List">
                 <div className="category-switch">
@@ -108,9 +104,26 @@ export default class List extends Component {
                 </div>
                 <div className="items-wrapper">
                     <ul>
-                        {this.state.category==='songs'   ? this.renderItems(this.state.songs)   : null}
-                        {this.state.category==='albums'  ? this.renderItems(this.state.albums)  : null}
-                        {this.state.category==='artists' ? this.renderItems(this.state.artists) : null}
+                        {//this.state.category==='songs'   ? this.renderItems(this.state.songs)   : null}
+                        }
+                        {//this.state.category==='albums'  ? this.renderItems(this.state.albums)  : null}
+                        }
+                        {//this.state.category==='artists' ? this.renderItems(this.state.artists) : null}                                              
+                        }
+                        <InfiniteScroll
+                            dataLength={this.state.songs.items.length}
+                            next={() => this._getMoreItems()}
+                            hasMore={true}
+                            loader={<h4>Loading...</h4>}>
+                            {this.state.songs.items.map((song, index) => (
+                                <li key={song.id}>
+                                    <Item
+                                        category={'songs'}                                    
+                                        item={song}/>
+                                </li>
+                            ))}
+                        </InfiniteScroll>
+                        <button onClick={() => this._getMoreItems()}>Więcej...</button>
                     </ul>
                 </div>                
             </div>

@@ -1,17 +1,22 @@
 import { SONGS, ALBUMS, ARTISTS } from './temporary';
 
 
-export function getItemsListRequest(category) {
-    switch(category) {
+export function getItemsListRequest(args) { 
+    const items_limit = 3;
+    var ITEMS;
+    switch(args.category) {
         case 'songs':
-            console.log("REQ: Pobieram piosenki!"); return SONGS;
+            ITEMS = SONGS; break;
         case 'albums':
-            console.log("REQ: Pobieram albumy!"); return ALBUMS;
+            return ALBUMS;
         case 'artists':
-            console.log("REQ: Pobieram artystów!"); return ARTISTS;
+            return ARTISTS;
         default:
-            console.log("REQ: Pobieram piosenki!"); return SONGS;
+            return [];
     }
+
+    var objects = ITEMS.slice(args.page * items_limit, (args.page * items_limit) + items_limit);
+    return objects;
 }
 
 export async function deleteItemRequest(category, id) {
@@ -43,3 +48,40 @@ export async function getCountriesDataRequest() {
     .catch(function(error) {console.log('Request failed: ', error) });
     return data;
 }
+
+/*
+
+REQUEST WITH QWEST:
+
+qwest.get(url, {
+    client_id: api.client_id,
+    linked_partitioning: 1,
+    page_size: 10
+}, {
+    cache: true
+})
+.then(function(xhr, resp) {
+    if(resp) {
+        var tracks = self.state.tracks;
+        resp.collection.map((track) => {
+            if(track.artwork_url == null) {
+                track.artwork_url = track.user.avatar_url;
+            }
+
+            tracks.push(track);
+        });
+
+        if(resp.next_href) {
+            self.setState({
+                tracks: tracks,
+                nextHref: resp.next_href
+            });
+        } else {
+            self.setState({
+                hasMoreItems: false
+            });
+        }
+    }
+});
+
+*/
