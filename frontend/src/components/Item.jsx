@@ -26,7 +26,6 @@ export default class Item extends Component {
     };
 
     toggleConfirmationDisplay = () => {
-        alert('toggleConfirmationDisplay');
         this.setState({
             "show_edition_box" : false,
             "show_confirmation_box" : !this.state.show_confirmation_box
@@ -34,7 +33,6 @@ export default class Item extends Component {
     }
 
     toggleEditionFormDisplay = () => {
-        alert('toggleEditionFormDisplay');
         this.setState({
             "show_confirmation_box" : false,
             "show_edition_box"      : !this.state.show_edition_box
@@ -42,12 +40,12 @@ export default class Item extends Component {
     }
 
     // CRUD methods for single item instance
-    deleteItem = (item_id) => {
+    _deleteItem = (item_id) => {
         deleteItemRequest(this.props.category, item_id);
         setElementDisplay("item_row_" + item_id, 'none');
     }
 
-    editItem = (object, category) => {
+    _editItem = (object, category) => {
         putEditedItemRequest(object, category);
         // tu trzeba wymusić ponowny request do bazy
         // i wyrenderowanie komponentu List.jsx
@@ -60,7 +58,7 @@ export default class Item extends Component {
                 this.state.show_confirmation_box ?
                 <Confirm 
                     item={this.props.item}
-                    on_ok={() => this.deleteItem(this.props.item.id)}
+                    on_ok={() => this._deleteItem(this.props.item.id)}
                     toggler={this.toggleConfirmationDisplay}                    
                     message_header={"Czy napewno chcesz usunąć?"} 
                     message_content={"Tej akcji nie będzie można cofnąć."}/>
@@ -69,9 +67,10 @@ export default class Item extends Component {
             {
                 this.state.show_edition_box ?
                 <ItemForm
+                    _editing={true}
                     category={this.props.category}            
                     instance={this.props.item}
-                    onSave={(edited_object) => this.editItem(
+                    onSave={(edited_object) => this._editItem(
                         this.props.category, edited_object
                     )}
                 toggler={this.toggleEditionFormDisplay} />

@@ -1,11 +1,12 @@
 import React from 'react'
 
+import editIcon from '../assets/edit.svg';
 
 
 export default function EditBtn(props) {
     return (
-        <button className='btn edit-btn' onClick={props.handler}>
-            Edytuj
+        <button onClick={props.handler}>
+            <img src={editIcon} alt="Przycisk edycji." className="crud-icon"/>
         </button>
     )
 }

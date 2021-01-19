@@ -21,28 +21,34 @@ export default class ItemForm extends Component {
     }
 
     componentDidUpdate() {
-        if (this.state.edited_song) {
-            this.props.onSave(this.state.edited_song);
-            this.setState({"edited_song" : false});
-        }
-        if (this.state.edited_album) {
-            this.props.onSave(this.state.edited_album);
-            this.setState({"edited_album" : false});
-        }
-        if (this.state.edited_artist) {
-            this.props.onSave(this.state.edited_artist);
-            this.setState({"edited_artist" : false});
+        if (this.props._editing) {
+            if (this.state.edited_song) {
+                this.props.onSave(this.state.edited_song);
+                this.setState({"edited_song" : false});
+            }
+            if (this.state.edited_album) {
+                this.props.onSave(this.state.edited_album);
+                this.setState({"edited_album" : false});
+            }
+            if (this.state.edited_artist) {
+                this.props.onSave(this.state.edited_artist);
+                this.setState({"edited_artist" : false});
+            }
+        } else {
+            console.log('Tu bedzie kod dodawania');
         }
     }
 
     render() {
+        var edition_mode = this.props._editing;
+
         return (
             <Fragment>
                 <div className="above-box">
                     {
                         this.props.category==="songs" ? 
                         <SongForm 
-                            _editing={true}
+                            _editing={edition_mode}
                             category={this.props.category}
                             instance={this.props.instance}
                             getEditedSong={s=>{this.setEditedItemObj("edited_song", s)}}/>
@@ -51,7 +57,7 @@ export default class ItemForm extends Component {
                     {
                         this.props.category==="albums" ? 
                         <AlbumForm 
-                            _editing={true}
+                            _editing={edition_mode}
                             category={this.props.category}
                             instance={this.props.instance}
                             getEditedAlbum={a=>{this.setEditedItemObj("edited_album", a)}}/>
@@ -60,7 +66,7 @@ export default class ItemForm extends Component {
                     {
                         this.props.category==="artists" ? 
                         <ArtistForm 
-                            _editing={true}
+                            _editing={edition_mode}
                             category={this.props.category}
                             instance={this.props.instance}
                             getEditedArtist={a=>{this.setEditedItemObj("edited_artist", a)}}/>

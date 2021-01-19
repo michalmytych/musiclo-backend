@@ -19,6 +19,10 @@ export function getItemsListRequest(args) {
     return objects;
 }
 
+export async function createItemRequest(category, object) {
+    alert('REQ: Tworzenie obiektu: ' + object + ' z kategorii ' + category);
+}
+
 export async function deleteItemRequest(category, id) {
     console.log('REQ: Usuwanie elementu z kategorii ' + category + ' o id ' + id);
 }

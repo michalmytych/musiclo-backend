@@ -3,15 +3,30 @@ import React, { Component, Fragment } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Item from './Item';
+import ItemForm from './ItemForm';
 
-import { getItemsListRequest } from '../requests';
+import { 
+    getItemsListRequest,
+    createItemRequest 
+} from '../requests';
 
 import { 
     handleCategoryViewChange,
     setActiveCategoryStyles
 } from '../display';
 import '../styles/List.css';
+import loadingSpinner from '../assets/loading.gif';
+import addIcon from '../assets/add.svg';
 
+
+
+const AddItemButton = (props) => {
+    return (
+        <button>
+            <img className="crud-icon" src={addIcon} alt="Przycisk dodawania."/>
+        </button>
+    )
+}
 
 export default class List extends Component {
     state = {
@@ -21,6 +36,7 @@ export default class List extends Component {
         artists             : {"category": 'artists', "items": []},
         filtering_options   : {'songs' : 1, 'albums' : 2, 'artists' : 3},
         sorting_options     : {'songs' : 1, 'albums' : 2, 'artists' : 3},
+        show_creation_box   : false,
         page                : 0,
         hasMoreItems        : true,
         items_limit         : 7
@@ -51,7 +67,20 @@ export default class List extends Component {
             page : this.state.page+1
         });
         this._getItemsList({category: this.state.category, page: page+1});
-        console.log(this.state);
+    }
+
+    _createItem = (obj) => {
+        createItemRequest({
+            category    : this.state.category,
+            object      : obj
+        });        
+    }
+
+    toggleCreationFormDisplay = () => {
+        alert('toggleCreationFormDisplay');
+        this.setState({
+            "show_creation_box" : !this.state.show_creation_box
+        });
     }
 
     renderItems(LIST) {
@@ -82,6 +111,7 @@ export default class List extends Component {
     }
 
     render() {
+        const loader = <h4><img className="loading" src={loadingSpinner}/></h4>
         var _ITEMS_LIST;
         switch (this.state.category) {
             case 'songs':
@@ -97,21 +127,37 @@ export default class List extends Component {
 
         return (
             <div className="List">
+                {
+                    this.state.show_creation_box ?
+                    <ItemForm
+                        _editing={false}
+                        category={this.state.category}            
+                        onSave={(created_object) => this._createItem(
+                            created_object
+                        )}
+                        toggler={this.toggleCreationFormDisplay} />
+                    : null
+                }                
                 <div className="category-switch">
                     <div 
                         id="songs-swt"
                         onClick={() => this.handleCategorySwitch('songs')}
-                        className="songs-switch-btn">Piosenki</div>
+                        className="songs-switch-btn">Piosenki
+                    </div>
                     <div
                         id="albums-swt"
                         onClick={() => this.handleCategorySwitch('albums')} 
-                        className="albums-switch-btn">Albumy</div>
+                        className="albums-switch-btn">Albumy
+                    </div>
                     <div
                         id="artists-swt"
                         onClick={() => this.handleCategorySwitch('artists')} 
-                        className="artists-switch-btn">Artyści</div>
+                        className="artists-switch-btn">Artyści                        
+                    </div>
                 </div>
                 <div className="items-wrapper">
+                    <AddItemButton 
+                        handler={() => this.toggleCreationFormDisplay()}/>
                     <ul>
                         {
                             _ITEMS_LIST ?
@@ -120,7 +166,7 @@ export default class List extends Component {
                                     dataLength={this.state.songs.items.length}
                                     next={() => this._getMoreItems()}
                                     hasMore={this.state.hasMoreItems}
-                                    loader={<h4>Loading more...</h4>}>
+                                    loader={loader}>
                                     {this.state.songs.items.map((item) => (
                                         <li key={item.id}>
                                             <Item
