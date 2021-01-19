@@ -24,12 +24,18 @@ export default class ArtistForm extends Component {
         });
     }
 
-    getSelectedAlbums(p) {
-        this.setState({"albums_ids" : p});
+    getSelectedAlbums(selections) {
+        this.setState({
+            "albums_ids" : this.state.albums_ids.concat(selections)
+        });
     }
 
-    handleSubmit() {
-        this.props.getEditedArtist(this.state);
+    handleSubmit(event) {
+        this.props.getEditedArtist({
+            obj         : this.state,
+            category    : 'artists'
+        });
+        event.preventDefault();
     }
 
     async componentDidMount() {
@@ -98,7 +104,7 @@ export default class ArtistForm extends Component {
                         </select>
                     </Fragment>
                 }                            
-                <button onClick={this.props.setEditedArtist}>Zapisz</button>                    
+                <button type={"submit"}>Zapisz</button>                    
             </form>
         )
     }

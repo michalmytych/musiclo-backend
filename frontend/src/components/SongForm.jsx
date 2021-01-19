@@ -28,12 +28,16 @@ export default class SongForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    getSelectedArtists(p) {
-        this.setState({"artists_ids" : p});
+    getSelectedAlbums(selections) {
+        this.setState({
+            "albums_ids" : this.state.albums_ids.concat(selections)
+        });
     }
 
-    getSelectedAlbums(p) {
-        this.setState({"albums_ids" : p});
+    getSelectedArtists(selections) {
+        this.setState({
+            "artists_ids" : this.state.artists_ids.concat(selections)
+        });
     }
     
     handleChange(event) {
@@ -42,8 +46,12 @@ export default class SongForm extends Component {
         });
     }
 
-    handleSubmit() {
-        this.props.getEditedSong(this.state);
+    handleSubmit(event) {
+        this.props.getEditedSong({
+            obj         : this.state,
+            category    : 'songs'
+        });
+        event.preventDefault();
     }
 
     componentDidMount() {
@@ -104,7 +112,6 @@ export default class SongForm extends Component {
                     category={"albums"}/>
                 <p>Czy explicit:</p>
                 <input
-                    required
                     onChange={this.handleChange}
                     type="checkbox" 
                     value={this.state.explicit}
@@ -179,7 +186,7 @@ export default class SongForm extends Component {
                     name="spotify_link" 
                     value={this.state.spotify_link}
                     placeholder="Wklej..."/>                                               
-                <button onClick={this.props.setEditedSong}>Zapisz</button>                    
+                <button type={"submit"}>Zapisz</button>                    
             </form>
         )
     }

@@ -44,21 +44,33 @@ export default class List extends Component {
 
     // CRUD method for list view
     _getItemsList(args) {
-        var category = this.state.category;
         const LIST = getItemsListRequest({ 
-            category:       args.category, 
-            page:           args.page,
-            items_limit :   this.state.items_limit
+            category    : args.category, 
+            page        : args.page,
+            items_limit : this.state.items_limit
         });
         if (LIST.length < this.state.items_limit) {
             this.setState({ hasMoreItems: false });
         }
         this.setState({
-            [category] : {
-                "category" : category, 
-                "items" : this.state[category].items.concat(LIST)
+            [args.category] : {
+                "category" : args.category, 
+                "items" : this.state[args.category].items.concat(LIST)
             }
         });
+    }
+
+    refreshListAfterEdit = () => {
+        alert("YEAAAAAH");
+        if (this.state.page !== 0) {
+            this.setState({
+                page : 0
+            });
+        }
+        this._getItemsList({
+            category : this.state.category,
+            page     : 0
+        }); 
     }
 
     _getMoreItems = () => {
@@ -69,17 +81,25 @@ export default class List extends Component {
         this._getItemsList({category: this.state.category, page: page+1});
     }
 
-    _createItem = (obj) => {
+    _createItem = (args) => {
         createItemRequest({
-            category    : this.state.category,
-            object      : obj
+            category    : args.category,
+            object      : args.obj
         });        
     }
 
     toggleCreationFormDisplay = () => {
-        alert('toggleCreationFormDisplay');
         this.setState({
             "show_creation_box" : !this.state.show_creation_box
+        });
+    }
+
+    updateListAfterDelete = (item_id) => {
+        var list = this.state[this.state.category].items;
+        const index = list.map(e => e.id).indexOf(item_id);
+        list.splice(index, 1);
+        this.setState({
+            [this.state.category] : { category: this.state.category, items: list}
         });
     }
 
@@ -170,6 +190,8 @@ export default class List extends Component {
                                     {this.state.songs.items.map((item) => (
                                         <li key={item.id}>
                                             <Item
+                                                popDeletedItem={(id) => this.updateListAfterDelete(id)}
+                                                refreshAfterEdit={() => this.refreshListAfterEdit()}
                                                 category={_items_category}                                    
                                                 item={item}/>
                                         </li>

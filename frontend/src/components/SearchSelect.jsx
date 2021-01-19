@@ -15,8 +15,11 @@ export default class SearchSelect extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    async getSearchResults(category, search_input) {
-        var results = getSearchResultsRequest(category, search_input)        
+    async _getSearchResults(category, search_input) {
+        var results = getSearchResultsRequest({
+            category    : category, 
+            input       : search_input
+        })        
         this.setState({
             "results"           : results,
             "selected_options"  : []
@@ -49,7 +52,7 @@ export default class SearchSelect extends Component {
     } 
 
     handleChange(event) {
-        this.getSearchResults(this.props.category, event.target.value);
+        this._getSearchResults(this.props.category, event.target.value);
         this.setState({
             [event.target.name] : event.target.value
         });
@@ -87,10 +90,3 @@ export default class SearchSelect extends Component {
         )
     }
 }
-
-
-/*
-<li key={result.id} >
-    <p>{result.name}</p>
-    </li>
-*/

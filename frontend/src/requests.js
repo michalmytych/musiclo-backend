@@ -20,19 +20,31 @@ export function getItemsListRequest(args) {
 }
 
 export async function createItemRequest(category, object) {
-    alert('REQ: Tworzenie obiektu: ' + object + ' z kategorii ' + category);
+    console.log('REQ: Tworzenie obiektu: ');
+    console.log(object);
+    console.log(' z kategorii ');
+    console.log(category);
+    alert("Request opisany w konsoli.");
 }
 
 export async function deleteItemRequest(category, id) {
-    console.log('REQ: Usuwanie elementu z kategorii ' + category + ' o id ' + id);
+    console.log('REQ: Usuwanie elementu z kategorii');
+    console.log(category);
+    console.log(' o id: ');
+    console.log(id);
+    alert("Request opisany w konsoli.");
 }
 
-export async function putEditedItemRequest(category, object) {
-    alert('REQ: Zapisywanie obiektu: ' + object + ' z kategorii ' + category);
+export async function putEditedItemRequest(args) {
+    console.log('REQ: Zapisywanie obiektu');
+    console.log(args.object);
+    console.log(' z kategorii ');
+    console.log(args.category);
+    alert("Request opisany w konsoli.");
 }
 
-export function getSearchResultsRequest(category, search_input) {
-    switch (category) {
+export function getSearchResultsRequest(args) {
+    switch (args.category) {
         case 'songs':
             return SONGS; 
         case 'albums':

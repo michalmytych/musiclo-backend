@@ -10,7 +10,8 @@ export default class AlbumForm extends Component {
         super();
         this.state = {
             "name"          : "",
-            "artist_ids"    : [],
+            "artists_ids"    : [],
+            "songs_ids"     : [],
             "explicit"      : false,
             "release_date"  : ""
         };
@@ -18,8 +19,10 @@ export default class AlbumForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    getSelectedArtists(p) {
-        this.setState({"artist_ids" : p});
+    getSelectedArtists(selections) {
+        this.setState({
+            "artists_ids" : this.state.artists_ids.concat(selections)
+        });
     }
 
     handleChange(event) {
@@ -28,8 +31,12 @@ export default class AlbumForm extends Component {
         });
     }
 
-    handleSubmit() {
-        this.props.getEditedAlbum(this.state);
+    handleSubmit(event) {
+        this.props.getEditedAlbum({
+            obj         : this.state,
+            category    : 'albums'
+        });
+        event.preventDefault();
     }
 
     componentDidMount() {
@@ -66,6 +73,11 @@ export default class AlbumForm extends Component {
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"artists"} />
+                <p>Utwory:</p>
+                <SearchSelect 
+                    _getInitialValue={(p) => this.getSelectedArtists(p)}
+                    getValues={(p) => this.getSelectedArtists(p)} 
+                    category={"songs"} />
                 <p>Czy explicit:</p>
                 <input
                     onChange={this.handleChange}
@@ -79,7 +91,7 @@ export default class AlbumForm extends Component {
                     type="date" 
                     value={this.state.release_date}
                     name="release_date"></input>                               
-                <button onClick={this.props.setEditedAlbum}>Zapisz</button>                    
+                <button type={"submit"}>Zapisz</button>                    
             </form>
         )
     }

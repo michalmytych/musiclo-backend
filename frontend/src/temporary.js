@@ -4,7 +4,7 @@ export var SONGS = [
         "name"              : "Testify",
         "albums_ids"         : [ "2eia0myWFgoHuttJytCxgX" ],
         "artists_ids"        : ['2d0hyoQ5ynDBnkvAbJKORj'],
-        "explicit"          : false,
+        "explicit"          : true,
         "danceability"      : 0.47,
         "energy"            : 0.978,
         "key"               : 7,

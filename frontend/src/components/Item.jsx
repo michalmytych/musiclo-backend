@@ -42,13 +42,12 @@ export default class Item extends Component {
     // CRUD methods for single item instance
     _deleteItem = (item_id) => {
         deleteItemRequest(this.props.category, item_id);
-        setElementDisplay("item_row_" + item_id, 'none');
+        this.props.popDeletedItem(item_id);
     }
 
-    _editItem = (object, category) => {
-        putEditedItemRequest(object, category);
-        // tu trzeba wymusić ponowny request do bazy
-        // i wyrenderowanie komponentu List.jsx
+    _editItem = (args) => {
+        putEditedItemRequest(args);
+        this.props.refreshAfterEdit();
     }
 
     render() {
@@ -70,9 +69,7 @@ export default class Item extends Component {
                     _editing={true}
                     category={this.props.category}            
                     instance={this.props.item}
-                    onSave={(edited_object) => this._editItem(
-                        this.props.category, edited_object
-                    )}
+                    onSave={(edited_object) => this._editItem(edited_object)}
                 toggler={this.toggleEditionFormDisplay} />
                 : null
             }
