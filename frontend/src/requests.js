@@ -2,7 +2,7 @@ import { SONGS, ALBUMS, ARTISTS } from './temporary';
 
 
 export function getItemsListRequest(args) { 
-    const items_limit = 3;
+    const limit = args.items_limit;
     var ITEMS;
     switch(args.category) {
         case 'songs':
@@ -15,7 +15,7 @@ export function getItemsListRequest(args) {
             return [];
     }
 
-    var objects = ITEMS.slice(args.page * items_limit, (args.page * items_limit) + items_limit);
+    var objects = ITEMS.slice(args.page * limit, (args.page * limit) + limit);
     return objects;
 }
 

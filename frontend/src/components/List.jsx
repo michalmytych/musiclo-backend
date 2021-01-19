@@ -21,30 +21,28 @@ export default class List extends Component {
         artists             : {"category": 'artists', "items": []},
         filtering_options   : {'songs' : 1, 'albums' : 2, 'artists' : 3},
         sorting_options     : {'songs' : 1, 'albums' : 2, 'artists' : 3},
-        page                : 0
+        page                : 0,
+        hasMoreItems        : true,
+        items_limit         : 7
     };
 
     // CRUD method for list view
-    getItemsList(category) {
-        if (this.state[category].items.length === 0) {
-            const LIST = getItemsListRequest(category);
-            this.setState({
-                [category] : {"category" : category, "items" : LIST}
-            });
-        }        
-    }
-
     _getItemsList(args) {
         var category = this.state.category;
-        //if (this.state[category].items.length === 0) {
-        const LIST = getItemsListRequest({ category: args.category, page: args.page});
+        const LIST = getItemsListRequest({ 
+            category:       args.category, 
+            page:           args.page,
+            items_limit :   this.state.items_limit
+        });
+        if (LIST.length < this.state.items_limit) {
+            this.setState({ hasMoreItems: false });
+        }
         this.setState({
             [category] : {
                 "category" : category, 
                 "items" : this.state[category].items.concat(LIST)
             }
         });
-        console.log('buczak');
     }
 
     _getMoreItems = () => {
@@ -53,7 +51,7 @@ export default class List extends Component {
             page : this.state.page+1
         });
         this._getItemsList({category: this.state.category, page: page+1});
-        console.log("xd");
+        console.log(this.state);
     }
 
     renderItems(LIST) {
@@ -84,7 +82,18 @@ export default class List extends Component {
     }
 
     render() {
-        //var _ITEMS = this._renderItems(this.state.songs);
+        var _ITEMS_LIST;
+        switch (this.state.category) {
+            case 'songs':
+                _ITEMS_LIST = this.state.songs; break;
+            case 'albums':
+                _ITEMS_LIST = this.state.albums; break;
+            case 'artists':
+                _ITEMS_LIST = this.state.artists; break;
+            default:            
+                _ITEMS_LIST = [];
+        }
+        var _items_category = _ITEMS_LIST.category;
 
         return (
             <div className="List">
@@ -104,26 +113,24 @@ export default class List extends Component {
                 </div>
                 <div className="items-wrapper">
                     <ul>
-                        {//this.state.category==='songs'   ? this.renderItems(this.state.songs)   : null}
+                        {
+                            _ITEMS_LIST ?
+                                _ITEMS_LIST.length !==0 ?
+                                <InfiniteScroll
+                                    dataLength={this.state.songs.items.length}
+                                    next={() => this._getMoreItems()}
+                                    hasMore={this.state.hasMoreItems}
+                                    loader={<h4>Loading more...</h4>}>
+                                    {this.state.songs.items.map((item) => (
+                                        <li key={item.id}>
+                                            <Item
+                                                category={_items_category}                                    
+                                                item={item}/>
+                                        </li>
+                                    ))}
+                                </InfiniteScroll> : <h4>Brak treści.</h4>
+                            : <h4>Brak treści.</h4>
                         }
-                        {//this.state.category==='albums'  ? this.renderItems(this.state.albums)  : null}
-                        }
-                        {//this.state.category==='artists' ? this.renderItems(this.state.artists) : null}                                              
-                        }
-                        <InfiniteScroll
-                            dataLength={this.state.songs.items.length}
-                            next={() => this._getMoreItems()}
-                            hasMore={true}
-                            loader={<h4>Loading...</h4>}>
-                            {this.state.songs.items.map((song, index) => (
-                                <li key={song.id}>
-                                    <Item
-                                        category={'songs'}                                    
-                                        item={song}/>
-                                </li>
-                            ))}
-                        </InfiniteScroll>
-                        <button onClick={() => this._getMoreItems()}>Więcej...</button>
                     </ul>
                 </div>                
             </div>
