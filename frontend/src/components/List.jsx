@@ -22,7 +22,7 @@ import addIcon from '../assets/add.svg';
 
 const AddItemButton = (props) => {
     return (
-        <button>
+        <button onClick={props.handler}>
             <img className="crud-icon" src={addIcon} alt="Przycisk dodawania."/>
         </button>
     )
@@ -61,7 +61,6 @@ export default class List extends Component {
     }
 
     refreshListAfterEdit = () => {
-        alert("YEAAAAAH");
         if (this.state.page !== 0) {
             this.setState({
                 page : 0
@@ -82,10 +81,8 @@ export default class List extends Component {
     }
 
     _createItem = (args) => {
-        createItemRequest({
-            category    : args.category,
-            object      : args.obj
-        });        
+        createItemRequest(args);  
+        this.refreshListAfterEdit();      
     }
 
     toggleCreationFormDisplay = () => {

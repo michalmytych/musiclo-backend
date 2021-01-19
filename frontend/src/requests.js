@@ -19,11 +19,11 @@ export function getItemsListRequest(args) {
     return objects;
 }
 
-export async function createItemRequest(category, object) {
+export async function createItemRequest(args) {
     console.log('REQ: Tworzenie obiektu: ');
-    console.log(object);
+    console.log(args.obj);
     console.log(' z kategorii ');
-    console.log(category);
+    console.log(args.category);
     alert("Request opisany w konsoli.");
 }
 

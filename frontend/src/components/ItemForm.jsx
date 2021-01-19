@@ -14,9 +14,15 @@ export default class ItemForm extends Component {
     };
 
     setEditedItemObj(args) {
-        this.setState({
-            "edited_saved_object"   : args
-        });
+        if (this.props._editing) {
+            this.setState({
+                "edited_saved_object"   : args
+            });
+        } else {
+            this.setState({
+                "new_saved_object"   : args
+            });
+        }
     }
 
     componentDidUpdate() {
