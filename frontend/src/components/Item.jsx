@@ -40,13 +40,13 @@ export default class Item extends Component {
     }
 
     // CRUD methods for single item instance
-    _deleteItem = (item_id) => {
-        deleteItemRequest(this.props.category, item_id);
+    async _deleteItem(item_id) {
+        await deleteItemRequest(this.props.category, item_id);
         this.props.popDeletedItem(item_id);
     }
 
-    _editItem = (args) => {
-        putEditedItemRequest(args);
+    async _editItem(args) {
+        await putEditedItemRequest(args);
         this.props.refreshAfterEdit();
     }
 

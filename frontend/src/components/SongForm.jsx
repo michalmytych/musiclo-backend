@@ -75,7 +75,9 @@ export default class SongForm extends Component {
                 console.log("Błąd podczas pobierania obiektu.");
             }
         } else {
-            setDateInputValue('release_date_input');
+            this.setState({
+                "release_date" : setDateInputValue()
+            });
         }
     }
 

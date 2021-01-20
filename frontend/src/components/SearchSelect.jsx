@@ -16,7 +16,7 @@ export default class SearchSelect extends Component {
     }
 
     async _getSearchResults(category, search_input) {
-        var results = getSearchResultsRequest({
+        var results = await getSearchResultsRequest({
             category    : category, 
             input       : search_input
         })        

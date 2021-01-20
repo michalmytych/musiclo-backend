@@ -48,7 +48,9 @@ export default class AlbumForm extends Component {
                 "release_date"      : this.props.instance.release_date
             });
         } else {
-            setDateInputValue('release_date_input');
+            this.setState({
+                "release_date" : setDateInputValue()
+            });
         }
     }
 
