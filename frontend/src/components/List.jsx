@@ -43,8 +43,8 @@ export default class List extends Component {
     };
 
     // CRUD method for list view
-    _getItemsList(args) {
-        const LIST = getItemsListRequest({ 
+    async _getItemsList(args) {
+        const LIST = await getItemsListRequest({ 
             category    : args.category, 
             page        : args.page,
             items_limit : this.state.items_limit
@@ -80,8 +80,8 @@ export default class List extends Component {
         this._getItemsList({category: this.state.category, page: page+1});
     }
 
-    _createItem = (args) => {
-        createItemRequest(args);  
+    async _createItem(args) {
+        await createItemRequest(args);  
         this.refreshListAfterEdit();      
     }
 
@@ -128,7 +128,7 @@ export default class List extends Component {
     }
 
     render() {
-        const loader = <h4><img className="loading" src={loadingSpinner}/></h4>
+        const loader = <div className="loader-wrapper"><img className="loader" src={loadingSpinner}/></div>
         var _ITEMS_LIST;
         switch (this.state.category) {
             case 'songs':

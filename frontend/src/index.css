@@ -13,12 +13,11 @@ code {
     monospace;
 }
 
-.loader{
+.loader-wrapper{
   text-align: center;
-  padding-bottom: 5rem;
+  padding: 2rem;
 }
 
-.loading-spinner {
-  width: 2rem;
-  position: relative;
+.loader {
+  width: 2.5rem;
 }
