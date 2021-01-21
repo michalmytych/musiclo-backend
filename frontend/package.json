@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "homepage":"https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-database/",
+  "homepage": "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-database/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && mv build ../../music-database",
+    "build": "if [ -d ../../music-database ]; then rm -Rf ../../music-database; fi && react-scripts build && mv build ../../music-database && echo '\n\nDEPLOYED ON URL: https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-database/index.html' ",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

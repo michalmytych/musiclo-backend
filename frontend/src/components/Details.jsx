@@ -8,6 +8,7 @@ import { encodeMusicKey, encodeCountryKey } from '../constants';
 const TogglerBtn = (props) => {
     return (
         <button 
+            className="toggle-details-btn"
             id={"toggle_details_".concat(props.id)} 
             onClick={props.toggleItemDetails}>
             {
@@ -33,9 +34,9 @@ const SongDetails = (props) => {
     
     return (
         <Fragment>
-            <p>Tytuł: {props.item.name}</p>
-            <p>Wykonawca: *************</p>
-            <p>Tonacja: {musicKey}{props.item.mode===0 ? " moll" : " dur"}</p>
+            <p>{props.item.name}</p>
+            <p className="italic-colored">{props.item.name}</p>
+            <p className="mkey">{musicKey}{props.item.mode===0 ? " moll" : " dur"}</p>
             <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>
         </Fragment>        
     )
@@ -46,15 +47,7 @@ const AlbumDetails = (props) => {
 
     return (
         <Fragment>
-            <p>Tytuł: {props.item.name}</p>
-            <p>Wykonawca: *************</p>
-            <p>Utwory:</p>
-            <ul>
-                <li>********** 1</li>
-                <li>********** 2</li>
-                <li>********** 3</li>
-                <li>********** 4</li>
-            </ul>
+            <p>{props.item.name}</p>
         </Fragment>        
     )
 }
@@ -66,14 +59,8 @@ const ArtistDetails = (props) => {
     return (
         <Fragment>
             <p>{props.item.name}</p>
-            <p>Albumy lub utwory:</p>
-            <p>{countryName}</p>
-            <ul>
-                <li>********** 1</li>
-                <li>********** 2</li>
-                <li>********** 3</li>
-                <li>********** 4</li>
-            </ul>
+            <p>Twórczość</p>
+            <p className="italic-colored">{countryName}</p>
         </Fragment>        
     )
 }
@@ -99,6 +86,10 @@ export default class Details extends Component {
                 {
                 this.state.details_expanded ?
                     <Fragment>                          
+                        <TogglerBtn 
+                            toggleItemDetails={() => this.toggleDetails(this.props.item.id)}
+                            id={this.props.item.id}
+                            details_expanded={this.state.details_expanded}/>                        
                         {
                             this.props.category==='songs' ?
                             <SongDetails item={this.props.item}/> : null
@@ -110,31 +101,13 @@ export default class Details extends Component {
                         {
                             this.props.category==='artists' ?
                             <ArtistDetails item={this.props.item}/> : null
-                        }
-                        <TogglerBtn 
-                            toggleItemDetails={() => this.toggleDetails(this.props.item.id)}
-                            id={this.props.item.id}
-                            details_expanded={this.state.details_expanded}/>
+                        }                        
                     </Fragment>
                     :       
-                    <Fragment>                      
-                        {
-                            this.props.category==='songs' ?
-                            <p>Piosenka 1</p> : null
-                        }
-                        {
-                            this.props.category==='albums' ?
-                            <p>Album 1</p> : null
-                        }
-                        {
-                            this.props.category==='artists' ?
-                            <p>Artysta 1</p> : null
-                        }
-                        <TogglerBtn 
-                            toggleItemDetails={() => this.toggleDetails(this.props.item.id)}
-                            id={'toggle_details_'.concat(this.props.item.id)}
-                            details_expanded={this.state.details_expanded}/>                            
-                    </Fragment>
+                    <TogglerBtn                    
+                        toggleItemDetails={() => this.toggleDetails(this.props.item.id)}
+                        id={'toggle_details_'.concat(this.props.item.id)}
+                        details_expanded={this.state.details_expanded}/>                            
                 }
             </div>
         )

@@ -60,16 +60,16 @@ export default class ArtistForm extends Component {
                     this.props._editing ?
                     <h4>Edytowanie {this.props.instance.name}</h4>
                     :
-                    <h4>Dodawanie nowego rekordu</h4>
+                    <h4>Dodawanie</h4>
                 }
-                <p>Nazwa wykonawcy:</p>
+                <p>Nazwa wykonawcy</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 
                     name="name" 
                     value={this.state.name}
                     placeholder="Nazwa..."/>
-                <p>Opis:</p>
+                <p>Opis</p>
                 <textarea 
                     onChange={this.handleChange}
                     type="" 
@@ -80,14 +80,14 @@ export default class ArtistForm extends Component {
                         "Kilka słów o wykonawcy..."}
                     rows="4" cols="50">
                 </textarea>                    
-                <p>Albumy:</p>
+                <p>Albumy</p>
                 <SearchSelect 
                     _getInitialValue={(p) => this.getSelectedAlbums(p)}
                     getValues={(p) => this.getSelectedAlbums(p)} 
                     category={"albums"} />
                 {
                     <Fragment>
-                        <p>Kraj:</p>
+                        <p>Kraj</p>
                         <select
                             onChange={this.handleChange}  
                             value={this.state.country}

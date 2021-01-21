@@ -1,5 +1,6 @@
 import React from 'react'
 
+import ytIcon from '../assets/youtube.svg';
 
 const constructYTSearchLink = (category, query) => {
     const yt_search_prefix = "https://www.youtube.com/results?search_query=";
@@ -23,8 +24,14 @@ export default function YouTubeSearch(props) {
     let yt_search_link = constructYTSearchLink(props.category, props.query);
     return (
         <a 
+            className="yt-link"
             rel="noreferrer"
             target="_blank" 
-            href={yt_search_link}>Wyszukaj na YouTube</a>
+            href={yt_search_link}>
+            <img
+                className="yt-btn" 
+                src={ytIcon} 
+                alt="Ikona You Tube"></img>    
+            Wyszukaj na YouTube</a>
     )
 }

@@ -59,34 +59,34 @@ export default class AlbumForm extends Component {
             <form onSubmit={this.handleSubmit}>
                 {
                     this.props._editing ?
-                    <h4>Edytowanie piosenki {this.props.instance.name}</h4>
+                    <h4>Edytowanie {this.props.instance.name}</h4>
                     :
                     null
                 }
-                <p>Nazwa albumu:</p>
+                <p>Nazwa albumu</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 
                     name="name" 
                     value={this.state.name}
                     placeholder="Nazwa..."/>
-                <p>Artyści:</p>
+                <p>Artyści</p>
                 <SearchSelect 
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"artists"} />
-                <p>Utwory:</p>
+                <p>Utwory</p>
                 <SearchSelect 
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"songs"} />
-                <p>Czy explicit:</p>
+                <p>Czy explicit</p>
                 <input
                     onChange={this.handleChange}
                     type="checkbox" 
                     value={this.state.explicit}
                     name="explicit"/>
-                <p>Data wydania:</p>
+                <p>Data wydania</p>
                 <input 
                     onChange={this.handleChange} 
                     id="release_date_input"

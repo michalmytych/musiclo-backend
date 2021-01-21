@@ -78,7 +78,7 @@ export default class Item extends Component {
                     {
                         this.props.category==='songs' ?
                         <div>
-                            <h5>Piosenka: {this.props.item.name}</h5>
+                            <h5>{this.props.item.name}</h5>
                             {
                                 <Details 
                                     item={this.props.item}
@@ -126,7 +126,7 @@ export default class Item extends Component {
                     {
                         this.props.category==='artists' ?
                         <div>
-                            <h5>Artysta: {this.props.item.name}</h5>
+                            <h5>{this.props.item.name}</h5>
                             <Details 
                                     item={this.props.item}
                                     category={this.props.category}
