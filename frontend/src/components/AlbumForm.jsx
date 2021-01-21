@@ -10,7 +10,7 @@ export default class AlbumForm extends Component {
         super();
         this.state = {
             "name"          : "",
-            "artists_ids"    : [],
+            "artists_ids"   : [],
             "songs_ids"     : [],
             "explicit"      : false,
             "release_date"  : ""

@@ -67,6 +67,7 @@ export default class SongForm extends Component {
                     "acousticness"      : this.props.instance.acousticness,
                     "instrumentalness"  : this.props.instance.instrumentalness,
                     "key"               : this.props.instance.key,
+                    "valence"           : this.props.instance.valence,
                     "mode"              : this.props.instance.mode,
                     "release_date"      : this.props.instance.release_date,
                     "spotify_link"      : this.props.instance.spotify_link,
@@ -153,7 +154,16 @@ export default class SongForm extends Component {
                     name="instrumentalness" 
                     min="0" 
                     step="0.01" 
-                    max="1"/>                                                                                 
+                    max="1"/>
+                <p>Pozytywność:</p>
+                <input 
+                    onChange={this.handleChange}
+                    type="range" 
+                    name="valence" 
+                    value={this.state.valence}
+                    min="0" 
+                    step="0.01" 
+                    max="1"/>                                                                                                     
                 <p>Klucz:</p>
                 <select
                     onChange={this.handleChange}  

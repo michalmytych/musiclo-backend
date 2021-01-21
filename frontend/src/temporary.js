@@ -337,10 +337,10 @@ export var ARTISTS = [
 TABELE:
 
 tracks {
-    "id"                : varchar(22) PRIMARY KEY
-    "name"              : varchar(128)
-    "albums_id"         : varchar(22) FOREIGN KEY
-    "artist_ids"        : varchar(22) FOREIGN KEY
+    "id"                : VARCHAR(22) PRIMARY KEY
+    "name"              : VARCHAR(128)
+    "albums_ids"        : VARCHAR(22) FOREIGN KEY
+    "artists_ids"       : VARCHAR(22) FOREIGN KEY
     "explicit"          : BOOL
     "danceability"      : FLOAT (3)
     "energy"            : FLOAT (3)
@@ -348,15 +348,16 @@ tracks {
     "mode"              : BOOL
     "acousticness"      : FLOAT (3)
     "instrumentalness"  : FLOAT (3)
-    "liveness"          : FLOAT (3)
     "valence"           : FLOAT (3)
     "release_date"      : DATE
+    "spotify_link"      : VARCHAR(96)
 }
 
 albums {
-    "id"                : varchar(22) PRIMARY KEY
-    "name"              : varchar(128)
-    "artist_ids"        : varchar(22) FOREIGN KEY
+    "id"                : VARCHAR(22) PRIMARY KEY
+    "name"              : VARCHAR(128)
+    "artist_ids"        : VARCHAR(22) FOREIGN KEY
+    "songs_ids"         : VARCHAR(22) FOREIGN KEY
     "explicit"          : BOOL
     "release_date"      : DATE
 }
@@ -364,7 +365,9 @@ albums {
 artists {
     "id"                : varchar(22) PRIMARY KEY
     "name"              : varchar(128)
-    "albums_id"         : varchar(22) FOREIGN KEY
+    "albums_id"         : varchar(22) FOREIGN KEY,
+    "description"       : VARCHAR(22) FOREIGN KEY,
+    "country"           : VARCHAR(2)
 }
 
 
