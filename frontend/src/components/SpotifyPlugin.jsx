@@ -21,6 +21,7 @@ export default function SpotifyPlugin(props) {
 
     return (
         <iframe 
+            className="spotify-iframe"
             title={"track_id=" + props.id}
             src={spotify_link} 
             width="350" 

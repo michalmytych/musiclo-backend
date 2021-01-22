@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@1,500&family=Karla&family=Sora&display=swap');
 
 body{
+  background-color: #131313;
   font-size: 1.2rem;
   color: white;
   margin: 0;
@@ -10,7 +11,7 @@ body{
   text-shadow: 2px 2px 4px rgb(0,0,0);
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h5 {
   font-family: 'Sora', sans-serif;
 }
 
@@ -22,6 +23,7 @@ h1, h2, h3, h4, h5 {
   outline: none;
   padding: 0.7rem;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .toggle-details-btn:hover{
@@ -33,14 +35,28 @@ h1, h2, h3, h4, h5 {
   transform: scale(1.06);
 }
 
+.details-box{
+  display: flex;
+  flex-direction: row;
+}
+
+.details-p{
+  flex-grow: 1;
+}
+
 .italic-colored{
-  font-style: italic;
+  font-style: bold;
+  font-size: 1.7rem;
   color: rgb(0, 218, 145);
 }
 
 .mkey{
   font-size: 1.7rem;
   font-family: 'EB Garamond', serif;
+}
+
+.search-bar-input{
+  font-family: 'Karla', sans-serif;
 }
 
 .yt-link{
@@ -62,5 +78,10 @@ h1, h2, h3, h4, h5 {
 }
 
 .loader {
-  width: 2.5rem;
+  width: 5rem;
+}
+
+.item-name{
+  font-family: 'Karla', sans-serif;
+  font-size: 2rem;
 }

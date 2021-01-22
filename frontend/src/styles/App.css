@@ -1,6 +1,5 @@
 .App {
-  padding: 2rem 2rem 2rem 2rem;
-  background-color: rgb(22, 22, 22);
+  padding: 0.2rem
 }
 
 .btn {
@@ -8,6 +7,7 @@
   cursor: pointer;
   padding: 0.6rem 2rem 0.6rem 2rem;
   margin: 0.4rem;
+  background-color: transparent;
 }
 
 .btn:focus {

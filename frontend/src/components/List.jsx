@@ -15,7 +15,7 @@ import {
     setActiveCategoryStyles
 } from '../display';
 import '../styles/List.css';
-import loadingSpinner from '../assets/loading.gif';
+import loadingSpinner from '../assets/loading.svg';
 import addIcon from '../assets/add.svg';
 
 

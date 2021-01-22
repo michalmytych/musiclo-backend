@@ -33,12 +33,15 @@ const SongDetails = (props) => {
     const musicKey = encodeMusicKey(props.item.key);
     
     return (
-        <Fragment>
-            <p>{props.item.name}</p>
-            <p className="italic-colored">{props.item.name}</p>
-            <p className="mkey">{musicKey}{props.item.mode===0 ? " moll" : " dur"}</p>
-            <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>
-        </Fragment>        
+        <div className="details-box">
+            <div className="details-p">
+                <p className="italic-colored">{props.item.name}</p>
+                <p className="mkey">{musicKey}{props.item.mode===0 ? " moll" : " dur"}</p>
+            </div>
+            <div className="details-p">
+                <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>    
+            </div>            
+        </div>        
     )
 }
 

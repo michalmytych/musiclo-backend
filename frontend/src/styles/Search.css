@@ -1,4 +1,35 @@
-.Search {
-    background-color: rgb(68, 68, 68);
-    padding: 2rem 2rem 2rem 2rem;
+.Search {    
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin: 0 auto;
+}
+
+.search-bar-input{
+    background-color: rgba(149, 149, 149, 0.287);
+    color: rgba(245, 245, 245, 0.164);
+    width: 60%;
+    border-radius: 3rem;
+    border: 2px rgba(170, 170, 170, 0.548);
+    font-size: 1.8rem;
+    padding: 0.5rem;
+}
+
+.search-bar-input:hover{
+    transition: 0.45s;
+    color: rgba(255, 255, 255, 0.281);
+    border-radius: 0.3rem;
+    background-color: rgba(255, 255, 255, 0.281);
+}
+
+.search-bar-input:active{
+    transition: 0.2s;
+    border-radius: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.281);
+}
+
+.search-bar-input:focus{
+    outline: none;
+    border-radius: 0;
+    color: white;
+    border: 2px white;
 }

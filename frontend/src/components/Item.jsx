@@ -78,13 +78,7 @@ export default class Item extends Component {
                     {
                         this.props.category==='songs' ?
                         <div>
-                            <h5>{this.props.item.name}</h5>
-                            {
-                                <Details 
-                                    item={this.props.item}
-                                    category={this.props.category}
-                                />
-                            }
+                            <h5 clasName="item-name">{this.props.item.name}</h5>
                             {
                                 this.props.item.spotify_link ?
                                 <SpotifyPlugin 
@@ -96,6 +90,10 @@ export default class Item extends Component {
                                     category={this.props.category}
                                     query={this.props.item.name}/>
                             }
+                            <Details 
+                                item={this.props.item}
+                                category={this.props.category}
+                            />                            
                         </div>                                            
                         :
                         null
@@ -103,11 +101,7 @@ export default class Item extends Component {
                     {
                         this.props.category==='albums' ?
                         <div>
-                            <h5>Album: {this.props.item.name}</h5>
-                            <Details 
-                                    item={this.props.item}
-                                    category={this.props.category}
-                                />                        
+                            <h5 clasName="item-name">{this.props.item.name}</h5>                      
                             {
                                 this.props.item.spotify_link ?
                                 <SpotifyPlugin 
@@ -119,6 +113,10 @@ export default class Item extends Component {
                                     category={this.props.category}
                                     query={this.props.item.name}/>
                             }                      
+                            <Details 
+                                    item={this.props.item}
+                                    category={this.props.category}
+                                />                              
                         </div>
                         :
                         null
@@ -126,11 +124,7 @@ export default class Item extends Component {
                     {
                         this.props.category==='artists' ?
                         <div>
-                            <h5>{this.props.item.name}</h5>
-                            <Details 
-                                    item={this.props.item}
-                                    category={this.props.category}
-                                />                            
+                            <h5 clasName="item-name">{this.props.item.name}</h5>                           
                             {
                                 this.props.item.spotify_link ?
                                 <SpotifyPlugin 
@@ -141,7 +135,11 @@ export default class Item extends Component {
                                 <YouTubeSearch 
                                     category={this.props.category}
                                     query={this.props.item.name}/>
-                            }                         
+                            }
+                            <Details 
+                                    item={this.props.item}
+                                    category={this.props.category}
+                                />                                                      
                         </div>
                         :
                         null
