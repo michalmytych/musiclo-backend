@@ -1,8 +1,9 @@
 .confirm-box {
     padding: 3rem 8rem 3rem 8rem;
-    background-color: rgb(12, 12, 12);
-    position: fixed;
+    background-color: rgb(26, 26, 26);
+    position: absolute;
     left: 40vw;
+    color: white;
 }
 
 .message_header {

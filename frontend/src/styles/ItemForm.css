@@ -2,7 +2,7 @@
     padding: 3rem 6rem 3rem 6rem;
     width: 40rem;
     background-color: rgb(27, 27, 27);
-    position: fixed;
+    position: absolute;
     left: 40vw;
     top: 20vh;
 }
