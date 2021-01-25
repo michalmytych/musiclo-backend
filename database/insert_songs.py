@@ -1,16 +1,17 @@
 from csv import reader
 from os import system
 
-HEADER = "INSERT INTO albums (`id`, `name`, `release_date`, `spotify_link`) VALUES\n"
+HEADER = "INSERT INTO songs (`id`, `name`, `album_id`, `explicit`, `danceability`, \
+    `energy`, `key`, `mode`, `acousticness`, `instrumentalness`, `valence`,\
+         `release_date`, `spotify_link`) VALUES\n"
 fixed_rows = []
 dropped_rows = []
 
 
-def get_artists_inserts(config):    
+def get_artists_inserts(config):
     """
-        Extracts needed albums data
-        from raw dataset which contains
-        tracks.
+        Extracts needed songs data
+        from raw dataset.
     """
     input_file = config["input_file"]
     output_file = config["output_file"]
@@ -27,23 +28,29 @@ def get_artists_inserts(config):
                     print(f"> Przetworzono {index} rekordów.")
 
                     _id = row[0]
+                    _album_id = row[3]
                     name = row[1]     
                     bad_release_date = False             
 
                     if len(_id) != 22:
                         dropped_rows.append(index)
                     else:
+                        if len(_album_id) != 22:
+                            fixed_rows.append(index)
+                            _album_id = 'NULL'
+                        else:
+                            _album_id = f'"{_album_id}", '
+
                         if '"' in name:
                             fixed_rows.append(index)
                             name = name.replace('"', "'")
                         
                         if len(fixed_rows) or len(dropped_rows):
-                            print("> Naprawiono linie: ")    
-                            print(f"> {fixed_rows}")                    
+                            print(f"> Naprawiono {len(fixed_rows)} liniii.")                     
                             print("> Usunięto linie: ")    
                             print(f"> {dropped_rows}")
 
-                        if len(row[4]) < 10:
+                        if len(row[13]) < 10:
                             bad_release_date = True
                             if len(fixed_rows):
                                 if fixed_rows[-1] != index:
@@ -52,16 +59,25 @@ def get_artists_inserts(config):
                         sql_file_obj.write("(")
                         sql_file_obj.write(f'"{row[0]}", ')         # id
                         sql_file_obj.write(f'"{name}", ')           # name
+                        sql_file_obj.write(_album_id)               # album id
+                        sql_file_obj.write(f'{row[5]}, ')           # explicit
+                        sql_file_obj.write(f'{row[6]}, ')           # danceability
+                        sql_file_obj.write(f'{row[7]}, ')           # energy
+                        sql_file_obj.write(f'{row[8]}, ')           # key
+                        sql_file_obj.write(f'{row[9]}, ')           # mode
+                        sql_file_obj.write(f'{row[10]}, ')          # acousticness
+                        sql_file_obj.write(f'{row[11]}, ')          # instrumentalness
+                        sql_file_obj.write(f'{row[12]}, ')          # valence
                         if bad_release_date:                         
                             sql_file_obj.write(f'NULL, ')           # release_date
                         else:
-                            sql_file_obj.write(f'"{row[4]}", ')
-                        sql_file_obj.write(f'"{row[5]}"')           # spotify_link
+                            sql_file_obj.write(f'"{row[13]}", ')
+                        sql_file_obj.write(f'"{row[14]}"')          # spotify_link
                         sql_file_obj.write("),\n")
     
         
 
 get_artists_inserts({
-    "input_file"    :  'csvs/albums.csv', 
-    "output_file"   :  'albums_inserts.sql'
+    "input_file"    :  'csvs/songs.csv', 
+    "output_file"   :  'songs_inserts.sql'
 })

@@ -2,20 +2,13 @@ import csv
 import ast
 
 
-"""
-
-CREATE TABLE artists (
-    id                  
-    name                
-    albums_id           
-    description         - tez nie ma po co
-    country             - nie ma po co 
-);
-
-"""
-
 
 def extract_artists(input_file, output_file):  
+    """
+        Extracts needed artists data
+        from raw dataset which contains
+        tracks.
+    """
     songs_count = 0
     artists_count = 0
 

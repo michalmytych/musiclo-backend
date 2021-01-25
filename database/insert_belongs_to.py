@@ -5,6 +5,10 @@ import ast
 HEADER = "INSERT INTO belongs_to (`album_id`, `artist_id`) VALUES\n"
 
 def get_belongs_to_inserts(config):
+    """
+        Generates sql script for
+        belongs_to table insertions.
+    """        
     input_file = config["input_file"]
     output_file = config["output_file"]
 

@@ -5,6 +5,10 @@ import ast
 HEADER = "INSERT INTO recorded_by (`track_id`, `artist_id`) VALUES\n"
 
 def get_recorded_by_inserts(config):
+    """
+        Generates sql script for
+        recorded_by table insertions.
+    """      
     input_file = config["input_file"]
     output_file = config["output_file"]
 

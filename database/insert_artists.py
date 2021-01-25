@@ -5,6 +5,10 @@ HEADER = "INSERT INTO artists (`id`, `name`, `spotify_link`) VALUES\n"
 fixed_rows = []
 
 def get_artists_inserts(config):
+    """
+        Generates sql script for
+        artists table insertions.
+    """    
     input_file = config["input_file"]
     output_file = config["output_file"]
 
