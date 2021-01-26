@@ -34,3 +34,7 @@ export function formatDatetime(iso_str) {
     var datetime = new Date(iso_str);
     return datetime.getDay() + ' ' + monthNames[datetime.getMonth()] + ' ' + datetime.getFullYear();
 }
+
+export function onlyUniqueFilter(value, index, self) {
+    return self.indexOf(value) === index;
+}

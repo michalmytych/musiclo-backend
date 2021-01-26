@@ -17,9 +17,12 @@ export default class SearchSelect extends Component {
 
     async _getSearchResults(category, search_input) {
         var results = await getSearchResultsRequest({
-            category    : category, 
-            input       : search_input
-        })        
+            c : category, 
+            p : search_input
+        });
+        
+        console.log(results);
+
         this.setState({
             "results"           : results,
             "selected_options"  : []
@@ -71,7 +74,9 @@ export default class SearchSelect extends Component {
                     type="text" 
                     placeholder={"Znajdź..."}></input>
                 <div>
-                    <select 
+                    {
+                        this.props.multiple_choice ?
+                        <select 
                         value={this.state.selected_options}
                         id="search_select" multiple onChange={this.getSelectedOptions}>                           
                         {
@@ -84,7 +89,24 @@ export default class SearchSelect extends Component {
                             )) : <option>{"Wybierz..."}</option>
                         : <option>{"Wybierz..."}</option>
                         }
-                    </select>
+                        </select>
+                        :
+                        <select 
+                        value={this.state.selected_options}
+                        id="search_select" onChange={this.getSelectedOptions}>                           
+                        {
+                        this.state.results ?
+                            this.state.results.length ?
+                            this.state.results.map(result => (
+                                <option value={result.id} key={result.id} >
+                                    {result.name}
+                                </option>                        
+                            )) : <option>{"Wybierz..."}</option>
+                        : <option>{"Wybierz..."}</option>
+                        }
+                        </select>
+                    }
+                    
                 </div>
             </div>
         )

@@ -26,15 +26,27 @@ export default function SpotifyPlugin(props) {
     const spotify_link = constructSpotifyLink(props.category, props.link);
 
     return (
-        <iframe 
-            className="spotify-iframe"
-            title={"track_id=" + props.id}
-            src={spotify_link} 
-            width="350" 
-            height="80" 
-            frameBorder="0" 
-            allowtransparency="true"
-            allow="encrypted-media">                            
-        </iframe>   
+        <div>
+            <iframe 
+                className="spotify-iframe"
+                title={"track_id=" + props.id}
+                src={spotify_link} 
+                width="350" 
+                height="80" 
+                frameBorder="0" 
+                allowtransparency="true"
+                allow="encrypted-media">                            
+            </iframe>   
+            {
+                props.category==='albums' ?
+                <div>
+                    <a 
+                        rel="noreferrer"
+                        target="_blank" 
+                        href={spotify_link}>Album w serwisie Spotify</a>
+                </div> 
+                : null        
+            }
+        </div>
     )
 }

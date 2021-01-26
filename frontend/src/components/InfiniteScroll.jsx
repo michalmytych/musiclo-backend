@@ -22,7 +22,6 @@ const InfiniteScroll = () => {
 
     }, []);
 
-
     useEffect(() => {
         // here we simulate adding new posts to List
         const newList = itemsList.list.concat([1,1,1,1]);

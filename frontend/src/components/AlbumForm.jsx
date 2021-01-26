@@ -72,11 +72,13 @@ export default class AlbumForm extends Component {
                     placeholder="Nazwa..."/>
                 <p>Artyści</p>
                 <SearchSelect 
+                    multiple_choice={true}
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"artists"} />
                 <p>Utwory</p>
                 <SearchSelect 
+                    multiple_choice={true}
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"songs"} />

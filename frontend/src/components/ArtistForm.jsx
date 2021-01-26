@@ -86,6 +86,7 @@ export default class ArtistForm extends Component {
                 </textarea>                    
                 <p>Albumy</p>
                 <SearchSelect 
+                    multiple_choice={true}
                     _getInitialValue={(p) => this.getSelectedAlbums(p)}
                     getValues={(p) => this.getSelectedAlbums(p)} 
                     category={"albums"} />

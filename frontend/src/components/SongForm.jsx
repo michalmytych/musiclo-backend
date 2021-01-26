@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import SearchSelect from './SearchSelect';
 
-import { KEYS } from '../constants';
+import { KEYS, onlyUniqueFilter } from '../constants';
 
 import { setDateInputValue } from '../display';
 
@@ -26,17 +26,22 @@ export default class SongForm extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getSelectedAlbums = this.getSelectedAlbums.bind(this);
+        this.getSelectedArtists = this.getSelectedArtists.bind(this);
+        this._mountInstance = this._mountInstance.bind(this);        
     }
 
     getSelectedAlbums(selections) {
+        var albums = this.state.albums_ids.concat(selections);
         this.setState({
-            "albums_ids" : this.state.albums_ids.concat(selections)
+            "albums_ids" : albums
         });
     }
 
     getSelectedArtists(selections) {
+        var artists = this.state.artists_ids.concat(selections);
         this.setState({
-            "artists_ids" : this.state.artists_ids.concat(selections)
+            "artists_ids" : artists
         });
     }
     
@@ -54,24 +59,31 @@ export default class SongForm extends Component {
         event.preventDefault();
     }
 
+    _mountInstance = (instance) => {
+        var _artists_ids = JSON.parse(instance._artists_ids).filter(onlyUniqueFilter);
+        var _albums_ids = JSON.parse(instance._albums_ids).filter(onlyUniqueFilter);
+        this.setState({
+            "name"              : instance.name,
+            "albums_ids"        : _albums_ids,
+            "artists_ids"       : _artists_ids,
+            // null zmieni sie na NaN
+            "explicit"          : parseInt(instance.explicit),
+            "danceability"      : parseFloat(instance.danceability),
+            "energy"            : parseFloat(instance.energy),
+            "acousticness"      : parseFloat(instance.acousticness),
+            "instrumentalness"  : parseFloat(instance.instrumentalness),
+            "key"               : parseInt(instance.key),
+            "valence"           : parseFloat(instance.valence),
+            "mode"              : parseInt(instance.mode),
+            "release_date"      : instance.release_date,
+            "spotify_link"      : instance.spotify_link,
+        });
+    }
+
     componentDidMount() {
         if (this.props._editing) {
             if (this.props.instance) {
-                this.setState({
-                    "name"              : this.props.instance.name,
-                    "albums_ids"        : this.props.instance.albums_ids,
-                    "artists_ids"       : this.props.instance.artists_ids,
-                    "explicit"          : this.props.instance.explicit,
-                    "danceability"      : this.props.instance.danceability,
-                    "energy"            : this.props.instance.energy,
-                    "acousticness"      : this.props.instance.acousticness,
-                    "instrumentalness"  : this.props.instance.instrumentalness,
-                    "key"               : this.props.instance.key,
-                    "valence"           : this.props.instance.valence,
-                    "mode"              : this.props.instance.mode,
-                    "release_date"      : this.props.instance.release_date,
-                    "spotify_link"      : this.props.instance.spotify_link,
-                });
+                this._mountInstance(this.props.instance);
             } else {
                 console.log("Błąd podczas pobierania obiektu.");
             }
@@ -103,13 +115,25 @@ export default class SongForm extends Component {
                     value={this.state.name}
                     placeholder="Nazwa..."/>
                 <p>Artyści:</p>
-                <SearchSelect 
+                <ul>
+                    {
+                        this.state._artists_ids ?
+                            this.state._artists_ids.length ?
+                            this.state._artists_ids.map((a) => (
+                                <li>{a}</li>
+                            )) : <p>Brak wykonawców.</p>
+                        : null
+                    }
+                </ul>
+                <SearchSelect                     
                     required
+                    multiple_choice={true}
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"artists"} />
                 <p>Albumy:</p>
                 <SearchSelect 
+                    multiple_choice={false}
                     _getInitialValue={(p) => this.getSelectedAlbums(p)}
                     getValues={(p) => this.getSelectedAlbums(p)} 
                     category={"albums"}/>

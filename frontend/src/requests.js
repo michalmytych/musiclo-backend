@@ -1,7 +1,4 @@
-import axios from 'axios';
-import { SONGS, ALBUMS, ARTISTS } from './temporary';
-
-const BASE_API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
+const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
 
 
 // randint() in es6
@@ -18,7 +15,7 @@ const _simulateApiResponseDelay = () => {
 };
 
 export async function getItemsListRequest(args) { 
-    var url = `${BASE_API_URL}items_list.php?limit=${args.l}&page=${args.p}&category=${args.c}`;
+    var url = `${API_URL}items_list.php?limit=${args.l}&page=${args.p}&category=${args.c}`;
     var ITEMS = await fetch(url)
     .then(response => response.json())
     .then(ITEMS => { return ITEMS; })
@@ -28,6 +25,9 @@ export async function getItemsListRequest(args) {
 };
 
 export async function createItemRequest(args) {
+    /*
+        BĘDZIE ZABLOKOWANE PRZEZ CORS
+    */
     await _simulateApiResponseDelay();
     console.log('REQ: Tworzenie obiektu: ');
     console.log(args.obj);
@@ -37,7 +37,10 @@ export async function createItemRequest(args) {
 };
 
 export async function deleteItemRequest(args) {
-    var url = `${BASE_API_URL}delete_item.php?id=${args.id}&category=${args.cat}`;
+    /*
+        ZABLOKOWANE PRZEZ CORS
+    */
+    var url = `${API_URL}delete_item.php?id=${args.id}&category=${args.cat}`;
 
     const response = await fetch(url, {
         method: 'POST',
@@ -51,6 +54,9 @@ export async function deleteItemRequest(args) {
 };
 
 export async function putEditedItemRequest(args) {
+    /*
+        BĘDZIE ZABLOKOWANE PRZEZ CORS
+    */    
     await _simulateApiResponseDelay();
     console.log('REQ: Zapisywanie obiektu');
     console.log(args.obj);
@@ -60,25 +66,17 @@ export async function putEditedItemRequest(args) {
 };
 
 export async function getSearchResultsRequest(args) {
-    await _simulateApiResponseDelay();
-    switch (args.category) {
-        case 'songs':
-            return SONGS; 
-        case 'albums':
-            return ALBUMS;
-        case 'artists':
-            return ARTISTS;
-        default:
-            return [{"name" : "Nie znaleziono."}];
-    }
+    var url = `${API_URL}search_item.php?category=${args.c}&phrase=${args.p}`;
+    var RESULTS = await fetch(url)
+    .then(response => response.json())
+    .then(RESULTS => { return RESULTS; })
+    .catch(function(error) { console.log('Request failed: ', error) } );
+
+    return RESULTS;    
 };
 
-
-
-
-// good example of async "returning" data request
 export async function getCountriesDataRequest() {    
-    var data = await fetch(BASE_API_URL + `countries_list.php`)
+    var data = await fetch(API_URL + `countries_list.php`)
     .then(response => response.json())
     .then(data => { return data; })
     .catch(function(error) {console.log('Request failed: ', error) });
