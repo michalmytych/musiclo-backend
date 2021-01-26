@@ -41,7 +41,10 @@ export default class Item extends Component {
 
     // CRUD methods for single item instance
     async _deleteItem(item_id) {
-        await deleteItemRequest(this.props.category, item_id);
+        await deleteItemRequest({
+            "cat"   : this.props.category, 
+            "id"    : item_id
+        });
         this.props.popDeletedItem(item_id);
     }
 
@@ -78,7 +81,7 @@ export default class Item extends Component {
                     {
                         this.props.category==='songs' ?
                         <div>
-                            <h5 clasName="item-name">{this.props.item.name}</h5>
+                            <h2 clasName="item-name">{this.props.item.name}</h2>
                             {
                                 this.props.item.spotify_link ?
                                 <SpotifyPlugin 
@@ -101,7 +104,7 @@ export default class Item extends Component {
                     {
                         this.props.category==='albums' ?
                         <div>
-                            <h5 clasName="item-name">{this.props.item.name}</h5>                      
+                            <h2 clasName="item-name">{this.props.item.name}</h2>                      
                             {
                                 this.props.item.spotify_link ?
                                 <SpotifyPlugin 
@@ -124,7 +127,7 @@ export default class Item extends Component {
                     {
                         this.props.category==='artists' ?
                         <div>
-                            <h5 clasName="item-name">{this.props.item.name}</h5>                           
+                            <h2 clasName="item-name">{this.props.item.name}</h2>                           
                             {
                                 this.props.item.spotify_link ?
                                 <SpotifyPlugin 

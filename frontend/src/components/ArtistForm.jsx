@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import SearchSelect from './SearchSelect';
 
-import { COUNTRIES } from '../constants';
+import { getCountriesDataRequest } from '../requests';
 
 
 export default class ArtistForm extends Component {
@@ -12,7 +12,8 @@ export default class ArtistForm extends Component {
             "name"          : "",
             "albums_ids"    : [],
             "description"   : "",
-            "country"       : ""
+            "country"       : "",
+            "COUNTRIES"     : []
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,6 +40,9 @@ export default class ArtistForm extends Component {
     }
 
     async componentDidMount() {
+        var data = await getCountriesDataRequest();
+        this.setState({ "COUNTRIES" : data });   
+
         if (this.props._editing) {
             if (this.props._editing.instance) {
                 this.setState({
@@ -93,13 +97,16 @@ export default class ArtistForm extends Component {
                             value={this.state.country}
                             name="country">
                             {
-                                COUNTRIES.map(country => (
+                                this.state.COUNTRIES.length ?
+                                this.state.COUNTRIES.map(country => (
                                     <option                                         
-                                        value={country.code} 
-                                        key={country.code} >
+                                        value={country.iso_code} 
+                                        key={country.is_code} >
                                         {country.name}
                                     </option>                        
                                 ))
+                                :
+                                null
                             }       
                         </select>
                     </Fragment>

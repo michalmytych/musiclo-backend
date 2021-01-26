@@ -50,6 +50,12 @@ h1, h2, h3, h5 {
   color: rgb(0, 218, 145);
 }
 
+.italic-colored-small{
+  font-style: italic;
+  font-size: 1rem;
+  color: rgb(0, 218, 145);
+}
+
 .mkey{
   font-size: 1.7rem;
   font-family: 'EB Garamond', serif;

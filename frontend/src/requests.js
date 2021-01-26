@@ -1,11 +1,15 @@
+import axios from 'axios';
 import { SONGS, ALBUMS, ARTISTS } from './temporary';
+
+const BASE_API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
+
 
 // randint() in es6
 const randInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 // simulate async api call with random delay
 const _simulateApiResponseDelay = () => {
@@ -14,23 +18,14 @@ const _simulateApiResponseDelay = () => {
 };
 
 export async function getItemsListRequest(args) { 
-    await _simulateApiResponseDelay();
-    const limit = args.items_limit;
-    var ITEMS;
-    switch(args.category) {
-        case 'songs':
-            ITEMS = SONGS; break;
-        case 'albums':
-            return ALBUMS;
-        case 'artists':
-            return ARTISTS;
-        default:
-            return [];
-    }
+    var url = `${BASE_API_URL}items_list.php?limit=${args.l}&page=${args.p}&category=${args.c}`;
+    var ITEMS = await fetch(url)
+    .then(response => response.json())
+    .then(ITEMS => { return ITEMS; })
+    .catch(function(error) { console.log('Request failed: ', error) } );
 
-    var objects = ITEMS.slice(args.page * limit, (args.page * limit) + limit);
-    return objects;
-}
+    return ITEMS;
+};
 
 export async function createItemRequest(args) {
     await _simulateApiResponseDelay();
@@ -39,16 +34,21 @@ export async function createItemRequest(args) {
     console.log(' z kategorii ');
     console.log(args.category);
     //alert("Request opisany w konsoli.");
-}
+};
 
-export async function deleteItemRequest(category, id) {
-    await _simulateApiResponseDelay();
-    console.log('REQ: Usuwanie elementu z kategorii');
-    console.log(category);
-    console.log(' o id: ');
-    console.log(id);
-    //alert("Request opisany w konsoli.");
-}
+export async function deleteItemRequest(args) {
+    var url = `${BASE_API_URL}delete_item.php?id=${args.id}&category=${args.cat}`;
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+    
+    console.log(response.json());
+    return response.json();    
+};
 
 export async function putEditedItemRequest(args) {
     await _simulateApiResponseDelay();
@@ -57,7 +57,7 @@ export async function putEditedItemRequest(args) {
     console.log(' z kategorii ');
     console.log(args.category);
     //alert("Request opisany w konsoli.");
-}
+};
 
 export async function getSearchResultsRequest(args) {
     await _simulateApiResponseDelay();
@@ -71,9 +71,34 @@ export async function getSearchResultsRequest(args) {
         default:
             return [{"name" : "Nie znaleziono."}];
     }
-}
+};
+
+
+
 
 // good example of async "returning" data request
+export async function getCountriesDataRequest() {    
+    var data = await fetch(BASE_API_URL + `countries_list.php`)
+    .then(response => response.json())
+    .then(data => { return data; })
+    .catch(function(error) {console.log('Request failed: ', error) });
+    return data;
+};
+
+/*
+
+const sendPostRequest = async () => {
+    try {
+        const resp = await axios.post('https://jsonplaceholder.typicode.com/posts', newPost);
+        console.log(resp.data);
+    } catch (err) {
+        // Handle Error Here
+        console.error(err);
+    }
+};
+
+sendPostRequest();
+
 export async function getCountriesDataRequest() {
     var data = fetch('https://api.first.org/data/v1/countries/')
     .then(response => response.json())
@@ -81,8 +106,6 @@ export async function getCountriesDataRequest() {
     .catch(function(error) {console.log('Request failed: ', error) });
     return data;
 }
-
-/*
 
 REQUEST WITH QWEST:
 

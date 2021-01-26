@@ -5,12 +5,11 @@ import { CanvasJSChart } from 'canvasjs-react-charts';
 
 export default function SpotifyFeaturesChart(props) {
     const PREPARED_DATASET = [
-        { label: "Taneczność",       y: props.DATASET.danceability,      color: '#ebbe42', },
-        { label: "Energiczność",     y: props.DATASET.energy,            color: '#ebbe42', },
-        { label: "Akustyczność",     y: props.DATASET.acousticness,      color: '#ebbe42', },
-        { label: "Instrumentalność", y: props.DATASET.instrumentalness,  color: '#ebbe42', },
-        { label: "Na żywo",          y: props.DATASET.liveness,          color: '#ebbe42', },
-        { label: "Pozytywność",      y: props.DATASET.valence,           color: '#ebbe42' }
+        { label: "Taneczność",       y: props.DATASET.danceability,      color: 'rgb(0, 218, 145)', },
+        { label: "Energiczność",     y: props.DATASET.energy,            color: 'rgb(0, 218, 145)', },
+        { label: "Akustyczność",     y: props.DATASET.acousticness,      color: 'rgb(0, 218, 145)', },
+        { label: "Instrumentalność", y: props.DATASET.instrumentalness,  color: 'rgb(0, 218, 145)', },
+        { label: "Pozytywność",      y: props.DATASET.valence,           color: 'rgb(0, 218, 145)' }
     ];
 
     const CHART_CONFIG = {

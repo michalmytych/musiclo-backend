@@ -45,9 +45,9 @@ export default class List extends Component {
     // CRUD method for list view
     async _getItemsList(args) {
         const LIST = await getItemsListRequest({ 
-            category    : args.category, 
-            page        : args.page,
-            items_limit : this.state.items_limit
+            c : args.category, 
+            p : args.page,
+            l : this.state.items_limit
         });
         if (LIST.length < this.state.items_limit) {
             this.setState({ hasMoreItems: false });
@@ -103,11 +103,11 @@ export default class List extends Component {
     renderItems(LIST) {
         return (
             <Fragment>
-                {LIST.items.map(song => (
-                    <li key={song.id} >
+                {LIST.items.map(item => (
+                    <li key={item.id} >
                         <Item
                             category={LIST.category}                                    
-                            item={song}/>
+                            item={item}/>
                     </li>
                 ))}
             </Fragment>
@@ -141,6 +141,7 @@ export default class List extends Component {
                 _ITEMS_LIST = [];
         }
         var _items_category = _ITEMS_LIST.category;
+        var _dataLength = this.state[this.state.category].items.length;
 
         return (
             <div className="List">
@@ -180,11 +181,11 @@ export default class List extends Component {
                             _ITEMS_LIST ?
                                 _ITEMS_LIST.length !==0 ?
                                 <InfiniteScroll
-                                    dataLength={this.state.songs.items.length}
+                                    dataLength={_dataLength}
                                     next={() => this._getMoreItems()}
                                     hasMore={this.state.hasMoreItems}
                                     loader={loader}>
-                                    {this.state.songs.items.map((item) => (
+                                    {this.state[this.state.category].items.map((item) => (
                                         <li key={item.id}>
                                             <Item
                                                 popDeletedItem={(id) => this.updateListAfterDelete(id)}

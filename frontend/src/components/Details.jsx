@@ -2,7 +2,12 @@ import React, { Component, Fragment } from 'react'
 
 import SpotifyFeaturesChart from './SpotifyFeaturesChart';
 
-import { encodeMusicKey, encodeCountryKey } from '../constants';
+import { 
+    encodeMusicKey,
+    formatDatetime 
+} from '../constants';
+
+import { getCountriesDataRequest } from '../requests';
 
 
 const TogglerBtn = (props) => {
@@ -19,24 +24,40 @@ const TogglerBtn = (props) => {
     )
 }
 
-
 const SongDetails = (props) => {
     const SPOTIFY_FEATURES_DATASET = {
-        "danceability"       : props.item.danceability,
-        "energy"             : props.item.energy,
-        "acousticness"       : props.item.acousticness,
-        "instrumentalness"   : props.item.instrumentalness,
-        "liveness"           : props.item.liveness,
-        "valence"            : props.item.valence
+        "danceability"       : parseFloat(props.item.danceability),
+        "energy"             : parseFloat(props.item.energy),
+        "acousticness"       : parseFloat(props.item.acousticness),
+        "instrumentalness"   : parseFloat(props.item.instrumentalness),
+        "valence"            : parseFloat(props.item.valence)
     };
 
-    const musicKey = encodeMusicKey(props.item.key);
+    const musicKey = encodeMusicKey(parseInt(props.item.key));
+    var _artists_names = JSON.parse(props.item._artists_names);
+    var _albums_names = JSON.parse(props.item._albums_names);
     
     return (
         <div className="details-box">
             <div className="details-p">
                 <p className="italic-colored">{props.item.name}</p>
-                <p className="mkey">{musicKey}{props.item.mode===0 ? " moll" : " dur"}</p>
+                <p>
+                    {
+                    props.item.release_date ?
+                    formatDatetime(props.item.release_date) : "Brak daty powstania"
+                    }
+                </p>
+                <p>
+                    { _artists_names ? 
+                    _artists_names.map(a => (a)) : "Brak informacji o wykonawcy"
+                    }
+                </p>
+                <p>
+                    { _albums_names ? 
+                    _albums_names.map(a => (a)) : "Brak informacji o albumie"
+                    }
+                </p>
+                <p className="mkey">{musicKey}{parseInt(props.item.mode)===0 ? " moll" : " dur"}</p>
             </div>
             <div className="details-p">
                 <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>    
@@ -47,23 +68,43 @@ const SongDetails = (props) => {
 
 
 const AlbumDetails = (props) => {
+    var _artists_names;
+    try {
+        _artists_names = JSON.parse(props.item._artists_names);
+    } catch {
+        _artists_names = false;
+    }    
 
     return (
         <Fragment>
-            <p>{props.item.name}</p>
+            <h3>{props.item.name}</h3>           
+            <p>
+                {
+                props.item.release_date ?
+                formatDatetime(props.item.release_date) : "Brak daty powstania"
+                }
+            </p>
         </Fragment>        
     )
 }
 
 
 const ArtistDetails = (props) => {
-    const countryName = encodeCountryKey(props.item.country);
+    var countryName, country;
+    if (props.item.country) {
+        country = props.countries.filter((country) => {
+            return country.iso_code === props.item.country
+        });
+        countryName = country.name;
+    } else {
+        countryName = "Brak informacji o kraju pochodzenia.";
+    }
 
     return (
         <Fragment>
-            <p>{props.item.name}</p>
+            <h2>{props.item.name}</h2>           
             <p>Twórczość</p>
-            <p className="italic-colored">{countryName}</p>
+            <p className="italic-colored-small">{countryName}</p>
         </Fragment>        
     )
 }
@@ -71,7 +112,8 @@ const ArtistDetails = (props) => {
 
 export default class Details extends Component {
     state = {
-        "details_expanded" : false
+        "details_expanded"  : false,
+        "COUNTRIES"         : []
     };
 
     toggleDetails(element_id) {
@@ -81,6 +123,11 @@ export default class Details extends Component {
         } else {
             this.setState({"details_expanded" : true});
         }
+    }
+
+    async componentDidMount() {
+        var data = await getCountriesDataRequest()
+        .then(data => this.setState({ "COUNTRIES" : data }));  
     }
     
     render() {
@@ -103,7 +150,9 @@ export default class Details extends Component {
                         }
                         {
                             this.props.category==='artists' ?
-                            <ArtistDetails item={this.props.item}/> : null
+                            <ArtistDetails 
+                                countries={this.state.COUNTRIES}
+                                item={this.props.item}/> : null
                         }                        
                     </Fragment>
                     :       
