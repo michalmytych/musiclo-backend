@@ -2,7 +2,13 @@ import React from 'react'
 
 
 const constructSpotifyLink = (category, link) => {
-    var id = link.substring(link.length - 22);
+    var id;
+    if (link.includes("?si=")) {
+        id = link.match('/\[a-z,A-Z,0-9]{22,}.si=')[0].slice(1,23);
+    } else if (link.includes("embed")) {
+        id = link.substring(link.length - 22);
+    }
+    
     switch (category) {
         case 'songs':
             return "https://open.spotify.com/embed/track/" + id;
