@@ -38,9 +38,11 @@ const SongDetails = (props) => {
         "valence"            : parseFloat(props.item.valence)
     };
 
+
     const musicKey = encodeMusicKey(parseInt(props.item.key));
     var _artists_names = JSON.parse(props.item._artists_names).filter(onlyUniqueFilter);
-    var _albums_names = JSON.parse(props.item._albums_names).filter(onlyUniqueFilter);
+    var album_name = props.item.album_name;
+    // var _albums_names = JSON.parse(props.item._albums_names).filter(onlyUniqueFilter);
     
     return (
         <div className="details-box">
@@ -54,22 +56,26 @@ const SongDetails = (props) => {
                 </p>
                 <div>
                     { _artists_names ? 
-                        _artists_names.map((a, index) => {
-                            if (index===_artists_names.length-1) {
-                                return <span>{a}</span>;
-                            } else { return <span>{a}, </span>; }                            
-                        }) 
-                        : null
+                        <Fragment>
+                            <p>Artyści</p>
+                            <div>{
+                                _artists_names.map((a, index) => {
+                                    if (index===_artists_names.length-1) {
+                                        return <span>{a}</span>;
+                                    } else { return <span>{a}, </span>; }                            
+                                })} 
+                            </div>
+                        </Fragment>
+                        : <p>Brak informacji o artystach</p>
                     }
                 </div>
-                <div>
-                    { _albums_names ? 
-                        _albums_names.map((a, index) => {
-                            if (index===_albums_names.length-1) {
-                                return <span>{a}</span>;
-                            } else { return <span>{a}, </span>; }                            
-                        }) 
-                        : null
+                <div>                    
+                    { album_name ? 
+                        <Fragment>
+                            <p>Album</p>
+                            <h3>{album_name}</h3>
+                        </Fragment>                        
+                        : <p>Brak informacji o albumie</p>
                     }
                 </div>
                 <p className="mkey">{musicKey}{parseInt(props.item.mode)===0 ? " moll" : " dur"}</p>

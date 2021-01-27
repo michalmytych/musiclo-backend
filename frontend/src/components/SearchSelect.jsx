@@ -125,11 +125,11 @@ export default class SearchSelect extends Component {
                         this.state.results ?
                             this.state.results.length ?
                             this.state.results.map(result => (
-                                <option 
-                                    name={result.name}
-                                    value={result.id} key={result.id} >
-                                    {result.name}
-                                </option>                                                                                                             
+                                    <option 
+                                        name={result.name}
+                                        value={result.id} key={result.id} >
+                                        {result.name}
+                                    </option>                              
                             )) : <option>{"Wybierz..."}</option>
                         : <option>{"Wybierz..."}</option>
                         }

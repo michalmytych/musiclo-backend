@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import SearchSelect from './SearchSelect';
 
-import { KEYS, onlyUniqueFilter } from '../constants';
+import { KEYS, onlyUniqueFilter, uniqueArrayOfObjects } from '../constants';
 
 import { setDateInputValue } from '../display';
 
@@ -12,8 +12,8 @@ export default class SongForm extends Component {
         super();
         this.state = {
             "name"              : "",
-            "albums_ids"        : [],
-            "artists_ids"       : [],
+            "ALBUM"             : null,
+            "ARTISTS"           : [],
             "explicit"          : false,
             "danceability"      : 0.50,
             "energy"            : 0.50,
@@ -29,19 +29,21 @@ export default class SongForm extends Component {
         this.getSelectedAlbums = this.getSelectedAlbums.bind(this);
         this.getSelectedArtists = this.getSelectedArtists.bind(this);
         this._mountInstance = this._mountInstance.bind(this);        
+        this.popArtist = this.popArtist.bind(this);        
+        this.clearAlbum = this.clearAlbum.bind(this);
     }
 
-    getSelectedAlbums(selections) {
-        var albums = this.state.albums_ids.concat(selections);
+    getSelectedAlbums(selection) {
         this.setState({
-            "albums_ids" : albums
+            "ALBUM" : selection[0]
         });
     }
 
     getSelectedArtists(selections) {
-        var artists = this.state.artists_ids.concat(selections);
+        var artists = this.state.ARTISTS.concat(selections);
+        var _disctinct = uniqueArrayOfObjects(artists, "id");
         this.setState({
-            "artists_ids" : artists
+            "ARTISTS" : _disctinct
         });
     }
     
@@ -61,11 +63,19 @@ export default class SongForm extends Component {
 
     _mountInstance = (instance) => {
         var _artists_ids = JSON.parse(instance._artists_ids).filter(onlyUniqueFilter);
-        var _albums_ids = JSON.parse(instance._albums_ids).filter(onlyUniqueFilter);
+        var _artists_names = JSON.parse(instance._artists_names).filter(onlyUniqueFilter);
+        var album = {id: instance.album_id, name: instance.album_name}
+        if (_artists_names.length===_artists_ids.length) {
+            var _artists = [];
+            _artists_names.forEach((a, i) => {
+                _artists[i] = {id: _artists_ids[i], name: a}
+            });
+        }    
+
         this.setState({
             "name"              : instance.name,
-            "albums_ids"        : _albums_ids,
-            "artists_ids"       : _artists_ids,
+            "ALBUM"             : album,
+            "ARTISTS"           : _artists,
             // null zmieni sie na NaN
             "explicit"          : parseInt(instance.explicit),
             "danceability"      : parseFloat(instance.danceability),
@@ -78,6 +88,16 @@ export default class SongForm extends Component {
             "release_date"      : instance.release_date,
             "spotify_link"      : instance.spotify_link,
         });
+    }
+
+    popArtist(id) {
+        let artists = this.state.ARTISTS;
+        let updated_artists = artists.filter( artists => (artists.id !== id ));
+        this.setState({ ARTISTS : updated_artists }); 
+    }
+
+    clearAlbum() {
+        this.setState({ ALBUM : null });
     }
 
     componentDidMount() {
@@ -114,16 +134,22 @@ export default class SongForm extends Component {
                     required
                     value={this.state.name}
                     placeholder="Nazwa..."/>
-                <p>Artyści:</p>
+                <p>Artyści</p>
                 <ul>
                     {
-                        this.state._artists_ids ?
-                            this.state._artists_ids.length ?
-                            this.state._artists_ids.map((a) => (
-                                <li>{a}</li>
+                        this.state.ARTISTS ?
+                            this.state.ARTISTS.length ?
+                            this.state.ARTISTS.map((a) => (
+                                <li>
+                                    <div
+                                        className="selected-search-select-item" 
+                                        onClick={()=>this.popArtist(a.id)}>X {
+                                        a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
+                                        }</div>
+                                </li>                                
                             )) : <p>Brak wykonawców.</p>
                         : null
-                    }
+                    }   
                 </ul>
                 <SearchSelect                     
                     required
@@ -131,19 +157,30 @@ export default class SongForm extends Component {
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"artists"} />
-                <p>Albumy:</p>
+                <p>Album</p>
+                {
+                        this.state.ALBUM ?
+                        <div
+                            className="selected-search-select-item" 
+                            onClick={this.clearAlbum}>X {
+                            this.state.ALBUM.name ?
+                                this.state.ALBUM.name.length > 20 ? 
+                                this.state.ALBUM.name.slice(0,17) + "..." : this.state.ALBUM.name
+                            : null}                            
+                        </div> : <p>Brak albumu</p>
+                }
                 <SearchSelect 
                     multiple_choice={false}
                     _getInitialValue={(p) => this.getSelectedAlbums(p)}
                     getValues={(p) => this.getSelectedAlbums(p)} 
                     category={"albums"}/>
-                <p>Czy explicit:</p>
+                <p>EXPLICIT</p>
                 <input
                     onChange={this.handleChange}
                     type="checkbox" 
                     value={this.state.explicit}
                     name="explicit"/>
-                <p>Taneczność:</p>
+                <p>Taneczność</p>
                 <input
                     onChange={this.handleChange} 
                     type="range" 
@@ -152,7 +189,7 @@ export default class SongForm extends Component {
                     min="0"
                     step="0.01" 
                     max="1"/>
-                <p>Energia:</p>
+                <p>Energia</p>
                 <input
                     onChange={this.handleChange} 
                     type="range"
@@ -161,7 +198,7 @@ export default class SongForm extends Component {
                     min="0"
                     step="0.01"  
                     max="1"/>
-                <p>Akustyczność:</p>
+                <p>Akustyczność</p>
                 <input 
                     onChange={this.handleChange}
                     type="range" 
@@ -170,7 +207,7 @@ export default class SongForm extends Component {
                     min="0" 
                     step="0.01" 
                     max="1"/>
-                <p>Żywe instrumenty:</p>
+                <p>Żywe instrumenty</p>
                 <input 
                     onChange={this.handleChange} 
                     type="range" 
@@ -179,7 +216,7 @@ export default class SongForm extends Component {
                     min="0" 
                     step="0.01" 
                     max="1"/>
-                <p>Pozytywność:</p>
+                <p>Pozytywność</p>
                 <input 
                     onChange={this.handleChange}
                     type="range" 
@@ -188,7 +225,7 @@ export default class SongForm extends Component {
                     min="0" 
                     step="0.01" 
                     max="1"/>                                                                                                     
-                <p>Klucz:</p>
+                <p>Klucz</p>
                 <select
                     onChange={this.handleChange}  
                     value={this.state.key}
@@ -199,7 +236,7 @@ export default class SongForm extends Component {
                         </option>                        
                     ))}        
                 </select>
-                <p>Tryb:</p>                            
+                <p>Tryb</p>                            
                 <select 
                     onChange={this.handleChange} 
                     value={this.state.mode}
@@ -207,7 +244,7 @@ export default class SongForm extends Component {
                     <option value="0">moll</option>
                     <option value="1">dur</option>
                 </select>
-                <p>Data wydania:</p>
+                <p>Data wydania</p>
                 <input 
                     required
                     onChange={this.handleChange} 
@@ -215,7 +252,7 @@ export default class SongForm extends Component {
                     type="date" 
                     value={this.state.release_date}
                     name="release_date"></input>    
-                <p>Na spotify:</p>
+                <p>Na spotify</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 

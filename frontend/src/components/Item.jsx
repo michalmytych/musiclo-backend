@@ -81,6 +81,11 @@ export default class Item extends Component {
                         <div>
                             <h2 className="item-name">{this.props.item.name}</h2>
                             {
+                                this.props.item.album_name ?
+                                <h4 className="item-name">{this.props.item.album_name}</h4>   
+                                : <h5>SINGLE</h5>
+                            }                            
+                            {
                                 this.props.item.spotify_link ?
                                 <SpotifyPlugin 
                                     id={this.props.item.id}
