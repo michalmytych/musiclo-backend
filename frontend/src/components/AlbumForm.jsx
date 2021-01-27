@@ -23,8 +23,9 @@ export default class AlbumForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getSelectedArtists = this.getSelectedArtists.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);        
+        this.getSelectedSongs = this.getSelectedSongs.bind(this);
+        this._getSongsOfAlbum = this._getSongsOfAlbum.bind(this);
+        this._mountInstance = this._mountInstance.bind(this);        
     }
 
     getSelectedArtists(selections) {
@@ -61,7 +62,8 @@ export default class AlbumForm extends Component {
     }
 
     async _mountInstance(instance) {
-        var SONGS = await this._getSongsOfAlbum(instance.id);
+        var _songs = await this._getSongsOfAlbum(instance.id);
+        // SPRAWDZIĆ
         var _artists_ids = JSON.parse(instance._artist_ids).filter(onlyUniqueFilter);
         var _artists_names = JSON.parse(instance._artist_names).filter(onlyUniqueFilter);
         this.setState({
@@ -72,7 +74,7 @@ export default class AlbumForm extends Component {
             "release_date"      : instance.release_date,
             "artists_ids"       : _artists_ids,
             "artists_names"     : _artists_names,
-            "songs_list"        : SONGS
+            "songs_list"        : _songs
         });
     }
 
@@ -122,7 +124,7 @@ export default class AlbumForm extends Component {
                 <SearchSelect 
                     multiple_choice={true}
                     _getInitialValue={(s) => this.getSelectedSongs(s)}
-                    getValues={(s) => this.getSelectedSongs(s)} 
+                    getValues={(s) => this.getSelectedSongs(s)}
                     category={"songs"} />
                 <p>Czy explicit</p>
                 <input

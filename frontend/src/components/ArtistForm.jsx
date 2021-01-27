@@ -19,6 +19,8 @@ export default class ArtistForm extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getSelectedAlbums = this.getSelectedAlbums.bind(this);
+        this._mountInstance = this._mountInstance.bind(this);
     }
 
     handleChange(event) {
@@ -53,7 +55,7 @@ export default class ArtistForm extends Component {
 
     async componentDidMount() {
         var data = await getCountriesDataRequest();
-        this.setState({ "COUNTRIES" : data });   
+        this.setState({ "COUNTRIES" : data });  
             
         if (this.props._editing) {
             if (this.props._editing.instance) {
