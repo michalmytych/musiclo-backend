@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 // temp
 import { getSearchResultsRequest } from '../requests';
 
+import { onlyUniqueFilter } from '../constants';
+
 
 export default class SearchSelect extends Component {
     constructor() {
@@ -10,9 +12,14 @@ export default class SearchSelect extends Component {
         this.state = {
             "results"           : [],
             "category_name"     : "",
-            "search_input"      : ""
+            "search_input"      : "",
+            "selected_options"  : []
+            
         };
         this.handleChange = this.handleChange.bind(this);
+        this.getSelectedOptions = this.getSelectedOptions.bind(this);
+        this._getSearchResults = this._getSearchResults.bind(this);
+        this.setSearchCategory = this.setSearchCategory.bind(this);
     }
 
     async _getSearchResults(category, search_input) {
@@ -24,8 +31,8 @@ export default class SearchSelect extends Component {
         console.log(results);
 
         this.setState({
-            "results"           : results,
-            "selected_options"  : []
+            //"selected_options"  : [],
+            "results"           : results
         })
     }
 
@@ -44,17 +51,23 @@ export default class SearchSelect extends Component {
 
     getSelectedOptions = (e) => {
         let selected_values = Array.from(
-            e.target.selectedOptions, option => option.value
+            e.target.selectedOptions, option => ({ 
+                name: option.attributes.name.textContent, 
+                id: option.value 
+            })
         );
+        /*
+            TUUUUUUUUUTAJ
+        */
         this.setState({ "selected_options" : selected_values });
-        this.props.getValues(selected_values);
+        this.props.getValues(selected_values);         
     }
 
     setInitialValues = () => {
         this.props._getInitialValue([]);
     } 
 
-    handleChange(event) {
+    handleChange(event) {        
         this._getSearchResults(this.props.category, event.target.value);
         this.setState({
             [event.target.name] : event.target.value
@@ -83,7 +96,10 @@ export default class SearchSelect extends Component {
                         this.state.results ?
                             this.state.results.length ?
                             this.state.results.map(result => (
-                                <option value={result.id} key={result.id} >
+                                <option 
+                                    name={result.name}
+                                    value={result.id} 
+                                    key={result.id} >
                                     {result.name}
                                 </option>                        
                             )) : <option>{"Wybierz..."}</option>
@@ -98,7 +114,9 @@ export default class SearchSelect extends Component {
                         this.state.results ?
                             this.state.results.length ?
                             this.state.results.map(result => (
-                                <option value={result.id} key={result.id} >
+                                <option 
+                                    name={result.name}
+                                    value={result.id} key={result.id} >
                                     {result.name}
                                 </option>                        
                             )) : <option>{"Wybierz..."}</option>

@@ -52,8 +52,6 @@ export default class AlbumForm extends Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state);
-        alert("s");
         this.props.getEditedAlbum({
             obj         : this.state,
             category    : 'albums'

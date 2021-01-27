@@ -12,15 +12,17 @@ export default class ArtistForm extends Component {
         super();
         this.state = {
             "name"          : "",
-            "albums_ids"    : [],
+            "albums_ids"    : [],            
             "description"   : "",
             "country"       : "",
+            "ALBUMS"        : [],
             "COUNTRIES"     : []
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getSelectedAlbums = this.getSelectedAlbums.bind(this);
         this._mountInstance = this._mountInstance.bind(this);
+        this.popAlbum = this.popAlbum.bind(this);
     }
 
     handleChange(event) {
@@ -29,10 +31,24 @@ export default class ArtistForm extends Component {
         });
     }
 
-    getSelectedAlbums(selections) {
+    _getSelectedAlbums(selections) {
+        var albums_ids = this.state.albums_ids.concat(selections);
         this.setState({
             "albums_ids" : this.state.albums_ids.concat(selections)
         });
+    }
+
+    getSelectedAlbums(selections) {
+        var _ALBUMS = this.state.ALBUMS.concat(selections);
+        this.setState({
+            "ALBUMS" : _ALBUMS
+        });
+    }
+
+    popAlbum(id) {
+        let albums = this.state.ALBUMS;
+        let updated_albums = albums.filter( album => (album.id !== id ));
+        this.setState({ ALBUMS : updated_albums }); 
     }
 
     handleSubmit(event) {
@@ -44,13 +60,22 @@ export default class ArtistForm extends Component {
     }
 
     async _mountInstance(instance) {
+        var _albums_names = JSON.parse(instance._albums_names).filter(onlyUniqueFilter);
         var _albums_ids = JSON.parse(instance._albums_ids).filter(onlyUniqueFilter);
+        if (_albums_names.length===_albums_ids.length) {
+            var _albums = [];
+            _albums_names.forEach((a, i) => {
+                _albums[i] = {id: _albums_ids[i], name: a}
+            });
+        }
         this.setState({
             "name"          : instance.name,
             "albums_ids"    : _albums_ids,
             "description"   : instance.description,                
-            "country"       : instance.country
+            "country"       : instance.country,
+            "ALBUMS"        : _albums
         });
+        console.log('lol');
     }
 
     async componentDidMount() {
@@ -58,7 +83,7 @@ export default class ArtistForm extends Component {
         this.setState({ "COUNTRIES" : data });  
             
         if (this.props._editing) {
-            if (this.props._editing.instance) {
+            if (this.props.instance) {
                 this._mountInstance(this.props.instance);
             } else {
                 console.log("Błąd podczas pobierania obiektu.");
@@ -89,11 +114,25 @@ export default class ArtistForm extends Component {
                     name="description" 
                     value={
                         this.state.description ?
-                        this.state.description :
-                        "Kilka słów o wykonawcy..."}
+                        this.state.description : null
+                    }
                     rows="4" cols="50">
                 </textarea>                    
                 <p>Albumy</p>
+                <ul>
+                    {
+                        this.state.ALBUMS ?
+                            this.state.ALBUMS.length ?
+                            this.state.ALBUMS.map((a) => (
+                                <li>
+                                    <div
+                                        className="selected-search-select-item" 
+                                        onClick={()=>this.popAlbum(a.id)}>X {a.name}</div>
+                                </li>                                
+                            )) : <p>Brak wykonawców.</p>
+                        : null
+                    }
+                </ul>                 
                 <SearchSelect 
                     multiple_choice={true}
                     _getInitialValue={(p) => this.getSelectedAlbums(p)}
@@ -114,9 +153,7 @@ export default class ArtistForm extends Component {
                                         key={country.is_code} >
                                         {country.name}
                                     </option>                        
-                                ))
-                                :
-                                null
+                                )) : null
                             }       
                         </select>
                     </Fragment>
