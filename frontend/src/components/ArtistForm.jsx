@@ -4,7 +4,10 @@ import SearchSelect from './SearchSelect';
 
 import { getCountriesDataRequest } from '../requests';
 
-import { onlyUniqueFilter } from '../constants';
+import { 
+    onlyUniqueFilter,
+    uniqueArrayOfObjects 
+} from '../constants';
 
 
 export default class ArtistForm extends Component {
@@ -40,8 +43,9 @@ export default class ArtistForm extends Component {
 
     getSelectedAlbums(selections) {
         var _ALBUMS = this.state.ALBUMS.concat(selections);
+        var _disctinct = uniqueArrayOfObjects(_ALBUMS, "id");
         this.setState({
-            "ALBUMS" : _ALBUMS
+            "ALBUMS" : _disctinct
         });
     }
 

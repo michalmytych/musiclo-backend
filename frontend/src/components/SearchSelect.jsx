@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 // temp
 import { getSearchResultsRequest } from '../requests';
 
-import { onlyUniqueFilter } from '../constants';
-
 
 export default class SearchSelect extends Component {
     constructor() {
@@ -56,11 +54,8 @@ export default class SearchSelect extends Component {
                 id: option.value 
             })
         );
-        /*
-            TUUUUUUUUUTAJ
-        */
         this.setState({ "selected_options" : selected_values });
-        this.props.getValues(selected_values);         
+        this.props.getValues(selected_values);    
     }
 
     setInitialValues = () => {

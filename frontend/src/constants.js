@@ -39,6 +39,11 @@ export function onlyUniqueFilter(value, index, self) {
     return self.indexOf(value) === index;
 }
 
+export function uniqueArrayOfObjects(array, keyToBeUnique) {
+    return array.filter((x, xi) => !array.slice(xi + 1)
+    .some(y => y[keyToBeUnique] === x[keyToBeUnique]));
+}
+
 export const objectsEqual = (o1, o2) =>
     Object.keys(o1).length === Object.keys(o2).length 
         && Object.keys(o1).every(p => o1[p] === o2[p]);

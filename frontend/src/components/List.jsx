@@ -201,7 +201,7 @@ export default class List extends Component {
                                     hasMore={this.state.hasMoreItems}
                                     loader={loader}>
                                     {this.state[_ITEMS_LIST.category].items.map((item, i) => (
-                                        <li key={i}>
+                                        <li key={_ITEMS_LIST.category + "_" + i}>
                                             <Item
                                                 popDeletedItem={(id) => this.updateListAfterDelete(id)}
                                                 refreshAfterEdit={() => this.refreshListAfterEdit()}
