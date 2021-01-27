@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "homepage": "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-database/",
-  "proxy" : "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-database/api/",
+  "proxy": "https://localhost/api/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

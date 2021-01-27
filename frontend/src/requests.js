@@ -1,4 +1,10 @@
-const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
+
+// Wierzba
+// const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
+
+// Local
+const API_URL = "http://localhost/api/";
+
 
 
 // randint() in es6
@@ -24,16 +30,25 @@ export async function getItemsListRequest(args) {
     return ITEMS;
 };
 
-export async function createItemRequest(args) {
+export async function createItemRequest(data) {
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */
-    await _simulateApiResponseDelay();
-    console.log('REQ: Tworzenie obiektu: ');
-    console.log(args.obj);
-    console.log(' z kategorii ');
-    console.log(args.category);
-    //alert("Request opisany w konsoli.");
+    var url = `${API_URL}create_item.php?category=${data.category}`;
+    var response = await fetch(url, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(data.obj)
+    })
+    .then(res => res.json())
+    .then(response => { alert("Wysłano request create."); console.log(response)})
+    .catch(function(error) { 
+        alert('Request nie powiódł się.'); 
+        console.log('Request failed: ', error) 
+    });
 };
 
 export async function deleteItemRequest(args) {

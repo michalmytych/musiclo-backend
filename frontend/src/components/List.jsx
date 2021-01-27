@@ -19,6 +19,7 @@ import '../styles/List.css';
 import loadingSpinner from '../assets/loading.svg';
 import addIcon from '../assets/add.svg';
 
+import { validateItemBeforePost } from '../validators';
 
 
 const AddItemButton = (props) => {
@@ -77,9 +78,8 @@ export default class List extends Component {
     }   
 
     async _createItem(args) {
-        // SPRAWDZIC czy napewno powinno byc await
-        await createItemRequest(args);  
-        // SPRAWDZIC
+        var validArgs = validateItemBeforePost(args);
+        var response = await createItemRequest(validArgs);  
         this.refreshListAfterEdit();      
     }
 

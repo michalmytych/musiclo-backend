@@ -126,7 +126,7 @@ export default class SongForm extends Component {
                         :
                         null
                     }
-                <p>Wykonawca:</p>
+                <p>Tytuł</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 

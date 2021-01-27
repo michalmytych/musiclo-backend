@@ -15,6 +15,8 @@ import {
     putEditedItemRequest
 } from '../requests.js';
 
+import { validateItemBeforePost } from '../validators';
+
 
 export default class Item extends Component {
     state = {
@@ -49,7 +51,8 @@ export default class Item extends Component {
     }
 
     async _editItem(args) {
-        await putEditedItemRequest(args);
+        var validArgs = validateItemBeforePost(args);
+        await putEditedItemRequest(validArgs);
         this.props.refreshAfterEdit();
     }
 
