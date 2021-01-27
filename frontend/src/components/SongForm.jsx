@@ -56,7 +56,8 @@ export default class SongForm extends Component {
     handleSubmit(event) {
         this.props.getEditedSong({
             obj         : this.state,
-            category    : 'songs'
+            category    : 'songs',
+            id          : this.props.instance.id
         });
         event.preventDefault();
     }

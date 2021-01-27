@@ -13,7 +13,9 @@ export const KEYS = [
 ]
 
 export function encodeMusicKey(key_number) {
-	return KEYS.filter(key => { return key.id === key_number })[0].name;
+    if (key_number) {
+        return KEYS.filter(key => { return key.id === key_number })[0].name;
+    } else { return null; }
 }
 
 export function formatDatetime(iso_str) {

@@ -31,6 +31,7 @@ export async function getItemsListRequest(args) {
 };
 
 export async function createItemRequest(data) {
+    console.log("REQ createItemRequest(data): " + JSON.stringify(data.obj));
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */
@@ -72,12 +73,25 @@ export async function putEditedItemRequest(args) {
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */    
-    await _simulateApiResponseDelay();
-    console.log('REQ: Zapisywanie obiektu');
-    console.log(args.obj);
-    console.log(' z kategorii ');
-    console.log(args.category);
-    //alert("Request opisany w konsoli.");
+    console.log("REQ putEditedItemRequest(data): " + JSON.stringify(data.obj));
+    /*
+        BĘDZIE ZABLOKOWANE PRZEZ CORS
+    */
+    var url = `${API_URL}update_item.php?category=${data.category}&id=${args.id}`;
+    var response = await fetch(url, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(data.obj)
+    })
+    .then(res => res.json())
+    .then(response => { alert("Wysłano request create."); console.log(response)})
+    .catch(function(error) { 
+        alert('Request nie powiódł się.'); 
+        console.log('Request failed: ', error) 
+    });
 };
 
 export async function getSearchResultsRequest(args) {

@@ -52,6 +52,7 @@ export default class Item extends Component {
 
     async _editItem(args) {
         var validArgs = validateItemBeforePost(args);
+        validArgs.id = args.id;
         await putEditedItemRequest(validArgs);
         this.props.refreshAfterEdit();
     }
