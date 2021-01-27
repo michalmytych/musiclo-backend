@@ -124,7 +124,9 @@ export default class ArtistForm extends Component {
                                 <li>
                                     <div
                                         className="selected-search-select-item" 
-                                        onClick={()=>this.popAlbum(a.id)}>X {a.name}</div>
+                                        onClick={()=>this.popAlbum(a.id)}>X {
+                                        a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
+                                        }</div>
                                 </li>                                
                             )) : <p>Brak albumów.</p>
                         : null

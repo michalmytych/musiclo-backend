@@ -96,9 +96,14 @@ export default class AlbumForm extends Component {
 
     async _mountInstance(instance) {
         var _songs = await this._getSongsOfAlbum(instance.id);
-        // SPRAWDZIĆ
         var _artists_ids = JSON.parse(instance._artist_ids).filter(onlyUniqueFilter);
         var _artists_names = JSON.parse(instance._artist_names).filter(onlyUniqueFilter);
+        if (_artists_names.length===_artists_ids.length) {
+            var _artists = [];
+            _artists_names.forEach((a, i) => {
+                _artists[i] = {id: _artists_ids[i], name: a}
+            });
+        }        
         this.setState({
             "name"              : instance.name,
             "artists_ids"       : instance.artist_ids,
@@ -107,7 +112,8 @@ export default class AlbumForm extends Component {
             "release_date"      : instance.release_date,
             "artists_ids"       : _artists_ids,
             "artists_names"     : _artists_names,
-            "SONGS"             : _songs
+            "SONGS"             : _songs,
+            "ARTISTS"           : _artists
         });
     }
 
@@ -145,7 +151,9 @@ export default class AlbumForm extends Component {
                             <li>
                                 <div
                                     className="selected-search-select-item" 
-                                    onClick={()=>this.popArtist(a.id)}>X {a.name}</div>
+                                    onClick={()=>this.popArtist(a.id)}>X {
+                                    a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
+                                    }</div>
                             </li>                                
                         )) : <p>Brak wykonawców.</p>
                     : null
@@ -163,7 +171,9 @@ export default class AlbumForm extends Component {
                             <li>
                                 <div
                                     className="selected-search-select-item" 
-                                    onClick={()=>this.popSong(a.id)}>X {a.name}</div>
+                                    onClick={()=>this.popSong(a.id)}>X {
+                                    a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
+                                    }</div>
                             </li>                                
                         )) : <p>Brak piosenek.</p>
                     : null

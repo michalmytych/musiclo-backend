@@ -58,14 +58,14 @@ export default class SearchSelect extends Component {
                 if (this.props.category === 'songs') {
                     var chosen = this.state.results.filter((r) => (r.id === obj.id));
                     if (!chosen[0].album_id) { 
-                        alert('xd'); alert(chosen[0].album_id); 
                         return obj;
                     } else {
-                        alert('chuja! nie przejdziesz');
-                        alert(chosen[0].album_id);  
+                        alert('Ten utwór ma już przypisany album!'); 
                         failed = true;
                     }
-                };                    
+                } else {
+                    return obj;
+                }
             } 
         );
         if (!failed) {
