@@ -105,7 +105,7 @@ export default class SongForm extends Component {
             if (this.props.instance) {
                 this._mountInstance(this.props.instance);
             } else {
-                console.log("Błąd podczas pobierania obiektu.");
+                alert("Błąd podczas montowania obiektu.");
             }
         } else {
             this.setState({

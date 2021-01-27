@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import '../styles/Item.css';
 
@@ -37,7 +37,9 @@ export default class Item extends Component {
         });
     }
 
-    // CRUD methods for single item instance
+    /*
+        CRUD methods for single item instance
+    */
     async _deleteItem(item_id) {
         await deleteItemRequest({
             "cat"   : this.props.category, 
@@ -66,12 +68,17 @@ export default class Item extends Component {
             }
             {
                 this.state.show_edition_box ?
-                <ItemForm
-                    _editing={true}
-                    category={this.props.category}            
-                    instance={this.props.item}
-                    onSave={(edited_object) => this._editItem(edited_object)}
-                toggler={this.toggleEditionFormDisplay} />
+                <Fragment>
+                    <div
+                        onClick={this.toggleEditionFormDisplay} 
+                        className="blurred-form-background"></div>
+                    <ItemForm
+                        _editing={true}
+                        category={this.props.category}            
+                        instance={this.props.item}
+                        onSave={(edited_object) => this._editItem(edited_object)}
+                    toggler={this.toggleEditionFormDisplay} />
+                    </Fragment>
                 : null
             }
             <div className="Item">                             

@@ -25,8 +25,6 @@ export default class SearchSelect extends Component {
             c : category, 
             p : search_input
         });
-        
-        console.log(results);
 
         this.setState({
             //"selected_options"  : [],

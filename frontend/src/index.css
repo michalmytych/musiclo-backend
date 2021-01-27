@@ -106,3 +106,13 @@ h1, h2, h3, h5 {
   border-radius: 10px;
   border: 3px solid rgb(0, 218, 145);
 }
+
+.blurred-form-background{
+  position: fixed;
+  width: 130vw;
+  height: 130vw;
+  top: -10rem;
+  left: -10rem;
+  backdrop-filter: blur(12px);
+  background-color: rgba(0, 46, 31, 0.2);
+}

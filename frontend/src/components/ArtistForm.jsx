@@ -72,7 +72,6 @@ export default class ArtistForm extends Component {
             "country"       : instance.country,
             "ALBUMS"        : _albums
         });
-        console.log('lol');
     }
 
     async componentDidMount() {
@@ -83,7 +82,7 @@ export default class ArtistForm extends Component {
             if (this.props.instance) {
                 this._mountInstance(this.props.instance);
             } else {
-                console.log("Błąd podczas pobierania obiektu.");
+                alert("Błąd podczas pobierania obiektu.");
             }            
         }
     }

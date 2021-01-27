@@ -42,8 +42,10 @@ export default class List extends Component {
         hasMoreItems        : true,
         items_limit         : 7
     };
-
-    // CRUD method for list view
+ 
+    /*
+        CRUD method for list view
+    */
     async _getItemsList(args) {
         const LIST = await getItemsListRequest({ 
             c : args.category, 
@@ -72,6 +74,13 @@ export default class List extends Component {
             category : this.state.category,
             page     : 0
         }); 
+    }   
+
+    async _createItem(args) {
+        // SPRAWDZIC czy napewno powinno byc await
+        await createItemRequest(args);  
+        // SPRAWDZIC
+        this.refreshListAfterEdit();      
     }
 
     _getMoreItems = () => {
@@ -81,13 +90,6 @@ export default class List extends Component {
         });
         // SPRAWDZIC                  /moze powinno byc parametryzowanie
         this._getItemsList({category: this.state.category, page: page+1});
-    }
-
-    async _createItem(args) {
-        // SPRAWDZIC czy napewno powinno byc await
-        await createItemRequest(args);  
-        // SPRAWDZIC
-        this.refreshListAfterEdit();      
     }
 
     toggleCreationFormDisplay = () => {
