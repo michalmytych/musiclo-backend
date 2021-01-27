@@ -34,13 +34,6 @@ export default class ArtistForm extends Component {
         });
     }
 
-    _getSelectedAlbums(selections) {
-        var albums_ids = this.state.albums_ids.concat(selections);
-        this.setState({
-            "albums_ids" : this.state.albums_ids.concat(selections)
-        });
-    }
-
     getSelectedAlbums(selections) {
         var _ALBUMS = this.state.ALBUMS.concat(selections);
         var _disctinct = uniqueArrayOfObjects(_ALBUMS, "id");
@@ -133,7 +126,7 @@ export default class ArtistForm extends Component {
                                         className="selected-search-select-item" 
                                         onClick={()=>this.popAlbum(a.id)}>X {a.name}</div>
                                 </li>                                
-                            )) : <p>Brak wykonawców.</p>
+                            )) : <p>Brak albumów.</p>
                         : null
                     }
                 </ul>                 

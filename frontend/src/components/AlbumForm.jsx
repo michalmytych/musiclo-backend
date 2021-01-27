@@ -4,7 +4,10 @@ import SearchSelect from './SearchSelect';
 
 import { setDateInputValue } from '../display';
 
-import { onlyUniqueFilter } from '../constants';
+import { 
+    onlyUniqueFilter,
+    uniqueArrayOfObjects 
+} from '../constants';
 
 import { getSongsOfAlbumRequest } from '../requests';
 
@@ -18,7 +21,9 @@ export default class AlbumForm extends Component {
             "artists_names" : [],
             "songs_ids"     : [],
             "explicit"      : false,
-            "release_date"  : ""
+            "release_date"  : "",
+            "ARTISTS"       : [],
+            "SONGS"         : [],
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,21 +34,51 @@ export default class AlbumForm extends Component {
     }
 
     getSelectedArtists(selections) {
+        var _ARTISTS = this.state.ARTISTS.concat(selections);
+        var _disctinct = uniqueArrayOfObjects(_ARTISTS, "id");
+        /*this.setState({
+            _artists_ids : _disctinct
+        });*/
         this.setState({
-            "artists_ids" : this.state.artists_ids.concat(selections)
+            ARTISTS : _disctinct
         });
     }
 
     getSelectedSongs(selections) {
+        // !!! sprawdzic czy piosenki maja album id, jak maja to !!!
+        // !!! wyświetlić alert że nie można dodać i zrobić quit !!!
+        for (var i=0;i<selections.length; i++) {
+            if (selections[i].album_id) {
+                alert(selections[i].album_id);
+                return false;
+            }
+        }
+        var _SONGS = this.state.SONGS.concat(selections);
+        var _disctinct = uniqueArrayOfObjects(_SONGS, "id");
         this.setState({
-            "songs_ids" : this.state.songs_ids.concat(selections)
+            SONGS : _disctinct
         });
+        /*this.setState({
+            "songs_ids" : _disctinct
+        });*/        
     }
 
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         });
+    }
+
+    popArtist(id) {
+        let artists = this.state.ARTISTS;
+        let updated_artists = artists.filter( artists => (artists.id !== id ));
+        this.setState({ ARTISTS : updated_artists }); 
+    }
+
+    popSong(id) {
+        let songs = this.state.SONGS;
+        let updated_songs = songs.filter( songs => (songs.id !== id ));
+        this.setState({ SONGS : updated_songs }); 
     }
 
     async _getSongsOfAlbum(album_id) {
@@ -72,7 +107,7 @@ export default class AlbumForm extends Component {
             "release_date"      : instance.release_date,
             "artists_ids"       : _artists_ids,
             "artists_names"     : _artists_names,
-            "songs_list"        : _songs
+            "SONGS"             : _songs
         });
     }
 
@@ -103,22 +138,36 @@ export default class AlbumForm extends Component {
                     value={this.state.name}
                     placeholder="Nazwa..."/>
                 <p>Artyści</p>
-                <ul>
-                    {
-                        this.state._artists_ids ?
-                            this.state._artists_ids.length ?
-                            this.state._artists_ids.map((a) => (
-                                <li>{a}</li>
-                            )) : <p>Brak wykonawców.</p>
-                        : null
-                    }
-                </ul>                
+                {
+                    this.state.ARTISTS ?
+                        this.state.ARTISTS.length ?
+                        this.state.ARTISTS.map((a) => (
+                            <li>
+                                <div
+                                    className="selected-search-select-item" 
+                                    onClick={()=>this.popArtist(a.id)}>X {a.name}</div>
+                            </li>                                
+                        )) : <p>Brak wykonawców.</p>
+                    : null
+                }      
                 <SearchSelect 
                     multiple_choice={true}
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"artists"} />
                 <p>Utwory</p>
+                {
+                    this.state.SONGS ?
+                        this.state.SONGS.length ?
+                        this.state.SONGS.map((a) => (
+                            <li>
+                                <div
+                                    className="selected-search-select-item" 
+                                    onClick={()=>this.popSong(a.id)}>X {a.name}</div>
+                            </li>                                
+                        )) : <p>Brak piosenek.</p>
+                    : null
+                }                      
                 <SearchSelect 
                     multiple_choice={true}
                     _getInitialValue={(s) => this.getSelectedSongs(s)}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 // temp
 import { getSearchResultsRequest } from '../requests';
@@ -48,14 +48,30 @@ export default class SearchSelect extends Component {
     }
 
     getSelectedOptions = (e) => {
+        var failed = false;
         let selected_values = Array.from(
-            e.target.selectedOptions, option => ({ 
-                name: option.attributes.name.textContent, 
-                id: option.value 
-            })
+            e.target.selectedOptions, option => { 
+                var obj = {
+                    name: option.attributes.name.textContent, 
+                    id: option.value 
+                }
+                if (this.props.category === 'songs') {
+                    var chosen = this.state.results.filter((r) => (r.id === obj.id));
+                    if (!chosen[0].album_id) { 
+                        alert('xd'); alert(chosen[0].album_id); 
+                        return obj;
+                    } else {
+                        alert('chuja! nie przejdziesz');
+                        alert(chosen[0].album_id);  
+                        failed = true;
+                    }
+                };                    
+            } 
         );
-        this.setState({ "selected_options" : selected_values });
-        this.props.getValues(selected_values);    
+        if (!failed) {
+            this.setState({ "selected_options" : selected_values });
+            this.props.getValues(selected_values);    
+        }        
     }
 
     setInitialValues = () => {
@@ -113,7 +129,7 @@ export default class SearchSelect extends Component {
                                     name={result.name}
                                     value={result.id} key={result.id} >
                                     {result.name}
-                                </option>                        
+                                </option>                                                                                                             
                             )) : <option>{"Wybierz..."}</option>
                         : <option>{"Wybierz..."}</option>
                         }
