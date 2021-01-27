@@ -15,8 +15,6 @@ import {
     putEditedItemRequest
 } from '../requests.js';
 
-import { setElementDisplay } from '../display';
-
 
 export default class Item extends Component {
     state = {
@@ -81,7 +79,7 @@ export default class Item extends Component {
                     {
                         this.props.category==='songs' ?
                         <div>
-                            <h2 clasName="item-name">{this.props.item.name}</h2>
+                            <h2 className="item-name">{this.props.item.name}</h2>
                             {
                                 this.props.item.spotify_link ?
                                 <SpotifyPlugin 

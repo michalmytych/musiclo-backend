@@ -14,6 +14,7 @@ import {
     handleCategoryViewChange,
     setActiveCategoryStyles
 } from '../display';
+
 import '../styles/List.css';
 import loadingSpinner from '../assets/loading.svg';
 import addIcon from '../assets/add.svg';
@@ -61,6 +62,7 @@ export default class List extends Component {
     }
 
     refreshListAfterEdit = () => {
+        // SPRAWDZIC
         if (this.state.page !== 0) {
             this.setState({
                 page : 0
@@ -77,11 +79,14 @@ export default class List extends Component {
         this.setState({
             page : this.state.page+1
         });
+        // SPRAWDZIC                  /moze powinno byc parametryzowanie
         this._getItemsList({category: this.state.category, page: page+1});
     }
 
     async _createItem(args) {
+        // SPRAWDZIC czy napewno powinno byc await
         await createItemRequest(args);  
+        // SPRAWDZIC
         this.refreshListAfterEdit();      
     }
 
@@ -92,6 +97,7 @@ export default class List extends Component {
     }
 
     updateListAfterDelete = (item_id) => {
+        // SPRAWDZIC
         var list = this.state[this.state.category].items;
         const index = list.map(e => e.id).indexOf(item_id);
         list.splice(index, 1);
@@ -101,6 +107,7 @@ export default class List extends Component {
     }
 
     renderItems(LIST) {
+        // SPRAWDZIC
         return (
             <Fragment>
                 {LIST.items.map(item => (
@@ -115,11 +122,14 @@ export default class List extends Component {
     }
 
     handleCategorySwitch = (category) => {
-        this.setState({
-            "category": category
-        });
-        this._getItemsList({category: category, page: this.state.page});
-        handleCategoryViewChange(category);
+        if (this.state.category !== category) {
+            this.setState({
+                "category": category
+            });
+            // SPRAWDZIC czy setState nie jest opozniony
+            this._getItemsList({category: category, page: 0});
+            handleCategoryViewChange(category);
+        }        
     }
 
     componentDidMount() {
@@ -128,9 +138,10 @@ export default class List extends Component {
     }
 
     render() {
-        const loader = <div className="loader-wrapper"><img className="loader" src={loadingSpinner}/></div>
+        const loader = <div className="loader-wrapper"><img alt="" className="loader" src={loadingSpinner}/></div>
         var _ITEMS_LIST;
         switch (this.state.category) {
+            // czy tu nie powinno byc this.state.items
             case 'songs':
                 _ITEMS_LIST = this.state.songs; break;
             case 'albums':
@@ -140,8 +151,9 @@ export default class List extends Component {
             default:            
                 _ITEMS_LIST = [];
         }
-        var _items_category = _ITEMS_LIST.category;
-        var _dataLength = this.state[this.state.category].items.length;
+        // var _items_category = _ITEMS_LIST.category;
+        //var _dataLength = this.state[this.state.category].items.length;
+        var _dataLength = this.state[_ITEMS_LIST.category].items.length;
 
         return (
             <div className="List">
@@ -149,7 +161,8 @@ export default class List extends Component {
                     this.state.show_creation_box ?
                     <ItemForm
                         _editing={false}
-                        category={this.state.category}            
+                        //category={this.state.category}            
+                        category={_ITEMS_LIST.category}
                         onSave={(created_object) => this._createItem(
                             created_object
                         )}
@@ -179,18 +192,20 @@ export default class List extends Component {
                     <ul>
                         {
                             _ITEMS_LIST ?
-                                _ITEMS_LIST.length !==0 ?
+                            // SPRAWDZIC lol przeciez _ITEMS_LIST jest obiektem
+                            // to chyba nie: _ITEMS_LIST.length !==0 ?
+                                _ITEMS_LIST.items.length !==0 ?
                                 <InfiniteScroll
                                     dataLength={_dataLength}
                                     next={() => this._getMoreItems()}
                                     hasMore={this.state.hasMoreItems}
                                     loader={loader}>
-                                    {this.state[this.state.category].items.map((item) => (
-                                        <li key={item.id}>
+                                    {this.state[_ITEMS_LIST.category].items.map((item, i) => (
+                                        <li key={i}>
                                             <Item
                                                 popDeletedItem={(id) => this.updateListAfterDelete(id)}
                                                 refreshAfterEdit={() => this.refreshListAfterEdit()}
-                                                category={_items_category}                                    
+                                                category={_ITEMS_LIST.category}                                    
                                                 item={item}/>
                                         </li>
                                     ))}

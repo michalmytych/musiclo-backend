@@ -4,6 +4,8 @@ import SearchSelect from './SearchSelect';
 
 import { getCountriesDataRequest } from '../requests';
 
+import { onlyUniqueFilter } from '../constants';
+
 
 export default class ArtistForm extends Component {
     constructor() {
@@ -39,18 +41,23 @@ export default class ArtistForm extends Component {
         event.preventDefault();
     }
 
+    async _mountInstance(instance) {
+        var _albums_ids = JSON.parse(instance._albums_ids).filter(onlyUniqueFilter);
+        this.setState({
+            "name"          : instance.name,
+            "albums_ids"    : _albums_ids,
+            "description"   : instance.description,                
+            "country"       : instance.country
+        });
+    }
+
     async componentDidMount() {
         var data = await getCountriesDataRequest();
         this.setState({ "COUNTRIES" : data });   
-
+            
         if (this.props._editing) {
             if (this.props._editing.instance) {
-                this.setState({
-                    "name"          : this.props.instance.name,
-                    "albums_ids"    : this.props.instance.albums_ids,
-                    "description"   : "",                
-                    "country"       : this.props.instance.country,
-                });
+                this._mountInstance(this.props.instance);
             } else {
                 console.log("Błąd podczas pobierania obiektu.");
             }            

@@ -75,6 +75,15 @@ export async function getSearchResultsRequest(args) {
     return RESULTS;    
 };
 
+export async function getSongsOfAlbumRequest(id) {    
+    var SONGS = await fetch(API_URL + `songs_of_album.php?id=${id}`)
+    .then(response => response.json())
+    .then(SONGS => { return SONGS; })
+    .catch(function(error) {console.log('Request failed: ', error) });
+    
+    return SONGS;
+};
+
 export async function getCountriesDataRequest() {    
     var data = await fetch(API_URL + `countries_list.php`)
     .then(response => response.json())
@@ -82,6 +91,8 @@ export async function getCountriesDataRequest() {
     .catch(function(error) {console.log('Request failed: ', error) });
     return data;
 };
+
+
 
 /*
 

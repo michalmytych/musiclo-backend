@@ -8,8 +8,12 @@ import {
     onlyUniqueFilter
 } from '../constants';
 
-import { getCountriesDataRequest } from '../requests';
+import { 
+    getCountriesDataRequest,
+    getSongsOfAlbumRequest
+ } from '../requests';
 
+const spotify_icon = "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg";
 
 const TogglerBtn = (props) => {
     return (
@@ -78,25 +82,79 @@ const SongDetails = (props) => {
 }
 
 
-const AlbumDetails = (props) => {
-    var _artists_names;
-    try {
-        _artists_names = JSON.parse(props.item._artists_names);
-    } catch {
-        _artists_names = false;
+class AlbumDetails extends Component {
+    state = {
+        songs   : [],
+        artists : []
+    };
+
+    async _getSongsOfAlbum(album_id) {
+        var SONGS = await getSongsOfAlbumRequest(album_id);
+        return SONGS;
+    }
+
+    async componentDidMount() {
+        var _songs = await this._getSongsOfAlbum(this.props.item.id);        
+        var _artists_names = JSON.parse(this.props.item._artist_names).filter(onlyUniqueFilter);
+        var _artists_ids = JSON.parse(this.props.item._artist_ids).filter(onlyUniqueFilter);
+        var _artists = [];
+        _artists_names.forEach((a, i) => {
+            _artists[i] = { id : a, name : _artists_ids[i] };
+        });
+        this.setState({ 
+            songs   : _songs,
+            artists : _artists
+        });
     }    
 
-    return (
-        <Fragment>
-            <h3>{props.item.name}</h3>           
-            <p>
-                {
-                props.item.release_date ?
-                formatDatetime(props.item.release_date) : "Brak daty powstania"
-                }
-            </p>
-        </Fragment>        
-    )
+    render() {
+        return (
+            <Fragment>
+                <h3>{this.props.item.name}</h3>           
+                <p>
+                    {
+                        this.props.item.release_date ?
+                        formatDatetime(this.props.item.release_date) 
+                        : "Brak daty powstania"
+                    }
+                </p>
+                <div>
+                    { this.state._artists ? 
+                        this.state._artists.map((a, index) => {
+                            if (index===this.state._artists.length-1) {
+                                return <span>{a.name}</span>;
+                            } else { return <span>{a}, </span>; }                            
+                        }) 
+                        : null
+                    }
+                </div>                
+                <div>
+                    <h4>Utwory</h4>                    
+                    <ul>
+                        {
+                            this.state.songs ?
+                            this.state.songs.map((s, i) => {
+                                if (s.spotify_link) {
+                                    return (<li key={s.id}>{i+1}. {s.name}
+                                    <a
+                                    target="_blank" rel="noreferrer"  
+                                    href={s.spotify_link}>
+                                    <img
+                                        style={{width: "1.2rem"}} 
+                                        alt="Ikona spotify." 
+                                        src={spotify_icon}></img>    
+                                    </a>
+                                    </li>)       
+                                } else {
+                                    return <li key={s.id}>{i+1}. {s.name}</li>;       
+                                }                                
+                            }) : <p>Brak utworów.</p>
+                        }                        
+                    </ul>
+                </div>
+            </Fragment>        
+        )
+    }
 }
 
 
@@ -112,9 +170,8 @@ const ArtistDetails = (props) => {
     }
 
     return (
-        <Fragment>
-            <h2>{props.item.name}</h2>           
-            <p>Twórczość</p>
+        <Fragment>   
+            <p>{props.item.description}</p>
             <p className="italic-colored-small">{countryName}</p>
         </Fragment>        
     )

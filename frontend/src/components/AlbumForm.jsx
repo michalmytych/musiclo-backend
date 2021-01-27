@@ -4,6 +4,10 @@ import SearchSelect from './SearchSelect';
 
 import { setDateInputValue } from '../display';
 
+import { onlyUniqueFilter } from '../constants';
+
+import { getSongsOfAlbumRequest } from '../requests';
+
 
 export default class AlbumForm extends Component {
     constructor() {
@@ -11,17 +15,27 @@ export default class AlbumForm extends Component {
         this.state = {
             "name"          : "",
             "artists_ids"   : [],
+            "artists_names" : [],
             "songs_ids"     : [],
             "explicit"      : false,
             "release_date"  : ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getSelectedArtists = this.getSelectedArtists.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);        
     }
 
     getSelectedArtists(selections) {
         this.setState({
             "artists_ids" : this.state.artists_ids.concat(selections)
+        });
+    }
+
+    getSelectedSongs(selections) {
+        this.setState({
+            "songs_ids" : this.state.songs_ids.concat(selections)
         });
     }
 
@@ -31,7 +45,14 @@ export default class AlbumForm extends Component {
         });
     }
 
+    async _getSongsOfAlbum(album_id) {
+        var SONGS = await getSongsOfAlbumRequest(album_id);
+        return SONGS;
+    }
+
     handleSubmit(event) {
+        console.log(this.state);
+        alert("s");
         this.props.getEditedAlbum({
             obj         : this.state,
             category    : 'albums'
@@ -39,14 +60,25 @@ export default class AlbumForm extends Component {
         event.preventDefault();
     }
 
+    async _mountInstance(instance) {
+        var SONGS = await this._getSongsOfAlbum(instance.id);
+        var _artists_ids = JSON.parse(instance._artist_ids).filter(onlyUniqueFilter);
+        var _artists_names = JSON.parse(instance._artist_names).filter(onlyUniqueFilter);
+        this.setState({
+            "name"              : instance.name,
+            "artists_ids"       : instance.artist_ids,
+            "explicit"          : parseInt(instance.explicit),
+            "spotify_link"      : instance.spotify_link,
+            "release_date"      : instance.release_date,
+            "artists_ids"       : _artists_ids,
+            "artists_names"     : _artists_names,
+            "songs_list"        : SONGS
+        });
+    }
+
     componentDidMount() {
         if (this.props._editing) {
-            this.setState({
-                "name"              : this.props.instance.name,
-                "artists_ids"       : this.props.instance.artist_ids,
-                "explicit"          : this.props.instance.explicit,
-                "release_date"      : this.props.instance.release_date
-            });
+            this._mountInstance(this.props.instance);
         } else {
             this.setState({
                 "release_date" : setDateInputValue()
@@ -71,6 +103,16 @@ export default class AlbumForm extends Component {
                     value={this.state.name}
                     placeholder="Nazwa..."/>
                 <p>Artyści</p>
+                <ul>
+                    {
+                        this.state._artists_ids ?
+                            this.state._artists_ids.length ?
+                            this.state._artists_ids.map((a) => (
+                                <li>{a}</li>
+                            )) : <p>Brak wykonawców.</p>
+                        : null
+                    }
+                </ul>                
                 <SearchSelect 
                     multiple_choice={true}
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
@@ -79,8 +121,8 @@ export default class AlbumForm extends Component {
                 <p>Utwory</p>
                 <SearchSelect 
                     multiple_choice={true}
-                    _getInitialValue={(p) => this.getSelectedArtists(p)}
-                    getValues={(p) => this.getSelectedArtists(p)} 
+                    _getInitialValue={(s) => this.getSelectedSongs(s)}
+                    getValues={(s) => this.getSelectedSongs(s)} 
                     category={"songs"} />
                 <p>Czy explicit</p>
                 <input
