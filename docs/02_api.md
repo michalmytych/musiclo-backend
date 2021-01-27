@@ -6,7 +6,7 @@
     - 400 - Bad request (np. brakuje wymaganego parametru)
     - 405 - Method Not Allowed - inna niż GET
     > __GET__ _https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/items_list.php?category=artists&limit=7&page=0_
-    ```json
+    ```javascript
         [
             {
                 "id": "002i8VgAnGnaTmZnwJvPaX",
@@ -40,9 +40,12 @@
                 "_artists_names": "[\"Crowbar\", \"Crowbar\"]",
                 "_albums_names": "[\"Equilibrium\", \"Sonic Excess In Its Purest Form\"]"
             },
-        ...
+            // ...
         ]
     ```
+
+<div style="page-break-after: always;"></div>
+
 - ## __create_item.php__ _category_, _item_ 
     Akceptuje metodę POST. Parametr url _category_ musi być zdefiniowany, w innym przypadku skrypt zwraca kod 400. Dodatkowo wymagane pole _name_ obiektu przesyłanego w ciele rządania jest walidowana funkcją __empty()__. Jeśli _name_ ma nieprawidłową wartość - np. jest puste, skrypt odrzuca request z kodem odpowiedzi HTTP _400 Bad Request_.
     - 201 - Created (OK)
@@ -50,7 +53,7 @@
     - 405 - Method Not Allowed - inna niż POST
     1. ### __Tworzenie nowych piosenek:__
     > __POST__ _https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/items_list.php?category=songs_
-    ```json
+    ```javascript
         // Przykładowe ciało rządania POST wysłanego w celu stworzenia rekordu z kategorii songs
         {
             "name"              : "Space Song",
@@ -73,9 +76,12 @@
             ]
         }
     ```
-    2. ### __Tworzenie nowych artystów:__
+
+<div style="page-break-after: always;"></div>
+
+- ### __Tworzenie nowych artystów:__
     > __POST__ _https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/items_list.php?category=artists_
-    ```json
+    ```javascript
         // Przykładowe ciało rządania POST wysłanego w celu stworzenia rekordu z kategorii artists
         {
             // id jest generowane przez skrypt php tak jak poprzednio
@@ -97,9 +103,12 @@
             ]
         }
     ```
-    3. ### Tworzenie nowych albumów
+
+<div style="page-break-after: always;"></div>
+
+  -  ### Tworzenie nowych albumów
     > __POST__ _https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/items_list.php?category=albums_
-    ```json
+    ```javascript
         // Przykładowe ciało rządania POST wysłanego w celu stworzenia rekordu z kategorii albums
         {   
             // jak poprzednio id jest generowane przez php
@@ -118,26 +127,37 @@
         }
     ```
 
+<div style="page-break-after: always;"></div>
+
 - ## __update_item.php__ _category_, _item_, _id_
     - 200 - OK (Updated)
     - 400 - Bad request (np. brakuje wymaganego parametru)
     - 204 - No contend - nie ma zasobu o tym id
     - 405 - Method Not Allowed - inna niż PUT/POST
+
+<div style="page-break-after: always;"></div> 
+
 - ## __delete_item.php__ _category_, _item_, _id_
     - 200 - OK (Deleted)
     - 400 - Bad request (np. brakuje wymaganego parametru)
     - 204 - No contend - nie ma zasobu o tym id
     - 405 - Method Not Allowed - inna niż DELETE/POST
+
+<div style="page-break-after: always;"></div>
+
 - ## __search_item.php__ _category_, _phrase_
     - 200 - OK (Znaleziono rekordy lub zwrócono pustą listę)
     - 400 - Bad request (np. brakuje wymaganego parametru)
     - 405 - Method Not Allowed - inna niż GET
+
+<div style="page-break-after: always;"></div>
+
 - ## __countries_list.php__ 
     Skrypt akceptuje metodę GET i zwraca listę obiektów zawierających nazwę kraju _name_ i jednoznacznie identyfikujący je _iso_code_.
     - 200 - OK
     - 405 - Method Not Allowed - inna niż GET
     > __GET__ _https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/countries_list.php_
-    ```json
+    ```javascript
         [
             {
                 "iso_code": "AD",
@@ -151,7 +171,7 @@
                 "iso_code": "AF",
                 "name": "Afghanistan"
             },
-            ...
+            // ...
         ]
     ```
     
