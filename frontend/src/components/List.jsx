@@ -108,8 +108,13 @@ export default class List extends Component {
 
     async _createItem(args) {
         var validArgs = validateItemBeforePost(args);
-        var response = await createItemRequest(validArgs);  
-        this.refreshListAfterEdit();      
+        if (validArgs) {
+            console.log(validArgs);            
+            var response = await createItemRequest(validArgs);  
+            this.refreshListAfterEdit();      
+        } else {
+            alert("Niepoprawne dane!");
+        }
     }
 
     _getMoreItems = () => {

@@ -18,6 +18,7 @@ export default class ArtistForm extends Component {
             "albums_ids"    : [],            
             "description"   : "",
             "country"       : "",
+            "spotify_link"  : "",
             "ALBUMS"        : [],
             "COUNTRIES"     : []
         };
@@ -156,7 +157,15 @@ export default class ArtistForm extends Component {
                             }       
                         </select>
                     </Fragment>
-                }                            
+                }                 
+                <p>Artysta w Spotify</p>
+                <input 
+                    onChange={this.handleChange}
+                    type="text" 
+                    name="name" 
+                    value={this.state.name}
+                    placeholder="Wklej link..."/>
+                <p>Opis</p>           
                 <button type={"submit"}>Zapisz</button>                    
             </form>
         )

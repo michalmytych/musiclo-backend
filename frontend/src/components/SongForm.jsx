@@ -261,7 +261,7 @@ export default class SongForm extends Component {
                     type="date" 
                     value={this.state.release_date}
                     name="release_date"></input>    
-                <p>Na spotify</p>
+                <p>Utwór w Spotify</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 

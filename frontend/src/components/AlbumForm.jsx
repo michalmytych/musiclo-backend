@@ -23,6 +23,7 @@ export default class AlbumForm extends Component {
             "explicit"      : false,
             "release_date"  : "",
             "ARTISTS"       : [],
+            "spotify_link"  : "",
             "SONGS"         : [],
         };
         this.handleChange = this.handleChange.bind(this);
@@ -196,7 +197,15 @@ export default class AlbumForm extends Component {
                     id="release_date_input"
                     type="date" 
                     value={this.state.release_date}
-                    name="release_date"></input>                               
+                    name="release_date"></input>
+                <p>Link do albumu w Spotify</p>
+                <input 
+                    onChange={this.handleChange} 
+                    id="spotify_link"
+                    type="text" 
+                    value={this.state.spotify_link}
+                    placeholder="Wklej link..."
+                    name="spotify_link"></input>                                                     
                 <button type={"submit"}>Zapisz</button>                    
             </form>
         )
