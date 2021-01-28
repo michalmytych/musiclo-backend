@@ -46,7 +46,8 @@ export default class List extends Component {
             page                : 0,
             hasMoreItems        : true,
             items_limit         : 7,
-            phrase              : ""
+            phrase              : "",
+            item_deleted        : false
         };
         this.handleChange = this.handleChange.bind(this);
         this._getItemsList = this._getItemsList.bind(this);
@@ -138,7 +139,8 @@ export default class List extends Component {
         const index = list.map(e => e.id).indexOf(item_id);
         list.splice(index, 1);
         this.setState({
-            [this.state.category] : { category: this.state.category, items: list}
+            [this.state.category]   : { category: this.state.category, items: list},
+            item_deleted            : !this.state.item_deleted
         });
     }
 

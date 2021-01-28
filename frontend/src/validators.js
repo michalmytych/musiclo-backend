@@ -47,7 +47,7 @@ const validateSong = (song) => {
         else {validSong.key = null;};
 
         if (!song.mode && song.mode!==0 && song.mode!=="0") { validSong.mode = parseInt(song.mode); }
-        else { validSong.mode = null; }
+        else { validSong.mode = null;}
 
         if (song.release_date) { validSong.release_date = song.release_date}
         else {validSong.release_date = null;};
