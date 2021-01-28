@@ -112,7 +112,8 @@ export default class List extends Component {
         if (validArgs) {
             console.log(validArgs);            
             var response = await createItemRequest(validArgs);  
-            this.refreshListAfterEdit();      
+            console.log(validArgs);
+            //this.refreshListAfterEdit();      
         } else {
             alert("Niepoprawne dane!");
         }

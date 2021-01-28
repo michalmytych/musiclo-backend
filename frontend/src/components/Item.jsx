@@ -56,7 +56,8 @@ export default class Item extends Component {
             validArgs.id = args.id;
             console.log(validArgs);
             await putEditedItemRequest(validArgs);
-            this.props.refreshAfterEdit();
+            console.log(validArgs);
+            //this.props.refreshAfterEdit();
         } else {
             alert("Niepoprawne dane!");
         }     

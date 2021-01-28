@@ -162,8 +162,8 @@ export default class ArtistForm extends Component {
                 <input 
                     onChange={this.handleChange}
                     type="text" 
-                    name="name" 
-                    value={this.state.name}
+                    name="spotify_link" 
+                    value={this.state.spotify_link}
                     placeholder="Wklej link..."/>
                 <p>Opis</p>           
                 <button type={"submit"}>Zapisz</button>                    
