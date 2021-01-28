@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import List from './List';
-import Search from './Search';
 import Filter from './Filter';
 import Sort from './Sort';
 
@@ -12,7 +11,6 @@ export default class Homepage extends Component {
     render() {
         return (
             <div className="Homepage">
-                <Search />
                 <div className="crud-container">
                     <div className="list-wrapper">
                         <List />

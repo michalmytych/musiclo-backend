@@ -1,9 +1,9 @@
 
 // Wierzba
-// const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
+const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
 
 // Local
-const API_URL = "http://localhost/api/";
+// const API_URL = "http://localhost/api/";
 
 
 
@@ -69,7 +69,7 @@ export async function deleteItemRequest(args) {
     return response.json();    
 };
 
-export async function putEditedItemRequest(args) {
+export async function putEditedItemRequest(data) {
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */    
@@ -77,7 +77,7 @@ export async function putEditedItemRequest(args) {
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */
-    var url = `${API_URL}update_item.php?category=${data.category}&id=${args.id}`;
+    var url = `${API_URL}update_item.php?category=${data.category}&id=${data.id}`;
     var response = await fetch(url, {
         method: 'POST',
         headers: { 
@@ -88,7 +88,7 @@ export async function putEditedItemRequest(args) {
     })
     .then(res => res.json())
     .then(response => { alert("Wysłano request create."); console.log(response)})
-    .catch(function(error) { 
+    .catch(function(error) {
         alert('Request nie powiódł się.'); 
         console.log('Request failed: ', error) 
     });

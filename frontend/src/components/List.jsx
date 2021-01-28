@@ -7,7 +7,8 @@ import ItemForm from './ItemForm';
 
 import { 
     getItemsListRequest,
-    createItemRequest 
+    createItemRequest,
+    getSearchResultsRequest
 } from '../requests';
 
 import { 
@@ -15,6 +16,7 @@ import {
     setActiveCategoryStyles
 } from '../display';
 
+import '../styles/Search.css';
 import '../styles/List.css';
 import loadingSpinner from '../assets/loading.svg';
 import addIcon from '../assets/add.svg';
@@ -31,18 +33,31 @@ const AddItemButton = (props) => {
 }
 
 export default class List extends Component {
-    state = {
-        category            : 'songs',    // can be: songs, albums, artists
-        songs               : {"category": 'songs', "items": []},
-        albums              : {"category": 'albums', "items": []},
-        artists             : {"category": 'artists', "items": []},
-        filtering_options   : {'songs' : 1, 'albums' : 2, 'artists' : 3},
-        sorting_options     : {'songs' : 1, 'albums' : 2, 'artists' : 3},
-        show_creation_box   : false,
-        page                : 0,
-        hasMoreItems        : true,
-        items_limit         : 7
-    };
+    constructor() {
+        super();
+        this.state = {
+            category            : 'songs',    // can be: songs, albums, artists
+            songs               : {"category": 'songs', "items": []},
+            albums              : {"category": 'albums', "items": []},
+            artists             : {"category": 'artists', "items": []},
+            filtering_options   : {'songs' : 1, 'albums' : 2, 'artists' : 3},
+            sorting_options     : {'songs' : 1, 'albums' : 2, 'artists' : 3},
+            show_creation_box   : false,
+            page                : 0,
+            hasMoreItems        : true,
+            items_limit         : 7,
+            phrase              : ""
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this._getItemsList = this._getItemsList.bind(this);
+        this.refreshListAfterEdit = this.refreshListAfterEdit.bind(this);
+        this._createItem = this._createItem.bind(this);
+        this._getMoreItems = this._getMoreItems.bind(this);
+        this.toggleCreationFormDisplay = this.toggleCreationFormDisplay.bind(this);
+        this.updateListAfterDelete = this.updateListAfterDelete.bind(this);
+        this.renderItems = this.renderItems.bind(this);
+        this.handleCategorySwitch = this.handleCategorySwitch.bind(this);
+    }
  
     /*
         CRUD method for list view
@@ -63,6 +78,20 @@ export default class List extends Component {
             }
         });
     }
+
+    async _getSearchResults(args) {
+        var LIST = await getSearchResultsRequest({
+            c    : args.category, 
+            p    : args.phrase
+        });
+        this.setState({ hasMoreItems: false });
+        this.setState({
+            [args.category] : {
+                "category"  : args.category, 
+                "items"     : this.state[args.category].items.concat(LIST)
+            }
+        });
+    }    
 
     refreshListAfterEdit = () => {
         // SPRAWDZIC
@@ -134,6 +163,31 @@ export default class List extends Component {
         }        
     }
 
+    handleChange(event) {        
+        this.setState({
+            [event.target.name] : event.target.value
+        });
+        if (!event.target.value) {
+            this.setState({ 
+                hasMoreItems        : true,
+                songs               : {"category": 'songs', "items": []},
+                albums              : {"category": 'albums', "items": []},
+                artists             : {"category": 'artists', "items": []},
+            });
+            this._getItemsList({category: this.state.category, page: 0});
+        } else {
+            this.setState({ 
+                songs               : {"category": 'songs', "items": []},
+                albums              : {"category": 'albums', "items": []},
+                artists             : {"category": 'artists', "items": []},
+            });            
+            this._getSearchResults({
+                category    : this.state.category, 
+                phrase      : event.target.value,
+            });
+        }
+    }
+
     componentDidMount() {
         this._getItemsList({category: this.state.category, page: this.state.page});
         setActiveCategoryStyles('songs-swt');
@@ -153,22 +207,26 @@ export default class List extends Component {
             default:            
                 _ITEMS_LIST = [];
         }
-        // var _items_category = _ITEMS_LIST.category;
-        //var _dataLength = this.state[this.state.category].items.length;
+        
         var _dataLength = this.state[_ITEMS_LIST.category].items.length;
 
         return (
             <div className="List">
                 {
                     this.state.show_creation_box ?
-                    <ItemForm
-                        _editing={false}
-                        //category={this.state.category}            
-                        category={_ITEMS_LIST.category}
-                        onSave={(created_object) => this._createItem(
-                            created_object
-                        )}
-                        toggler={this.toggleCreationFormDisplay} />
+                    <Fragment>
+                        <div
+                            onClick={this.toggleCreationFormDisplay} 
+                            className="blurred-form-background"></div>
+                        <ItemForm
+                            _editing={false}
+                            //category={this.state.category}            
+                            category={_ITEMS_LIST.category}
+                            onSave={(created_object) => this._createItem(
+                                created_object
+                            )}
+                            toggler={this.toggleCreationFormDisplay} />                            
+                    </Fragment>
                     : null
                 }                
                 <div className="category-switch">
@@ -191,6 +249,16 @@ export default class List extends Component {
                 <div className="items-wrapper">
                     <AddItemButton 
                         handler={() => this.toggleCreationFormDisplay()}/>
+                    <div className="Search">
+                        <input
+                            autocomplete="off"
+                            contentEditable="true" 
+                            value={this.state.phrase}
+                            onChange={this.handleChange} 
+                            placeholder={"Znajdź..."}
+                            className="search-bar-input"
+                            name="phrase" ></input>
+                    </div>
                     <ul>
                         {
                             _ITEMS_LIST ?

@@ -15,14 +15,18 @@ const validateSong = (song) => {
             if (song.ARTISTS.length > 0) {
                 validSong.artists_ids = Array.from(song.ARTISTS, a => a.id); 
             } else {
-                validSong.artists_ids = null;
+                validSong.artists_ids = [];
             } 
         } else { validSong.artists_ids = null; } 
         
         if (song.danceability) { validSong.danceability = parseFloat(song.danceability)}
         else {validSong.danceability = 0;};
 
-        validSong.explicit = parseInt(song.explicit);
+        if (!song.explicit || song.explicit==='false' || song.explicit==='NaN') {
+            validSong.explicit = 0;
+        } else {
+            validSong.explicit = parseInt(song.explicit);
+        }     
         
         if (song.energy) { validSong.energy = parseFloat(song.energy)}
         else {validSong.energy = 0;};
@@ -39,21 +43,51 @@ const validateSong = (song) => {
         if (song.spotify_link) { validSong.spotify_link = song.spotify_link}
         else {validSong.spotify_link = null;};
 
-        validSong.key = parseInt(song.key);
+        if (song.key) { validSong.key = parseInt(song.key);}
+        else {validSong.key = null;};
 
-        validSong.mode = parseInt(song.mode);
+        if (!song.mode && song.mode!==0 && song.mode!=="0") { validSong.mode = parseInt(song.mode); }
+        else { validSong.mode = null; }
 
         if (song.release_date) { validSong.release_date = song.release_date}
         else {validSong.release_date = null;};
     }
 
+    console.log(validSong);
+
     return {
         category    : 'songs',
-        obj         : validSong 
+        obj         :  validSong 
     };
 }
 
 
+const validateAlbum = (song) => {    
+    if (!song.name) {
+        alert("Nie wypełniono wymaganego pola!");
+        return false;    
+    } else {
+        alert('ss');
+    }
+    return {
+        category    : 'albums',
+        obj         :  validSong 
+    };
+}
+
+
+const validateArtist = (artist) => {    
+    if (!artist.name) {
+        alert("Nie wypełniono wymaganego pola!");
+        return false;    
+    } else {
+        alert('ss');
+    }
+    return {
+        category    : 'artists',
+        obj         :  validArtist
+    };
+}
 
 
 export const validateItemBeforePost = (args) => {
@@ -66,11 +100,11 @@ export const validateItemBeforePost = (args) => {
             validatedObject = validateSong(object); 
             return validatedObject;
         case 'albums':
-            alert('album!');
-            break;
+            validatedObject = validateAlbum(object); 
+            return validatedObject;
         case 'artists':
-            alert('artysta!');
-            break;
+            validatedObject = validateArtist(object); 
+            return validatedObject;
         default:
             alert("Niepoprawna kategoria publikowanego obiektu!");
     }
