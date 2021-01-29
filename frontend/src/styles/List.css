@@ -1,6 +1,7 @@
 .List {
     /* padding: 2rem 2rem 2rem 2rem; */
-    box-sizing: border-box;
+    width: 90%;
+    box-sizing: content-box;
 }
 
 .category-switch{
@@ -16,6 +17,7 @@
 .songs-switch-btn,
 .albums-switch-btn,
 .artists-switch-btn{
+    transition: 0.35s;
     flex-grow: 1;
     padding: 1rem 1rem 1rem 1rem;
     cursor: pointer;
@@ -28,6 +30,7 @@
     transition: 0.4s;
     background-color: rgb(95, 95, 95);
     border-radius: 1rem;
+    border: 3px solid rgba(0, 218, 145, 0.644);
 }
 
 .all-switch-btn:active,
@@ -40,13 +43,16 @@
 }
 
 .active-category{   
+    transition: 0.5s;
     background-color: rgb(53, 53, 53);
     border-radius: 0px;
     border-radius: 1rem;
+    border: 3px solid rgba(0, 218, 145, 0.5);;
 }
 
 .active-category:hover{   
     transition: 0.4s;
     background-color: rgb(44, 44, 44);
     border-radius: 0.3rem;
+    border: 3px solid rgba(0, 218, 145, 0.698);;
 }

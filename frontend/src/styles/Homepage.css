@@ -10,7 +10,7 @@
 
 .list-wrapper{
     flex-grow: 2;
-    min-width: 40vw;
+    width: 100%;
 }
 
 .display-menu {

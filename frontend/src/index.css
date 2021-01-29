@@ -89,7 +89,8 @@ h1, h2, h3, h5 {
 
 .item-name{
   font-family: 'Karla', sans-serif;
-  font-size: 2rem;
+  padding: 0.25;
+  font-size: 1.7rem;
 }
 
 .spotify-iframe {
@@ -115,4 +116,15 @@ h1, h2, h3, h5 {
   left: -10rem;
   backdrop-filter: blur(12px);
   background-color: rgba(0, 46, 31, 0.2);
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }

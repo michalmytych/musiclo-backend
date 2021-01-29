@@ -31,12 +31,12 @@ export async function getItemsListRequest(args) {
 };
 
 export async function createItemRequest(data) {
-    console.log("REQ createItemRequest(data): " + JSON.stringify(data.obj));
+    console.log(JSON.stringify(data.obj));
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */
     var url = `${API_URL}create_item.php?category=${data.category}`;
-    var response = await fetch(url, {
+    var res = await fetch(url, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -44,8 +44,8 @@ export async function createItemRequest(data) {
         },
         body: JSON.stringify(data.obj)
     })
-    .then(res => res.json())
-    .then(response => { alert("Wysłano request create."); console.log(response)})
+    //.then(res => res.json())
+    .then(res => { alert("Wysłano request create."); console.log(res.json())})
     .catch(function(error) { 
         alert('Request nie powiódł się.'); 
         console.log('Request failed: ', error) 
@@ -73,7 +73,7 @@ export async function putEditedItemRequest(data) {
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */    
-    console.log("REQ putEditedItemRequest(data): " + JSON.stringify(data.obj));
+    console.log(JSON.stringify(data.obj));
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */
@@ -89,7 +89,7 @@ export async function putEditedItemRequest(data) {
     .then(res => res.json())
     .then(response => { alert("Wysłano request create."); console.log(response)})
     .catch(function(error) {
-        alert('Request nie powiódł się.'); 
+        // alert('Request nie powiódł się.'); 
         console.log('Request failed: ', error) 
     });
 };

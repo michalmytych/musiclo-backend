@@ -259,7 +259,8 @@ export default class List extends Component {
                         handler={() => this.toggleCreationFormDisplay()}/>
                     <div className="Search">
                         <input
-                            autocomplete="off"
+                            spellCheck="false"
+                            autoComplete="off"
                             contentEditable="true" 
                             value={this.state.phrase}
                             onChange={this.handleChange} 

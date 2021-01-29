@@ -7,27 +7,32 @@
 .search-bar-input{
     background-color: rgba(149, 149, 149, 0.287);
     color: rgba(245, 245, 245, 0.164);
-    width: 60%;
+    width: 94%;
     border-radius: 3rem;
     border: 2px rgba(170, 170, 170, 0.548);
     font-size: 1.8rem;
-    padding: 0.5rem;
+    padding: 1rem;
+    transition: 0.45s;
+    margin-left: 2.55rem;
 }
 
-.search-bar-input:hover{
-    transition: 0.45s;
+.search-bar-input:hover{    
     color: rgba(255, 255, 255, 0.281);
     border-radius: 0.3rem;
+    transform: scale(1.05);
     background-color: rgba(255, 255, 255, 0.281);
 }
 
 .search-bar-input:active{
+    transform: scale(1.05);
     transition: 0.2s;
     border-radius: 1.5rem;
     background-color: rgba(255, 255, 255, 0.281);
+    border: 3px solid rgb(0, 218, 145);
 }
 
 .search-bar-input:focus{
+    transform: scale(1.05);
     outline: none;
     border-radius: 0;
     color: white;

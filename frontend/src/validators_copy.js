@@ -53,6 +53,8 @@ const validateSong = (song) => {
         else {validSong.release_date = null;};
     }
 
+    console.log(validSong);
+
     return {
         category    : 'songs',
         obj         :  validSong 
@@ -95,6 +97,8 @@ const validateAlbum = (album) => {
 
         if (album.spotify_link) { validAlbum.spotify_link = album.spotify_link}
         else {validAlbum.spotify_link = null;};        
+
+        console.log(validAlbum);
     }
     return {
         category    : 'albums',

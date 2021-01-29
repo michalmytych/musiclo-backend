@@ -106,6 +106,8 @@ export default class AlbumForm extends Component {
                 _artists[i] = {id: _artists_ids[i], name: a}
             });
         }        
+        if (!_artists) {_artists = []};
+        if (!_songs) {_artists = []};
         this.setState({
             "name"              : instance.name,
             "artists_ids"       : instance.artist_ids,
