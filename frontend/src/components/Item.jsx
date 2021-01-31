@@ -27,8 +27,7 @@ export default class Item extends Component {
 
     toggleConfirmationDisplay = () => {
         this.setState({
-            "show_edition_box" : false,
-            "show_confirmation_box" : !this.state.show_confirmation_box
+            "show_confirmation_box" : !this.state.show_confirmation_box,
         });
     }
 
@@ -65,117 +64,133 @@ export default class Item extends Component {
 
     render() {
         return (
-            <div id={"item_row_" + this.props.item.id}>
-            {
-                this.state.show_confirmation_box ?
-                <Confirm 
-                    item={this.props.item}
-                    on_ok={() => this._deleteItem(this.props.item.id)}
-                    toggler={this.toggleConfirmationDisplay}                    
-                    message_header={"Czy napewno chcesz usunąć?"} 
-                    message_content={"Tej akcji nie będzie można cofnąć."}/>
-                : null
-            }
-            {
-                this.state.show_edition_box ?
+            <Fragment>
+                {
+                this.props.item ?
                 <Fragment>
-                    <div
-                        onClick={this.toggleEditionFormDisplay} 
-                        className="blurred-form-background"></div>
-                    <ItemForm
-                        _editing={true}
-                        category={this.props.category}            
-                        instance={this.props.item}
-                        onSave={(edited_object) => this._editItem(edited_object)}
-                    toggler={this.toggleEditionFormDisplay} />
-                    </Fragment>
-                : null
-            }
-            <div className="Item">                             
-                <div className='item-data'>
+                    <div 
+                        id={"item_row_" + this.props.item.id}>
                     {
-                        this.props.category==='songs' ?
-                        <div>
-                            <h2 className="item-name">{this.props.item.name}</h2>
-                            {
-                                this.props.item.album_name ?
-                                <h4 className="item-name">{this.props.item.album_name}</h4>   
-                                : <h5>SINGLE</h5>
-                            }                            
-                            {
-                                this.props.item.spotify_link ?
-                                <SpotifyPlugin 
-                                    id={this.props.item.id}
-                                    category={this.props.category} 
-                                    link={this.props.item.spotify_link}/>
-                                :
-                                <YouTubeSearch 
-                                    category={this.props.category}
-                                    query={this.props.item.name}/>
-                            }
-                            <Details 
+                        this.state.show_confirmation_box ?
+                        <Fragment>
+                            <div
+                                onClick={this.toggleConfirmationDisplay} 
+                                className="animate__animated animate__fadeIn blurred-form-background"></div>
+                            <Confirm 
                                 item={this.props.item}
-                                category={this.props.category}
-                            />                            
-                        </div>                                            
-                        :
-                        null
+                                on_ok={() => this._deleteItem(this.props.item.id)}
+                                toggler={this.toggleConfirmationDisplay}                    
+                                message_header={"Czy napewno chcesz usunąć?"} 
+                                message_content={"Tej akcji nie będzie można cofnąć."}/>                                
+                        </Fragment>                        
+                        : null
                     }
                     {
-                        this.props.category==='albums' ?
-                        <div>
-                            <h2 clasName="item-name">{this.props.item.name}</h2>                      
-                            {
-                                this.props.item.spotify_link ?
-                                <SpotifyPlugin 
-                                    id={this.props.item.id}
-                                    category={this.props.category} 
-                                    link={this.props.item.spotify_link}/>
-                                :
-                                <YouTubeSearch 
-                                    category={this.props.category}
-                                    query={this.props.item.name}/>
-                            }                      
-                            <Details 
-                                    item={this.props.item}
-                                    category={this.props.category}
-                                />                              
-                        </div>
-                        :
-                        null
+                        this.state.show_edition_box ?
+                        <Fragment>
+                            <div
+                                onClick={this.toggleEditionFormDisplay} 
+                                className="animate__animated above-box animate__fadeIn blurred-form-background"></div>
+                            <ItemForm
+                                _editing={true}
+                                category={this.props.category}            
+                                instance={this.props.item}
+                                onSave={(edited_object) => this._editItem(edited_object)}
+                            toggler={this.toggleEditionFormDisplay} />
+                            </Fragment>
+                        : null
                     }
-                    {
-                        this.props.category==='artists' ?
-                        <div>
-                            <h2 clasName="item-name">{this.props.item.name}</h2>                           
+                    <div className="Item">                             
+                        <div className='item-data'>
                             {
-                                this.props.item.spotify_link ?
-                                <SpotifyPlugin 
-                                    id={this.props.item.id}
-                                    category={this.props.category} 
-                                    link={this.props.item.spotify_link}/>
+                                this.props.category==='songs' ?
+                                <div>
+                                    <h2 className="item-name">{this.props.item.name}</h2>
+                                    {
+                                        this.props.item.album_name ?
+                                        <h4 className="item-name">{this.props.item.album_name}</h4>   
+                                        : <h5>SINGLE</h5>
+                                    }                            
+                                    {
+                                        this.props.item.spotify_link ?
+                                        <SpotifyPlugin 
+                                            id={this.props.item.id}
+                                            category={this.props.category} 
+                                            link={this.props.item.spotify_link}/>
+                                        :
+                                        <YouTubeSearch 
+                                            category={this.props.category}
+                                            query={this.props.item.name}/>
+                                    }
+                                    <Details                                         
+                                        item={this.props.item}
+                                        category={this.props.category}
+                                    />                            
+                                </div>                                            
                                 :
-                                <YouTubeSearch 
-                                    category={this.props.category}
-                                    query={this.props.item.name}/>
+                                null
                             }
-                            <Details 
-                                    item={this.props.item}
-                                    category={this.props.category}
-                                />                                                      
+                            {
+                                this.props.category==='albums' ?
+                                <div>
+                                    <h2 clasName="item-name">{this.props.item.name}</h2>                      
+                                    {
+                                        this.props.item.spotify_link ?
+                                        <SpotifyPlugin 
+                                            id={this.props.item.id}
+                                            category={this.props.category} 
+                                            link={this.props.item.spotify_link}/>
+                                        :
+                                        <YouTubeSearch 
+                                            category={this.props.category}
+                                            query={this.props.item.name}/>
+                                    }                      
+                                    <Details 
+                                            item={this.props.item}
+                                            category={this.props.category}
+                                        />                              
+                                </div>
+                                :
+                                null
+                            }
+                            {
+                                this.props.category==='artists' ?
+                                <div>
+                                    <h2 clasName="item-name">{this.props.item.name}</h2>                           
+                                    {
+                                        this.props.item.spotify_link ?
+                                        <SpotifyPlugin 
+                                            id={this.props.item.id}
+                                            category={this.props.category} 
+                                            link={this.props.item.spotify_link}/>
+                                        :
+                                        <YouTubeSearch 
+                                            category={this.props.category}
+                                            query={this.props.item.name}/>
+                                    }
+                                    <Details 
+                                            _countries={this.props._countries}
+                                            item={this.props.item}
+                                            category={this.props.category}
+                                        />                                                      
+                                </div>
+                                :
+                                null
+                            }   
                         </div>
-                        :
-                        null
-                    }   
-                </div>
-                <div className='item-crud-options'>
-                    <EditBtn 
-                        handler={() => this.toggleEditionFormDisplay()}/>
-                    <DeleteBtn 
-                        handler={() => this.toggleConfirmationDisplay()}/>
-                </div>
-            </div>
-            </div>
+                        <div className='item-crud-options'>
+                            <EditBtn 
+                                handler={() => this.toggleEditionFormDisplay()}/>
+                            <DeleteBtn 
+                                handler={() => this.toggleConfirmationDisplay()}/>
+                        </div>
+                    </div>
+                    </div>
+                            </Fragment>
+                            :
+                            null
+                    }
+            </Fragment>            
         )
     }
 }

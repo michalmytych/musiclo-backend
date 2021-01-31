@@ -1,0 +1,19 @@
+.Homepage {
+    box-sizing: border-box;
+}
+
+.crud-container {
+    display: flex;
+    flex-direction: row;
+    flex-flow: space-between;
+}
+
+.list-wrapper{
+    flex-grow: 2;
+    width: 100%;
+}
+
+.display-menu {
+    flex-grow: 0.5;
+    padding: 1rem 1rem 1rem 1rem;
+}

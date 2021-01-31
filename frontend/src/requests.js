@@ -5,8 +5,6 @@ const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/
 // Local
 // const API_URL = "http://localhost/api/";
 
-
-
 // randint() in es6
 const randInt = (min, max) => {
     min = Math.ceil(min);
@@ -23,7 +21,7 @@ const _simulateApiResponseDelay = () => {
 export async function getItemsListRequest(args) { 
     var url = `${API_URL}items_list.php?limit=${args.l}&page=${args.p}&category=${args.c}`;
     var ITEMS = await fetch(url)
-    .then(response => response.json())
+    .then(response => { alert(response.status); return response.json(); }) 
     .then(ITEMS => { return ITEMS; })
     .catch(function(error) { console.log('Request failed: ', error) } );
 
@@ -44,8 +42,7 @@ export async function createItemRequest(data) {
         },
         body: JSON.stringify(data.obj)
     })
-    //.then(res => res.json())
-    .then(res => { alert("Wysłano request create."); console.log(res.json())})
+    .then(response => alert(response.status))
     .catch(function(error) { 
         alert('Request nie powiódł się.'); 
         console.log('Request failed: ', error) 
@@ -63,10 +60,7 @@ export async function deleteItemRequest(args) {
         headers: {
             'Content-Type': 'application/json',
         }
-    });
-    
-    console.log(response.json());
-    return response.json();    
+    }).then(response => alert(response.status))  
 };
 
 export async function putEditedItemRequest(data) {
@@ -86,10 +80,8 @@ export async function putEditedItemRequest(data) {
         },
         body: JSON.stringify(data.obj)
     })
-    .then(res => res.json())
-    .then(response => { alert("Wysłano request create."); console.log(response)})
+    .then(response => alert(response.status))  
     .catch(function(error) {
-        // alert('Request nie powiódł się.'); 
         console.log('Request failed: ', error) 
     });
 };
@@ -97,7 +89,7 @@ export async function putEditedItemRequest(data) {
 export async function getSearchResultsRequest(args) {
     var url = `${API_URL}search_item.php?category=${args.c}&phrase=${args.p}`;
     var RESULTS = await fetch(url)
-    .then(response => response.json())
+    .then(response => { alert(response.status); return response.json(); }) 
     .then(RESULTS => { return RESULTS; })
     .catch(function(error) { console.log('Request failed: ', error) } );
 
@@ -106,7 +98,7 @@ export async function getSearchResultsRequest(args) {
 
 export async function getSongsOfAlbumRequest(id) {    
     var SONGS = await fetch(API_URL + `songs_of_album.php?id=${id}`)
-    .then(response => response.json())
+    .then(response => { alert(response.status); return response.json(); }) 
     .then(SONGS => { return SONGS; })
     .catch(function(error) {console.log('Request failed: ', error) });
     
@@ -115,7 +107,7 @@ export async function getSongsOfAlbumRequest(id) {
 
 export async function getCountriesDataRequest() {    
     var data = await fetch(API_URL + `countries_list.php`)
-    .then(response => response.json())
+    .then(response => { alert(response.status); return response.json(); }) 
     .then(data => { return data; })
     .catch(function(error) {console.log('Request failed: ', error) });
     return data;

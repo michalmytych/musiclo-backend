@@ -8,10 +8,7 @@ import {
     onlyUniqueFilter
 } from '../constants';
 
-import { 
-    getCountriesDataRequest,
-    getSongsOfAlbumRequest
- } from '../requests';
+import { getSongsOfAlbumRequest } from '../requests';
 
 const spotify_icon = "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg";
 
@@ -167,7 +164,7 @@ class AlbumDetails extends Component {
 const ArtistDetails = (props) => {
     var countryName, country;
     if (props.item.country) {
-        country = props.countries.filter((country) => {
+        country = props._COUNTRIES.filter((country) => {
             return country.iso_code === props.item.country
         });
         countryName = country.name;
@@ -186,8 +183,7 @@ const ArtistDetails = (props) => {
 
 export default class Details extends Component {
     state = {
-        "details_expanded"  : false,
-        "COUNTRIES"         : []
+        "details_expanded"  : false
     };
 
     toggleDetails(element_id) {
@@ -197,11 +193,6 @@ export default class Details extends Component {
         } else {
             this.setState({"details_expanded" : true});
         }
-    }
-
-    async componentDidMount() {
-        var data = await getCountriesDataRequest()
-        .then(data => this.setState({ "COUNTRIES" : data }));  
     }
     
     render() {
@@ -225,6 +216,7 @@ export default class Details extends Component {
                         {
                             this.props.category==='artists' ?
                             <ArtistDetails 
+                                _COUNTRIES={this.props._countries}
                                 countries={this.state.COUNTRIES}
                                 item={this.props.item}/> : null
                         }                        

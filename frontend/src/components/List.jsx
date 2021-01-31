@@ -8,7 +8,8 @@ import ItemForm from './ItemForm';
 import { 
     getItemsListRequest,
     createItemRequest,
-    getSearchResultsRequest
+    getSearchResultsRequest,
+    getCountriesDataRequest
 } from '../requests';
 
 import { 
@@ -47,7 +48,8 @@ export default class List extends Component {
             hasMoreItems        : true,
             items_limit         : 7,
             phrase              : "",
-            item_deleted        : false
+            item_deleted        : false,
+            COUNTRIES           : []
         };
         this.handleChange = this.handleChange.bind(this);
         this._getItemsList = this._getItemsList.bind(this);
@@ -58,6 +60,7 @@ export default class List extends Component {
         this.updateListAfterDelete = this.updateListAfterDelete.bind(this);
         this.renderItems = this.renderItems.bind(this);
         this.handleCategorySwitch = this.handleCategorySwitch.bind(this);
+        this._getCountriesData = this._getCountriesData.bind(this);
     }
  
     /*
@@ -68,16 +71,19 @@ export default class List extends Component {
             c : args.category, 
             p : args.page,
             l : this.state.items_limit
-        });
-        if (LIST.length < this.state.items_limit) {
-            this.setState({ hasMoreItems: false });
-        }
-        this.setState({
-            [args.category] : {
-                "category" : args.category, 
-                "items" : this.state[args.category].items.concat(LIST)
-            }
-        });
+        }).then((LIST) => {
+            if (LIST) {
+                if (LIST.length < this.state.items_limit) {
+                    this.setState({ hasMoreItems: false });
+                }
+                this.setState({
+                    [args.category] : {
+                        "category" : args.category, 
+                        "items" : this.state[args.category].items.concat(LIST)
+                    }
+                });
+            }}        
+        )        
     }
 
     async _getSearchResults(args) {
@@ -117,6 +123,12 @@ export default class List extends Component {
         } else {
             alert("Niepoprawne dane!");
         }
+    }
+
+    async _getCountriesData() {
+        var data = await getCountriesDataRequest()
+        .then(data => this.setState({ "COUNTRIES" : data }));
+        return data;  
     }
 
     _getMoreItems = () => {
@@ -198,6 +210,7 @@ export default class List extends Component {
 
     componentDidMount() {
         this._getItemsList({category: this.state.category, page: this.state.page});
+        this._getCountriesData();
         setActiveCategoryStyles('songs-swt');
     }
 
@@ -225,7 +238,7 @@ export default class List extends Component {
                     <Fragment>
                         <div
                             onClick={this.toggleCreationFormDisplay} 
-                            className="blurred-form-background"></div>
+                            className="animate__animated animate__fadeIn blurred-form-background"></div>                           
                         <ItemForm
                             _editing={false}
                             //category={this.state.category}            
@@ -282,6 +295,7 @@ export default class List extends Component {
                                     {this.state[_ITEMS_LIST.category].items.map((item, i) => (
                                         <li key={_ITEMS_LIST.category + "_" + i}>
                                             <Item
+                                                _countries={this.state.COUNTRIES}
                                                 popDeletedItem={(id) => this.updateListAfterDelete(id)}
                                                 refreshAfterEdit={() => this.refreshListAfterEdit()}
                                                 category={_ITEMS_LIST.category}                                    

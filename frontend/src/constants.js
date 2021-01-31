@@ -42,8 +42,16 @@ export function onlyUniqueFilter(value, index, self) {
 }
 
 export function uniqueArrayOfObjects(array, keyToBeUnique) {
-    return array.filter((x, xi) => !array.slice(xi + 1)
-    .some(y => y[keyToBeUnique] === x[keyToBeUnique]));
+    if (array) {
+        try {
+            return array.filter((x, xi) => !array.slice(xi + 1)
+            .some(y => y[keyToBeUnique] === x[keyToBeUnique]));
+        } catch (error) {
+            alert("To nie jest poprawny wybór!");
+            console.log(error);
+        }            
+    } 
+    return [];
 }
 
 export const objectsEqual = (o1, o2) =>

@@ -41,6 +41,7 @@ export default function SpotifyPlugin(props) {
                 props.category==='albums' ?
                 <div>
                     <a 
+                        className="album-spotify-preview"
                         rel="noreferrer"
                         target="_blank" 
                         href={spotify_link}>Album w serwisie Spotify</a>

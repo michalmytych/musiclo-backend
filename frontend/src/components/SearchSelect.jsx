@@ -48,22 +48,24 @@ export default class SearchSelect extends Component {
     getSelectedOptions = (e) => {
         var failed = false;
         let selected_values = Array.from(
-            e.target.selectedOptions, option => { 
-                var obj = {
-                    name: option.attributes.name.textContent, 
-                    id: option.value 
-                }
-                if (this.props.category === 'songs') {
-                    var chosen = this.state.results.filter((r) => (r.id === obj.id));
-                    if (!chosen[0].album_id) { 
-                        return obj;
-                    } else {
-                        alert('Ten utwór ma już przypisany album!'); 
-                        failed = true;
+            e.target.selectedOptions, option => {
+                if (option.attributes.name) {
+                    var obj = {
+                        name: option.attributes.name.textContent, 
+                        id: option.value 
                     }
-                } else {
-                    return obj;
-                }
+                    if (this.props.category === 'songs') {
+                        var chosen = this.state.results.filter((r) => (r.id === obj.id));
+                        if (!chosen[0].album_id) { 
+                            return obj;
+                        } else {
+                            alert('Ten utwór ma już przypisany album!'); 
+                            failed = true;
+                        }
+                    } else {
+                        return obj;
+                    }
+                }                 
             } 
         );
         if (!failed) {

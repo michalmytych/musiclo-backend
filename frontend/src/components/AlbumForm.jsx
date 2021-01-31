@@ -133,21 +133,23 @@ export default class AlbumForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form
+                className="animate__animated animate__fadeInDown" 
+                onSubmit={this.handleSubmit}>
                 {
                     this.props._editing ?
                     <h4>Edytowanie {this.props.instance.name}</h4>
                     :
                     null
                 }
-                <p>Nazwa albumu</p>
+                <p className="input-label">Nazwa albumu</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 
                     name="name" 
                     value={this.state.name}
                     placeholder="Nazwa..."/>
-                <p>Artyści</p>
+                <p className="input-label">Artyści</p>
                 {
                     this.state.ARTISTS ?
                         this.state.ARTISTS.length ?
@@ -167,7 +169,7 @@ export default class AlbumForm extends Component {
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"artists"} />
-                <p>Utwory</p>
+                <p className="input-label">Utwory</p>
                 {
                     this.state.SONGS ?
                         this.state.SONGS.length ?
@@ -187,20 +189,20 @@ export default class AlbumForm extends Component {
                     _getInitialValue={(s) => this.getSelectedSongs(s)}
                     getValues={(s) => this.getSelectedSongs(s)}
                     category={"songs"} />
-                <p>Czy explicit</p>
+                <p className="input-label">Czy explicit</p>
                 <input
                     onChange={this.handleChange}
                     type="checkbox" 
                     value={this.state.explicit}
                     name="explicit"/>
-                <p>Data wydania</p>
+                <p className="input-label">Data wydania</p>
                 <input 
                     onChange={this.handleChange} 
                     id="release_date_input"
                     type="date" 
                     value={this.state.release_date}
                     name="release_date"></input>
-                <p>Link do albumu w Spotify</p>
+                <p className="input-label">Link do albumu w Spotify</p>
                 <input 
                     onChange={this.handleChange} 
                     id="spotify_link"
@@ -208,7 +210,9 @@ export default class AlbumForm extends Component {
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."
                     name="spotify_link"></input>                                                     
-                <button type={"submit"}>Zapisz</button>                    
+                <button 
+                    className="form-submit-btn"
+                    type={"submit"}>Zapisz</button>                    
             </form>
         )
     }

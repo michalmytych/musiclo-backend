@@ -61,20 +61,21 @@ export default class ArtistForm extends Component {
     async _mountInstance(instance) {
         var _albums_names = JSON.parse(instance._albums_names).filter(onlyUniqueFilter);
         var _albums_ids = JSON.parse(instance._albums_ids).filter(onlyUniqueFilter);
+        var _albums = [];
         if (_albums_names.length===_albums_ids.length) {
-            var _albums = [];
             _albums_names.forEach((a, i) => {
                 _albums[i] = {id: _albums_ids[i], name: a}
             });
+        } else {                
+            this.setState({
+                "name"          : instance.name,
+                "albums_ids"    : _albums_ids,
+                "description"   : instance.description,                
+                "country"       : instance.country,
+                "ALBUMS"        : _albums
+            });
         }
-        if (!_albums) {_albums = []};
-        this.setState({
-            "name"          : instance.name,
-            "albums_ids"    : _albums_ids,
-            "description"   : instance.description,                
-            "country"       : instance.country,
-            "ALBUMS"        : _albums
-        });
+        
     }
 
     async componentDidMount() {
@@ -91,22 +92,32 @@ export default class ArtistForm extends Component {
     }
 
     render() {
+        var _ALBUMS = [];
+        try{ 
+            if (this.state.ALBUMS.length) { _ALBUMS = this.state.ALBUMS; };
+        } catch (error) {
+            console.log("Obsłużono błąd: " + error);
+            _ALBUMS = [];
+        } 
+
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form 
+                className="animate__animated animate__fadeInDown" 
+                onSubmit={this.handleSubmit}>
                 {
                     this.props._editing ?
                     <h4>Edytowanie {this.props.instance.name}</h4>
                     :
                     <h4>Dodawanie</h4>
                 }
-                <p>Nazwa wykonawcy</p>
+                <p className="input-label">Nazwa wykonawcy</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 
                     name="name" 
                     value={this.state.name}
                     placeholder="Nazwa..."/>
-                <p>Opis</p>
+                <p className="input-label">Opis</p>
                 <textarea 
                     onChange={this.handleChange}
                     type="" 
@@ -117,16 +128,17 @@ export default class ArtistForm extends Component {
                     }
                     rows="4" cols="50">
                 </textarea>                    
-                <p>Albumy</p>
+                <p className="input-label">Albumy</p>
                 <ul>
                     {
                         this.state.ALBUMS ?
-                            this.state.ALBUMS.length ?
-                            this.state.ALBUMS.map((a) => (
+                            _ALBUMS.length ?
+                            _ALBUMS.map((a) => (
                                 <li>
                                     <div
                                         className="selected-search-select-item" 
-                                        onClick={()=>this.popAlbum(a.id)}>X {
+                                        onClick={()=>this.popAlbum(a.id)}>
+                                         {
                                         a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
                                         }</div>
                                 </li>                                
@@ -147,19 +159,21 @@ export default class ArtistForm extends Component {
                             value={this.state.country}
                             name="country">
                             {
-                                this.state.COUNTRIES.length ?
-                                this.state.COUNTRIES.map(country => (
-                                    <option                                         
-                                        value={country.iso_code} 
-                                        key={country.is_code} >
-                                        {country.name}
-                                    </option>                        
-                                )) : null
+                                this.state.COUNTRIES ?
+                                    this.state.COUNTRIES.length ?
+                                    this.state.COUNTRIES.map(country => (
+                                        <option                                         
+                                            value={country.iso_code} 
+                                            key={country.is_code} >
+                                            {country.name}
+                                        </option>                        
+                                    )) : null
+                                : null
                             }       
                         </select>
                     </Fragment>
                 }                 
-                <p>Artysta w Spotify</p>
+                <p className="input-label">Artysta w Spotify</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 
@@ -167,7 +181,9 @@ export default class ArtistForm extends Component {
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."/>
                 <p>Opis</p>           
-                <button type={"submit"}>Zapisz</button>                    
+                <button 
+                    className="form-submit-btn"                
+                    type={"submit"}>Zapisz</button>                    
             </form>
         )
     }

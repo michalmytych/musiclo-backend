@@ -49,7 +49,7 @@ export default class ItemForm extends Component {
 
         return (
             <Fragment>
-                <div className="above-box">
+                <div className="animate__animated above-box animate__fadeInDown">
                     {
                         this.props.category==="songs" ? 
                         <SongForm 

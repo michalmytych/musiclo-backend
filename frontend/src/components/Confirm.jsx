@@ -15,7 +15,7 @@ export default class Confirm extends Component {
 
     render() {
         return (
-            <div className="confirm-box">
+            <div className="animate__animated animate__fadeInDown confirm-box">
                 <h3>{this.props.message_header}</h3>
                 <p>{this.props.message_content ? this.props.message_content : null}</p>
                 <button 

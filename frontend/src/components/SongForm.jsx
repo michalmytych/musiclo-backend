@@ -125,7 +125,9 @@ export default class SongForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form
+            className="animate__animated animate__fadeInDown"  
+                onSubmit={this.handleSubmit}>
                     {
                         this.props._editing ?
                             this.props.instance ?
@@ -135,7 +137,7 @@ export default class SongForm extends Component {
                         :
                         null
                     }
-                <p>Tytuł</p>
+                <p className="input-label">Tytuł</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 
@@ -143,11 +145,11 @@ export default class SongForm extends Component {
                     required
                     value={this.state.name}
                     placeholder="Nazwa..."/>
-                <p>Artyści</p>
+                <p className="input-label">Artyści</p>
                 <ul>
                     {
                         this.state.ARTISTS ?
-                            this.state.ARTISTS.length ?
+                            this.state.ARTISTS.length>0 ?
                             this.state.ARTISTS.map((a) => (
                                 <li>
                                     <div
@@ -166,7 +168,7 @@ export default class SongForm extends Component {
                     _getInitialValue={(p) => this.getSelectedArtists(p)}
                     getValues={(p) => this.getSelectedArtists(p)} 
                     category={"artists"} />
-                <p>Album</p>
+                <p className="input-label">Album</p>
                 {
                         this.state.ALBUM ?
                         <div
@@ -183,13 +185,13 @@ export default class SongForm extends Component {
                     _getInitialValue={(p) => this.getSelectedAlbums(p)}
                     getValues={(p) => this.getSelectedAlbums(p)} 
                     category={"albums"}/>
-                <p>EXPLICIT</p>
+                <p className="input-label">EXPLICIT</p>
                 <input
                     onChange={this.handleChange}
                     type="checkbox" 
                     value={this.state.explicit}
                     name="explicit"/>
-                <p>Taneczność</p>
+                <p className="input-label">Taneczność</p>                
                 <input
                     onChange={this.handleChange} 
                     type="range" 
@@ -198,7 +200,10 @@ export default class SongForm extends Component {
                     min="0"
                     step="0.01" 
                     max="1"/>
-                <p>Energia</p>
+                <p 
+                    className="spotify-feature-numerical">
+                        {this.state.danceability ? this.state.danceability : "0"}</p>    
+                <p className="input-label">Energia</p>
                 <input
                     onChange={this.handleChange} 
                     type="range"
@@ -207,7 +212,9 @@ export default class SongForm extends Component {
                     min="0"
                     step="0.01"  
                     max="1"/>
-                <p>Akustyczność</p>
+                <p className="spotify-feature-numerical">
+                    {this.state.energy ? this.state.energy : "0"}</p>
+                <p className="input-label">Akustyczność</p>
                 <input 
                     onChange={this.handleChange}
                     type="range" 
@@ -216,7 +223,9 @@ export default class SongForm extends Component {
                     min="0" 
                     step="0.01" 
                     max="1"/>
-                <p>Żywe instrumenty</p>
+                <p className="spotify-feature-numerical">
+                    {this.state.acousticness ? this.state.acousticness : "0"}</p>
+                <p className="input-label">Żywe instrumenty</p>                
                 <input 
                     onChange={this.handleChange} 
                     type="range" 
@@ -225,7 +234,9 @@ export default class SongForm extends Component {
                     min="0" 
                     step="0.01" 
                     max="1"/>
-                <p>Pozytywność</p>
+                <p className="spotify-feature-numerical">
+                    {this.state.instrumentalness ? this.state.instrumentalness : "0"}</p>
+                <p className="input-label">Pozytywność</p>
                 <input 
                     onChange={this.handleChange}
                     type="range" 
@@ -233,8 +244,10 @@ export default class SongForm extends Component {
                     value={this.state.valence}
                     min="0" 
                     step="0.01" 
-                    max="1"/>                                                                                                     
-                <p>Klucz</p>
+                    max="1"/>                                                   
+                <p className="spotify-feature-numerical">
+                    {this.state.valence ? this.state.valence : "0"}</p>                                                  
+                <p className="input-label">Klucz</p>
                 <select
                     onChange={this.handleChange}  
                     value={this.state.key}
@@ -245,7 +258,7 @@ export default class SongForm extends Component {
                         </option>                        
                     ))}        
                 </select>
-                <p>Tryb</p>                            
+                <p className="input-label">Tryb</p>                            
                 <select 
                     onChange={this.handleChange} 
                     value={this.state.mode}
@@ -253,7 +266,7 @@ export default class SongForm extends Component {
                     <option value="0">moll</option>
                     <option value="1">dur</option>
                 </select>
-                <p>Data wydania</p>
+                <p className="input-label">Data wydania</p>
                 <input 
                     required
                     onChange={this.handleChange} 
@@ -261,14 +274,16 @@ export default class SongForm extends Component {
                     type="date" 
                     value={this.state.release_date}
                     name="release_date"></input>    
-                <p>Utwór w Spotify</p>
+                <p className="input-label">Utwór w Spotify</p>
                 <input 
                     onChange={this.handleChange}
                     type="text" 
                     name="spotify_link" 
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."/>                                               
-                <button type={"submit"}>Zapisz</button>                    
+                <button 
+                    className="form-submit-btn"
+                    type={"submit"}>Zapisz</button>                    
             </form>
         )
     }
