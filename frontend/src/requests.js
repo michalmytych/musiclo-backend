@@ -21,7 +21,7 @@ const _simulateApiResponseDelay = () => {
 export async function getItemsListRequest(args) { 
     var url = `${API_URL}items_list.php?limit=${args.l}&page=${args.p}&category=${args.c}`;
     var ITEMS = await fetch(url)
-    .then(response => { alert(response.status); return response.json(); }) 
+    .then(response => { console.log(response.status); return response.json(); }) 
     .then(ITEMS => { return ITEMS; })
     .catch(function(error) { console.log('Request failed: ', error) } );
 
@@ -30,11 +30,12 @@ export async function getItemsListRequest(args) {
 
 export async function createItemRequest(data) {
     console.log(JSON.stringify(data.obj));
+    console.log("createItemRequest");
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */
     var url = `${API_URL}create_item.php?category=${data.category}`;
-    var res = await fetch(url, {
+    var response = await fetch(url, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -42,9 +43,8 @@ export async function createItemRequest(data) {
         },
         body: JSON.stringify(data.obj)
     })
-    .then(response => alert(response.status))
+    .then(response => console.log(response.status))
     .catch(function(error) { 
-        alert('Request nie powiódł się.'); 
         console.log('Request failed: ', error) 
     });
 };
@@ -60,13 +60,14 @@ export async function deleteItemRequest(args) {
         headers: {
             'Content-Type': 'application/json',
         }
-    }).then(response => alert(response.status))  
+    }).then(response => console.log(response.status))  
 };
 
 export async function putEditedItemRequest(data) {
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
     */    
+    console.log("putEditedItemRequest");
     console.log(JSON.stringify(data.obj));
     /*
         BĘDZIE ZABLOKOWANE PRZEZ CORS
@@ -80,7 +81,7 @@ export async function putEditedItemRequest(data) {
         },
         body: JSON.stringify(data.obj)
     })
-    .then(response => alert(response.status))  
+    .then(response => console.log(response.status))  
     .catch(function(error) {
         console.log('Request failed: ', error) 
     });
@@ -89,7 +90,7 @@ export async function putEditedItemRequest(data) {
 export async function getSearchResultsRequest(args) {
     var url = `${API_URL}search_item.php?category=${args.c}&phrase=${args.p}`;
     var RESULTS = await fetch(url)
-    .then(response => { alert(response.status); return response.json(); }) 
+    .then(response => { console.log(response.status); return response.json(); }) 
     .then(RESULTS => { return RESULTS; })
     .catch(function(error) { console.log('Request failed: ', error) } );
 
@@ -110,6 +111,7 @@ export async function getCountriesDataRequest() {
     .then(response => { alert(response.status); return response.json(); }) 
     .then(data => { return data; })
     .catch(function(error) {console.log('Request failed: ', error) });
+
     return data;
 };
 

@@ -71,14 +71,18 @@ export default class SongForm extends Component {
     }
 
     _mountInstance = (instance) => {
-        var _artists_ids = JSON.parse(instance._artists_ids).filter(onlyUniqueFilter);
-        var _artists_names = JSON.parse(instance._artists_names).filter(onlyUniqueFilter);
-        var album = {id: instance.album_id, name: instance.album_name}
-        if (_artists_names.length===_artists_ids.length) {
+        if (instance._artists_ids !== "[null]") {
+            var _artists_ids = JSON.parse(instance._artists_ids).filter(onlyUniqueFilter);
+            var _artists_names = JSON.parse(instance._artists_names).filter(onlyUniqueFilter);
+            var album = {id: instance.album_id, name: instance.album_name}
+            if (_artists_names.length===_artists_ids.length) {
+                var _artists = [];
+                _artists_names.forEach((a, i) => {
+                    _artists[i] = {id: _artists_ids[i], name: a}
+                });
+            }    
+        } else {
             var _artists = [];
-            _artists_names.forEach((a, i) => {
-                _artists[i] = {id: _artists_ids[i], name: a}
-            });
         }    
 
         this.setState({
