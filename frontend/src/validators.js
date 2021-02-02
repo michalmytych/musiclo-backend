@@ -8,19 +8,18 @@ const validateSong = (song) => {
         var validSong = {};
         validSong.name = song.name;
         
+        validSong.album_id = null;
         if (song.ALBUM) { validSong.album_id = song.ALBUM.id; } 
-        else { validSong.album_id = null; }
         
+        validSong.artists_ids = []; 
         if (song.ARTISTS) {
             if (song.ARTISTS.length > 0) {
                 validSong.artists_ids = Array.from(song.ARTISTS, a => a.id); 
-            } else {
-                validSong.artists_ids = [];
-            } 
-        } else { validSong.artists_ids = []; } 
+            }
+        }
         
-        if (song.danceability) { validSong.danceability = parseFloat(song.danceability)}
-        else {validSong.danceability = 0;};
+        validSong.danceability = 0;
+        if (song.danceability) { validSong.danceability = parseFloat(song.danceability); };
 
         if (!song.explicit || song.explicit==='false' || song.explicit==='NaN') {
             validSong.explicit = 0;
@@ -28,29 +27,29 @@ const validateSong = (song) => {
             validSong.explicit = parseInt(song.explicit);
         }     
         
-        if (song.energy) { validSong.energy = parseFloat(song.energy)}
-        else {validSong.energy = 0;};
+        validSong.energy = 0;
+        if (song.energy) { validSong.energy = parseFloat(song.energy); };
         
-        if (song.instrumentalness) { validSong.instrumentalness = parseFloat(song.instrumentalness)}
-        else {validSong.instrumentalness = 0;};
+        validSong.instrumentalness = 0;
+        if (song.instrumentalness) { validSong.instrumentalness = parseFloat(song.instrumentalness); };
 
-        if (song.acousticness) { validSong.acousticness = parseFloat(song.acousticness)}
-        else {validSong.acousticness = 0;};
+        validSong.acousticness = 0;
+        if (song.acousticness) { validSong.acousticness = parseFloat(song.acousticness); };
 
-        if (song.valence) { validSong.valence = parseFloat(song.valence)}
-        else {validSong.valence = 0;};
+        validSong.valence = 0;
+        if (song.valence) { validSong.valence = parseFloat(song.valence); };
 
-        if (song.spotify_link) { validSong.spotify_link = song.spotify_link}
-        else {validSong.spotify_link = null;};
+        validSong.spotify_link = null;
+        if (song.spotify_link) { validSong.spotify_link = song.spotify_link };
 
-        if (song.key) { validSong.key = parseInt(song.key);}
-        else {validSong.key = null;};
+        validSong.key = null;
+        if (song.key) { validSong.key = parseInt(song.key); }
 
+        validSong.mode = null;
         if (!song.mode && song.mode!==0 && song.mode!=="0") { validSong.mode = parseInt(song.mode); }
-        else { validSong.mode = null;}
 
-        if (song.release_date) { validSong.release_date = song.release_date}
-        else {validSong.release_date = null;};
+        validSong.release_date = null;
+        if (song.release_date) { validSong.release_date = song.release_date; };
     }
 
     return {
@@ -68,33 +67,32 @@ const validateAlbum = (album) => {
         var validAlbum = {};
         validAlbum.name = album.name;
 
+        validAlbum.artists_ids = [];
         if (album.ARTISTS) {
             if (album.ARTISTS.length > 0) {
                 validAlbum.artists_ids = Array.from(album.ARTISTS, a => a.id); 
-            } else {
-                validAlbum.artists_ids = [];
-            } 
-        } else { validAlbum.artists_ids = []; } 
+            }
+        }
 
+        validAlbum.songs_ids = [];
         if (album.SONGS) {
             if (album.SONGS.length > 0) {
-                validAlbum.artists_ids = Array.from(album.SONGS, a => a.id); 
-            } else {
-                validAlbum.artists_ids = [];
-            } 
-        } else { validAlbum.artists_ids = []; }  
+                validAlbum.songs_ids = Array.from(album.SONGS, a => a.id); 
+            }
+        }
 
+        validAlbum.explicit = 0;
         if (!album.explicit || album.explicit==='false' || album.explicit==='NaN') {
             validAlbum.explicit = 0;
         } else {
             validAlbum.explicit = parseInt(album.explicit);
         }    
         
+        validAlbum.release_date = null;
         if (album.release_date) { validAlbum.release_date = album.release_date}
-        else {validAlbum.release_date = null;};
 
+        validAlbum.spotify_link = null;
         if (album.spotify_link) { validAlbum.spotify_link = album.spotify_link}
-        else {validAlbum.spotify_link = null;};        
     }
     return {
         category    : 'albums',
@@ -111,22 +109,21 @@ const validateArtist = (artist) => {
         var validArtist = {};
         validArtist.name = artist.name; 
         
+        validArtist.artists_ids = [];
         if (artist.ALBUMS) {
             if (artist.ALBUMS.length > 0) {
                 validArtist.artists_ids = Array.from(artist.ALBUMS, a => a.id); 
-            } else {
-                validArtist.artists_ids = [];
-            } 
-        } else { validArtist.artists_ids = []; }         
+            }
+        }
 
-        if (artist.description) { validArtist.description = artist.description}
-        else {validArtist.description = null;};
+        validArtist.description = null;
+        if (artist.description) { validArtist.description = artist.description; };
 
-        if (artist.country) { validArtist.country = artist.country}
-        else {validArtist.country = null;};    
+        validArtist.country = null;
+        if (artist.country) { validArtist.country = artist.country; };
         
-        if (artist.spotify_link) { validArtist.spotify_link = artist.spotify_link}
-        else {validArtist.spotify_link = null;};             
+        validArtist.spotify_link = null;
+        if (artist.spotify_link) { validArtist.spotify_link = artist.spotify_link; };
     }
     return {
         category    : 'artists',

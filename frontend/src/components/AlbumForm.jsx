@@ -59,9 +59,6 @@ export default class AlbumForm extends Component {
         this.setState({
             SONGS : _disctinct
         });
-        /*this.setState({
-            "songs_ids" : _disctinct
-        });*/        
     }
 
     handleChange(event) {
@@ -97,20 +94,21 @@ export default class AlbumForm extends Component {
     }
 
     async _mountInstance(instance) {
-        var _songs = await this._getSongsOfAlbum(instance.id);
-        var _artists_ids = JSON.parse(instance._artist_ids).filter(onlyUniqueFilter);
-        var _artists_names = JSON.parse(instance._artist_names).filter(onlyUniqueFilter);
-        if (_artists_names.length===_artists_ids.length) {
-            var _artists = [];
-            _artists_names.forEach((a, i) => {
-                _artists[i] = {id: _artists_ids[i], name: a}
-            });
-        }        
-        if (!_artists) {_artists = []};
-        if (!_songs) {_artists = []};
+        var _artists = [];
+        var _songs = await this._getSongsOfAlbum(instance.id);        
+        if (instance._artist_ids !== "[null]") {
+            var _artists_ids = JSON.parse(instance._artist_ids).filter(onlyUniqueFilter);
+            var _artists_names = JSON.parse(instance._artist_names).filter(onlyUniqueFilter);
+            if (_artists_names.length===_artists_ids.length) {
+                var _artists = [];
+                _artists_names.forEach((a, i) => {
+                    _artists[i] = {id: _artists_ids[i], name: a}
+                });
+            } 
+        }
+        if (!_songs) {_songs = []};
         this.setState({
             "name"              : instance.name,
-            "artists_ids"       : instance.artist_ids,
             "explicit"          : parseInt(instance.explicit),
             "spotify_link"      : instance.spotify_link,
             "release_date"      : instance.release_date,

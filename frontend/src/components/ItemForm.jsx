@@ -20,7 +20,7 @@ export default class ItemForm extends Component {
             });
         } else {
             this.setState({
-                "new_saved_object"   : args
+                "new_saved_object"      : args
             });
         }
     }

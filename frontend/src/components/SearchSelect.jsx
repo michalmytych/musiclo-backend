@@ -27,7 +27,6 @@ export default class SearchSelect extends Component {
         });
 
         this.setState({
-            //"selected_options"  : [],
             "results"           : results
         })
     }

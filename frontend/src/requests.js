@@ -2,10 +2,6 @@
 // Wierzba
 const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
 
-// Local
-// const API_URL = "http://localhost/api/";
-
-// randint() in es6
 const randInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
