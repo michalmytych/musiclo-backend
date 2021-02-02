@@ -59,23 +59,24 @@ export default class ArtistForm extends Component {
     }
 
     async _mountInstance(instance) {
-        var _albums_names = JSON.parse(instance._albums_names).filter(onlyUniqueFilter);
-        var _albums_ids = JSON.parse(instance._albums_ids).filter(onlyUniqueFilter);
         var _albums = [];
-        if (_albums_names.length===_albums_ids.length) {
-            _albums_names.forEach((a, i) => {
-                _albums[i] = {id: _albums_ids[i], name: a}
-            });
-        } else {                
-            this.setState({
-                "name"          : instance.name,
-                "albums_ids"    : _albums_ids,
-                "description"   : instance.description,                
-                "country"       : instance.country,
-                "ALBUMS"        : _albums
-            });
-        }
-        
+        var _albums_ids = [];
+        if (instance._albums_ids !== "[null]") {
+            var _albums_names = JSON.parse(instance._albums_names).filter(onlyUniqueFilter);
+            _albums_ids = JSON.parse(instance._albums_ids).filter(onlyUniqueFilter);            
+            if (_albums_names.length===_albums_ids.length) {
+                _albums_names.forEach((a, i) => {
+                    _albums[i] = {id: _albums_ids[i], name: a}
+                });
+            }        
+        }        
+        this.setState({
+            "name"          : instance.name,
+            "albums_ids"    : _albums_ids,
+            "description"   : instance.description,                
+            "country"       : instance.country,
+            "ALBUMS"        : _albums
+        });        
     }
 
     async componentDidMount() {

@@ -59,7 +59,7 @@ const validateSong = (song) => {
 }
 
 
-const validateAlbum = (album) => {    
+const validateAlbum = (album) => {
     if (!album.name) {
         alert("Nie wypełniono wymaganego pola!");
         return false;    
@@ -109,10 +109,10 @@ const validateArtist = (artist) => {
         var validArtist = {};
         validArtist.name = artist.name; 
         
-        validArtist.artists_ids = [];
+        validArtist.albums_ids = [];
         if (artist.ALBUMS) {
             if (artist.ALBUMS.length > 0) {
-                validArtist.artists_ids = Array.from(artist.ALBUMS, a => a.id); 
+                validArtist.albums_ids = Array.from(artist.ALBUMS, a => a.id); 
             }
         }
 
