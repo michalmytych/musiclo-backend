@@ -60,7 +60,7 @@ export async function deleteItemRequest(args) {
         headers: {
             'Content-Type': 'application/json',
         }
-    }).then(response => console.log(response.status))  
+    }).then(response => console.log(response.status))
 };
 
 export async function putEditedItemRequest(data) {
@@ -99,7 +99,7 @@ export async function getSearchResultsRequest(args) {
 
 export async function getSongsOfAlbumRequest(id) {    
     var SONGS = await fetch(API_URL + `songs_of_album.php?id=${id}`)
-    .then(response => { alert(response.status); return response.json(); }) 
+    .then(response => { console.log(response.status); return response.json(); }) 
     .then(SONGS => { return SONGS; })
     .catch(function(error) {console.log('Request failed: ', error) });
     
@@ -108,68 +108,10 @@ export async function getSongsOfAlbumRequest(id) {
 
 export async function getCountriesDataRequest() {    
     var data = await fetch(API_URL + `countries_list.php`)
-    .then(response => { alert(response.status); return response.json(); }) 
+    .then(response => { console.log(response.status); return response.json(); }) 
     .then(data => { return data; })
     .catch(function(error) {console.log('Request failed: ', error) });
 
     return data;
 };
 
-
-
-/*
-
-const sendPostRequest = async () => {
-    try {
-        const resp = await axios.post('https://jsonplaceholder.typicode.com/posts', newPost);
-        console.log(resp.data);
-    } catch (err) {
-        // Handle Error Here
-        console.error(err);
-    }
-};
-
-sendPostRequest();
-
-export async function getCountriesDataRequest() {
-    var data = fetch('https://api.first.org/data/v1/countries/')
-    .then(response => response.json())
-    .then(data => { return data; })
-    .catch(function(error) {console.log('Request failed: ', error) });
-    return data;
-}
-
-REQUEST WITH QWEST:
-
-qwest.get(url, {
-    client_id: api.client_id,
-    linked_partitioning: 1,
-    page_size: 10
-}, {
-    cache: true
-})
-.then(function(xhr, resp) {
-    if(resp) {
-        var tracks = self.state.tracks;
-        resp.collection.map((track) => {
-            if(track.artwork_url == null) {
-                track.artwork_url = track.user.avatar_url;
-            }
-
-            tracks.push(track);
-        });
-
-        if(resp.next_href) {
-            self.setState({
-                tracks: tracks,
-                nextHref: resp.next_href
-            });
-        } else {
-            self.setState({
-                hasMoreItems: false
-            });
-        }
-    }
-});
-
-*/
