@@ -70,7 +70,7 @@ export default class SongForm extends Component {
     }
 
     _mountInstance = (instance) => {
-        if (instance._artists_ids !== "[null]") {
+        if (instance._artists_ids && instance._artists_ids !== "[null]") {
             var _artists_ids = JSON.parse(instance._artists_ids).filter(onlyUniqueFilter);
             var _artists_names = JSON.parse(instance._artists_names).filter(onlyUniqueFilter);
             var album = {id: instance.album_id, name: instance.album_name}

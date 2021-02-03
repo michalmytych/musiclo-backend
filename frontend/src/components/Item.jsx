@@ -87,7 +87,7 @@ export default class Item extends Component {
                         <Fragment>
                             <div
                                 onClick={this.toggleEditionFormDisplay} 
-                                className="animate__animated above-box animate__fadeIn blurred-form-background"></div>
+                                className="animate__animated animate__fadeIn blurred-form-background"></div>
                             <ItemForm
                                 _editing={true}
                                 category={this.props.category}            

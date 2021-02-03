@@ -103,7 +103,7 @@ export default class AlbumForm extends Component {
     async _mountInstance(instance) {
         var _artists = [];
         var _songs = await this._getSongsOfAlbum(instance.id);        
-        if (instance._artist_ids !== "[null]") {
+        if (instance._artist_ids && instance._artist_ids !== "[null]") {
             var _artists_ids = JSON.parse(instance._artist_ids).filter(onlyUniqueFilter);
             var _artists_names = JSON.parse(instance._artist_names).filter(onlyUniqueFilter);
             if (_artists_names.length===_artists_ids.length) {

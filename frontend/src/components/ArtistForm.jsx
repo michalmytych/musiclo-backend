@@ -68,7 +68,7 @@ export default class ArtistForm extends Component {
     async _mountInstance(instance) {
         var _albums = [];
         var _albums_ids = [];
-        if (instance._albums_ids !== "[null]") {
+        if (instance._albums_ids && instance._albums_ids !== "[null]") {
             var _albums_names = JSON.parse(instance._albums_names).filter(onlyUniqueFilter);
             _albums_ids = JSON.parse(instance._albums_ids).filter(onlyUniqueFilter);            
             if (_albums_names.length===_albums_ids.length) {

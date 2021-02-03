@@ -14,7 +14,8 @@ export const KEYS = [
 
 export function encodeMusicKey(key_number) {
     if (key_number) {
-        return KEYS.filter(key => { return key.id === key_number })[0].name;
+        var key = KEYS.filter(key => { return key.id === key_number })[0];
+        if (key.name) { return key.name; }
     } else { return null; }
 }
 
