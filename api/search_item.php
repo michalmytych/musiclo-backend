@@ -76,7 +76,8 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                         WHERE songs.name LIKE ? GROUP BY songs.id LIMIT 50";
                 break;         
             case 'albums':
-                $query = "SELECT albums.id, albums.name, albums.spotify_link,
+                $query = "SELECT albums.id, albums.name, 
+                        albums.spotify_link, albums.release_date,
                         JSON_ARRAYAGG(artists.name) AS _artist_names,
                         JSON_ARRAYAGG(artists.id) AS _artist_ids
                         FROM albums LEFT JOIN belongs_to
@@ -84,7 +85,8 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                         LEFT JOIN artists
                         ON belongs_to.artist_id = artists.id
                         WHERE albums.name LIKE ? GROUP BY albums.id 
-                        UNION SELECT albums.id, albums.name, albums.spotify_link,
+                        UNION SELECT albums.id, albums.name, 
+                        albums.spotify_link, albums.release_date,
                         JSON_ARRAYAGG(artists.name) AS _artist_names,
                         JSON_ARRAYAGG(artists.id) AS _artist_ids
                         FROM albums LEFT JOIN belongs_to
