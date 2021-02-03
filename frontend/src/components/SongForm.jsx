@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import SearchSelect from './SearchSelect';
 
-import { KEYS, onlyUniqueFilter, uniqueArrayOfObjects } from '../constants';
+import { KEYS, encodeMusicKey, onlyUniqueFilter, uniqueArrayOfObjects } from '../constants';
 
 import { setDateInputValue } from '../display';
 
@@ -88,15 +88,14 @@ export default class SongForm extends Component {
             "name"              : instance.name,
             "ALBUM"             : album,
             "ARTISTS"           : _artists,
-            // null zmieni sie na NaN
             "explicit"          : parseInt(instance.explicit),
             "danceability"      : parseFloat(instance.danceability),
             "energy"            : parseFloat(instance.energy),
             "acousticness"      : parseFloat(instance.acousticness),
             "instrumentalness"  : parseFloat(instance.instrumentalness),
-            "key"               : parseInt(instance.key),
+            "key"               : instance.key,
             "valence"           : parseFloat(instance.valence),
-            "mode"              : parseInt(instance.mode),
+            "mode"              : instance.mode,
             "release_date"      : instance.release_date,
             "spotify_link"      : instance.spotify_link,
         });
@@ -251,17 +250,23 @@ export default class SongForm extends Component {
                 <p className="spotify-feature-numerical">
                     {this.state.valence ? this.state.valence : "0"}</p>                                                  
                 <p className="input-label">Klucz</p>
+                {this.state.key ? encodeMusicKey(this.state.key) : 
+                "Nie określono klucza muzycznego utworu."}
                 <select
                     onChange={this.handleChange}  
                     value={this.state.key}
                     name="key">
                     {KEYS.map(key => (
-                        <option value={key.id} key={key.id}>
+                        <option value={key.id} key={"key_" + key.id}>
                             {key.name}
                         </option>                        
                     ))}        
                 </select>
-                <p className="input-label">Tryb</p>                            
+                <p className="input-label">Tryb</p>    
+                {this.state.mode ? 
+                    this.state.mode==="1" ?
+                    "dur" : "moll" 
+                : "Nie określono trybu utworu."}                        
                 <select 
                     onChange={this.handleChange} 
                     value={this.state.mode}

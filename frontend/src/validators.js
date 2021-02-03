@@ -43,10 +43,10 @@ const validateSong = (song) => {
         if (song.spotify_link) { validSong.spotify_link = song.spotify_link };
 
         validSong.key = null;
-        if (song.key) { validSong.key = parseInt(song.key); }
+        if (song.key || song.key===0) { validSong.key = parseInt(song.key); }
 
         validSong.mode = null;
-        if (!song.mode && song.mode!==0 && song.mode!=="0") { validSong.mode = parseInt(song.mode); }
+        if (song.mode || song.mode===0) { validSong.mode = parseInt(song.mode); }
 
         validSong.release_date = null;
         if (song.release_date) { validSong.release_date = song.release_date; };

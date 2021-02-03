@@ -1,8 +1,15 @@
 .above-box {
     padding: 3rem 6rem 3rem 6rem;
     width: 60vw;
+    height: 80vh;
     background-color: rgb(27, 27, 27);
-    position: absolute;
+    position: fixed;
     left: 15vw;
     top: 5vh;
+    z-index: 9999;
+    /* All browsers box shadows */
+    -webkit-box-shadow: 10px 10px 31px 8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 31px 8px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 31px 8px rgba(0,0,0,0.75);     
+    overflow-y: scroll;
 }

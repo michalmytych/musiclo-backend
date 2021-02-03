@@ -194,13 +194,13 @@ option:checked{
 
 ::-webkit-scrollbar {
   -webkit-appearance: none;
-  width: 7px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar:hover {
   -webkit-appearance: none;
   background-color: rgba(23, 80, 61, 0.589);
-  width: 7px;
+  width: 5px;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
@@ -367,10 +367,6 @@ input[type=range]::-ms-fill-upper {
 }
 input[type=range]:focus::-ms-fill-upper {
   background: #06a57d;
-}
-
-.above-box{
-  z-index: 9999;
 }
 
 .album-spotify-preview{

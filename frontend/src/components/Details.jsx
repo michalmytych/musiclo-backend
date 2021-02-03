@@ -37,9 +37,20 @@ const SongDetails = (props) => {
 
     var _artists_names = [];
     var album_name = "";
+    var musicKey = false;
+    var mode = false;
 
-    const musicKey = encodeMusicKey(parseInt(props.item.key));
-    if (_artists_names && _artists_names !== "[null]") {
+    if (props.item.key) {
+        musicKey = encodeMusicKey(parseInt(props.item.key));
+    }
+    if (props.item.mode) {
+        if (parseInt(props.item.mode) === 0) {
+            mode = 'moll';
+        } else {
+            mode = 'dur';
+        }
+    }    
+    if (props.item._artists_names && props.item._artists_names !== "[null]") {
         _artists_names = JSON.parse(props.item._artists_names).filter(onlyUniqueFilter);
     }    
     if (props.item.album_name) {
@@ -80,10 +91,12 @@ const SongDetails = (props) => {
                         : <p>Brak informacji o albumie</p>
                     }
                 </div>
-                <p className="mkey">{musicKey}{parseInt(props.item.mode)===0 ? " moll" : " dur"}</p>
+                <p className="mkey">
+                    {musicKey ? musicKey : null} {mode ? mode : null}
+                </p>
             </div>
             <div className="details-p">
-                <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>    
+                <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>
             </div>            
         </div>        
     )
@@ -104,7 +117,7 @@ class AlbumDetails extends Component {
     async componentDidMount() {
         var _songs = await this._getSongsOfAlbum(this.props.item.id);   
         var _artists = [];
-        if (_artists_ids && _artists_ids !== "[null]") {
+        if (this.props.item._artists_ids && this.props.item._artists_ids !== "[null]") {
             var _artists_names = JSON.parse(this.props.item._artist_names).filter(onlyUniqueFilter);
             var _artists_ids = JSON.parse(this.props.item._artist_ids).filter(onlyUniqueFilter);
             _artists_names.forEach((a, i) => {
@@ -171,7 +184,7 @@ class AlbumDetails extends Component {
 const ArtistDetails = (props) => {
     var _albums = [];
     var countryName, country;
-    if (_albums_ids && _albums_ids !== "[null]") {
+    if (props.item._albums_ids && props.item._albums_ids !== "[null]") {
         var _albums_names = JSON.parse(props.item._albums_names).filter(onlyUniqueFilter);
         var _albums_ids = JSON.parse(props.item._albums_ids).filter(onlyUniqueFilter);
         _albums_names.forEach((a, i) => {
@@ -191,18 +204,20 @@ const ArtistDetails = (props) => {
     return (
         <Fragment>   
             <p>{props.item.description}</p>
-            <p className="italic-colored-small">{countryName}</p>
-            <h4>Albumy</h4>
-            <ul>
+            <p className="italic-colored-small">{countryName}</p>            
                 {
                 _albums ?
+                    <ul>
+                    {_albums.length ? <h4>Albumy</h4> : <p>Brak albumów.</p>}
+                    {
                     _albums.map((a, i) => (
-                    <li key={"album_" + i}>
-                        {a.name}
-                    </li>
-                    )) : null
-                }                
-            </ul>
+                        <li key={"album_" + i}>
+                            {a.name}
+                        </li>
+                    ))
+                    }
+                    </ul> : null
+                }                            
         </Fragment>        
     )
 }
