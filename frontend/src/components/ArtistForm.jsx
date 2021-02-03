@@ -50,11 +50,18 @@ export default class ArtistForm extends Component {
     }
 
     handleSubmit(event) {
-        this.props.getEditedArtist({
-            obj         : this.state,
-            category    : 'artists',
-            id          : this.props.instance.id
-        });
+        if (this.props._editing) {        
+            this.props.getEditedArtist({
+                obj         : this.state,
+                category    : 'artists',
+                id          : this.props.instance.id
+            });
+        } else {
+            this.props.getEditedArtist({
+                obj         : this.state,
+                category    : 'artists'
+            });
+        }
         event.preventDefault();
     }
 

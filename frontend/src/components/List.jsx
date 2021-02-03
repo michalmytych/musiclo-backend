@@ -239,8 +239,7 @@ export default class List extends Component {
                             onClick={this.toggleCreationFormDisplay} 
                             className="animate__animated animate__fadeIn blurred-form-background"></div>                           
                         <ItemForm
-                            _editing={false}
-                            //category={this.state.category}            
+                            _editing={false}     
                             category={_ITEMS_LIST.category}
                             onSave={(created_object) => this._createItem(
                                 created_object

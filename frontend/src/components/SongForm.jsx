@@ -66,7 +66,6 @@ export default class SongForm extends Component {
                 category    : 'songs'
             });
         }
-
         event.preventDefault();
     }
 
