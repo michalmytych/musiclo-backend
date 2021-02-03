@@ -39,7 +39,6 @@ const SongDetails = (props) => {
     const musicKey = encodeMusicKey(parseInt(props.item.key));
     var _artists_names = JSON.parse(props.item._artists_names).filter(onlyUniqueFilter);
     var album_name = props.item.album_name;
-    // var _albums_names = JSON.parse(props.item._albums_names).filter(onlyUniqueFilter);
     
     return (
         <div className="details-box">
@@ -97,13 +96,15 @@ class AlbumDetails extends Component {
     }
 
     async componentDidMount() {
-        var _songs = await this._getSongsOfAlbum(this.props.item.id);        
-        var _artists_names = JSON.parse(this.props.item._artist_names).filter(onlyUniqueFilter);
-        var _artists_ids = JSON.parse(this.props.item._artist_ids).filter(onlyUniqueFilter);
+        var _songs = await this._getSongsOfAlbum(this.props.item.id);   
         var _artists = [];
-        _artists_names.forEach((a, i) => {
-            _artists[i] = { id : a, name : _artists_ids[i] };
-        });
+        if (_artists_ids !== "[null]") {
+            var _artists_names = JSON.parse(this.props.item._artist_names).filter(onlyUniqueFilter);
+            var _artists_ids = JSON.parse(this.props.item._artist_ids).filter(onlyUniqueFilter);
+            _artists_names.forEach((a, i) => {
+                _artists[i] = { name : a, id : _artists_ids[i] };
+            });    
+        }                     
         this.setState({ 
             songs   : _songs,
             artists : _artists
@@ -162,7 +163,16 @@ class AlbumDetails extends Component {
 
 
 const ArtistDetails = (props) => {
+    var _albums = [];
     var countryName, country;
+    if (_albums_ids !== "[null]") {
+        var _albums_names = JSON.parse(props.item._albums_names).filter(onlyUniqueFilter);
+        var _albums_ids = JSON.parse(props.item._albums_ids).filter(onlyUniqueFilter);
+        _albums_names.forEach((a, i) => {
+            _albums[i] = { name : a, id : _albums_ids[i] };
+        });    
+    }                     
+    
     if (props.item.country) {
         country = props._COUNTRIES.filter((country) => {
             return country.iso_code === props.item.country
@@ -176,6 +186,17 @@ const ArtistDetails = (props) => {
         <Fragment>   
             <p>{props.item.description}</p>
             <p className="italic-colored-small">{countryName}</p>
+            <h4>Albumy</h4>
+            <ul>
+                {
+                _albums ?
+                    _albums.map((a, i) => (
+                    <li key={"album_" + i}>
+                        {a.name}
+                    </li>
+                    )) : null
+                }                
+            </ul>
         </Fragment>        
     )
 }
