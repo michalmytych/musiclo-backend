@@ -46,8 +46,6 @@ export default class AlbumForm extends Component {
     }
 
     getSelectedSongs(selections) {
-        // !!! sprawdzic czy piosenki maja album id, jak maja to !!!
-        // !!! wyświetlić alert że nie można dodać i zrobić quit !!!
         for (var i=0;i<selections.length; i++) {
             if (selections[i].album_id) {
                 alert(selections[i].album_id);

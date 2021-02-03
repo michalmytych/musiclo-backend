@@ -80,8 +80,9 @@ export default class ArtistForm extends Component {
         this.setState({
             "name"          : instance.name,
             "albums_ids"    : _albums_ids,
-            "description"   : instance.description,                
+            "description"   : instance.description,
             "country"       : instance.country,
+            "spotify_link"  : instance.spotify_link,
             "ALBUMS"        : _albums
         });        
     }
