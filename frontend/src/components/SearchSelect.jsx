@@ -22,13 +22,14 @@ export default class SearchSelect extends Component {
 
     async _getSearchResults(category, search_input) {
         var results = await getSearchResultsRequest({
-            c : category, 
+            c : category,
             p : search_input
         });
 
+
         this.setState({
-            "results"           : results
-        })
+            "results" : results
+        });
     }
 
     setSearchCategory = () => {

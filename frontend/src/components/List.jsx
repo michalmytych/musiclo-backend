@@ -12,6 +12,8 @@ import {
     getCountriesDataRequest
 } from '../requests';
 
+import { uniqueArrayOfObjects } from '../constants';
+
 import { 
     handleCategoryViewChange,
     setActiveCategoryStyles
@@ -21,15 +23,18 @@ import '../styles/Search.css';
 import '../styles/List.css';
 import loadingSpinner from '../assets/loading.svg';
 import addIcon from '../assets/add.svg';
+import artistIcon from '../assets/artist.svg';
+import albumIcon from '../assets/cd.svg';
+import trackIcon from '../assets/tune.svg';
 
 import { validateItemBeforePost } from '../validators';
 
 
 const AddItemButton = (props) => {
     return (
-        <button onClick={props.handler}>
+        <div className="add-item-wrapper" onClick={props.handler}>
             <img className="crud-icon" src={addIcon} alt="Przycisk dodawania."/>
-        </button>
+        </div>
     )
 }
 
@@ -229,6 +234,7 @@ export default class List extends Component {
         }
         
         var _dataLength = this.state[_ITEMS_LIST.category].items.length;
+        _ITEMS_LIST.items = uniqueArrayOfObjects(_ITEMS_LIST.items, "id");
 
         return (
             <div className="List">
@@ -252,17 +258,23 @@ export default class List extends Component {
                     <div 
                         id="songs-swt"
                         onClick={() => this.handleCategorySwitch('songs')}
-                        className="songs-switch-btn">Piosenki
+                        className="songs-switch-btn">
+                        <img alt="Ikona piosenek." src={trackIcon} className="category-icon"></img>
+                        Piosenki
                     </div>
                     <div
                         id="albums-swt"
                         onClick={() => this.handleCategorySwitch('albums')} 
-                        className="albums-switch-btn">Albumy
+                        className="albums-switch-btn">
+                        <img alt="Ikona albumów." src={albumIcon} className="category-icon"></img>
+                        Albumy
                     </div>
                     <div
                         id="artists-swt"
                         onClick={() => this.handleCategorySwitch('artists')} 
-                        className="artists-switch-btn">Artyści                        
+                        className="artists-switch-btn">
+                        <img alt="Ikona artystów." src={artistIcon} className="category-icon"></img>
+                        Artyści         
                     </div>
                 </div>
                 <div className="items-wrapper">
@@ -274,7 +286,7 @@ export default class List extends Component {
                             autoComplete="off"
                             contentEditable="true" 
                             value={this.state.phrase}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             placeholder={"Znajdź..."}
                             className="search-bar-input"
                             name="phrase" ></input>
@@ -282,16 +294,14 @@ export default class List extends Component {
                     <ul>
                         {
                             _ITEMS_LIST ?
-                            // SPRAWDZIC lol przeciez _ITEMS_LIST jest obiektem
-                            // to chyba nie: _ITEMS_LIST.length !==0 ?
                                 _ITEMS_LIST.items.length !==0 ?
                                 <InfiniteScroll
                                     dataLength={_dataLength}
                                     next={() => this._getMoreItems()}
                                     hasMore={this.state.hasMoreItems}
                                     loader={loader}>
-                                    {this.state[_ITEMS_LIST.category].items.map((item, i) => (
-                                        <li key={_ITEMS_LIST.category + "_" + i}>
+                                    {this.state[_ITEMS_LIST.category].items.map((item) => (
+                                        <li key={item.id}>
                                             <Item
                                                 _countries={this.state.COUNTRIES}
                                                 popDeletedItem={(id) => this.updateListAfterDelete(id)}

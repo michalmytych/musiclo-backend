@@ -5,8 +5,8 @@ import deleteIcon from '../assets/remove.svg';
 
 export default function DeleteBtn(props) {
     return (
-        <button onClick={props.handler}>
+        <div onClick={props.handler}>
             <img src={deleteIcon} alt="Przycisk usuwania." className="crud-icon"/>
-        </button>
+        </div>
     )
 }

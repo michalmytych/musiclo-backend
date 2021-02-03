@@ -9,7 +9,7 @@ export const KEYS = [
     {"id" : 7,  "name" 	: "G"},
     {"id" : 8,  "name" 	: "G#"},
     {"id" : 9, "name" 	: "A"},
-    {"id" : 10, "name" 	: "B"},    
+    {"id" : 10, "name" 	: "B"},
 ]
 
 export function encodeMusicKey(key_number) {
