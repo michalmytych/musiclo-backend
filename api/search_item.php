@@ -96,13 +96,31 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                         WHERE albums.name LIKE ? GROUP BY albums.id LIMIT 50";
                 break;
             case 'artists':
-                $query = "SELECT 
-                        artists.id, artists.name, artists.spotify_link
-                        FROM artists WHERE 
-                        artists.name LIKE ? UNION
-                        SELECT artists.id, artists.name, artists.spotify_link
-                        FROM artists WHERE 
-                        artists.name LIKE ? LIMIT 50";
+                $query = "SELECT artists.id, artists.name, artists.spotify_link,
+                    JSON_ARRAYAGG(albums.name) AS _albums_names,
+                    JSON_ARRAYAGG(albums.id) AS _albums_ids,
+                    countries.name AS _country_name
+                    FROM artists
+                    LEFT JOIN belongs_to
+                    ON artists.id = belongs_to.artist_id
+                    LEFT JOIN albums
+                    ON belongs_to.album_id = albums.id
+                    LEFT JOIN countries
+                    ON artists.country = countries.iso_code
+                    WHERE
+                    artists.name LIKE ? UNION
+                    SELECT artists.id, artists.name, artists.spotify_link,
+                    JSON_ARRAYAGG(albums.name) AS _albums_names,
+                    JSON_ARRAYAGG(albums.id) AS _albums_ids,
+                    countries.name AS _country_name
+                    FROM artists
+                    LEFT JOIN belongs_to
+                    ON artists.id = belongs_to.artist_id
+                    LEFT JOIN albums
+                    ON belongs_to.album_id = albums.id
+                    LEFT JOIN countries
+                    ON artists.country = countries.iso_code
+                    WHERE artists.name LIKE ? GROUP BY artists.id LIMIT 50";
                 break;
             default:
                 http_response_code(400);
