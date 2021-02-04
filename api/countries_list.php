@@ -28,7 +28,7 @@ $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname)
 mysqli_query($conn, 'SET NAMES utf-8');
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {                       
-    $query = "SELECT * FROM countries;";
+    $query = "SELECT * FROM countries ORDER BY countries.name ASC";
     
     $result = mysqli_query($conn, $query);             
     $arr = array();

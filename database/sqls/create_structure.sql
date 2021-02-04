@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS albums (
     `name`              VARCHAR(196) NOT NULL,
     `release_date`      DATE DEFAULT NULL,
     `spotify_link`      VARCHAR(128) NULL,
+    `created_at`        DATETIME DEFAULT NOW(),
     PRIMARY KEY(`id`)
 );
 
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS songs (
     `release_date`      DATE DEFAULT NULL,
     `spotify_link`      VARCHAR(128) NULL,
     `album_id`          VARCHAR(24) NULL,
+    `created_at`        DATETIME DEFAULT NOW(),
     PRIMARY KEY(`id`),
     FOREIGN KEY (`album_id`)
         REFERENCES albums(`id`)
@@ -58,6 +60,7 @@ CREATE TABLE IF NOT EXISTS artists (
     `description`       TEXT(516) NULL,
     `country`           VARCHAR(2) NULL,
     `spotify_link`      VARCHAR(128) NULL,
+    `created_at`        DATETIME DEFAULT NOW(),
     PRIMARY KEY(`id`),
     FOREIGN KEY (`country`)
         REFERENCES countries(`iso_code`)

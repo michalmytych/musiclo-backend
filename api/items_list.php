@@ -66,6 +66,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                         LEFT JOIN artists
                         ON artists.id = recorded_by.artist_id                        
                         GROUP BY songs.id
+                        ORDER BY songs.created_at DESC
                         LIMIT ?, ?";                                            
                 break;         
             case 'albums':
@@ -82,6 +83,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                         LEFT JOIN artists
                         ON belongs_to.artist_id = artists.id
                         GROUP BY albums.id
+                        ORDER BY albums.created_at DESC
                         LIMIT ?, ?";
                 break;
             case 'artists':
@@ -101,6 +103,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                         LEFT JOIN countries
                         ON artists.country = countries.iso_code
                         GROUP BY artists.id
+                        ORDER BY artists.created_at DESC
                         LIMIT ?, ?";
                 break;
             default:
