@@ -212,9 +212,9 @@ export default class AlbumForm extends Component {
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."
                     name="spotify_link"></input>                                                     
-                <div 
+                <button 
                     className="form-submit-btn"
-                    type={"submit"}>Zapisz</div>                    
+                    type={"submit"}>Zapisz</button>                    
             </form>
         )
     }

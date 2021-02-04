@@ -284,9 +284,9 @@ export default class SongForm extends Component {
                     name="spotify_link" 
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."/>                                               
-                <div 
+                <button 
                     className="form-submit-btn"
-                    type={"submit"}>Zapisz</div>                    
+                    type={"submit"}>Zapisz</button>                    
             </form>
         )
     }

@@ -187,9 +187,9 @@ export default class ArtistForm extends Component {
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."/>
                 <p>Opis</p>           
-                <div 
+                <button 
                     className="form-submit-btn"                
-                    type={"submit"}>Zapisz</div>                    
+                    type={"submit"}>Zapisz</button>                    
             </form>
         )
     }
