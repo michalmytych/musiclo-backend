@@ -60,42 +60,33 @@ const SongDetails = (props) => {
     return (
         <div className="details-box">
             <div className="details-p">
-                <p className="italic-colored">{props.item.name}</p>
-                <p>
-                    {
-                    props.item.release_date ?
-                    formatDatetime(props.item.release_date) : "Brak daty powstania"
-                    }
-                </p>
                 <div>
                     { _artists_names ? 
                         <Fragment>
-                            <p>Artyści</p>
+                            <p className="tiny-caption">WYKONAWCY</p>
                             <div>{
                                 _artists_names.map((a, index) => {
                                     if (index===_artists_names.length-1) {
-                                        return <span>{a}</span>;
-                                    } else { return <span>{a}, </span>; }                            
+                                        return <div className="pink-h">{a}</div>;
+                                    } else { return <div className="pink-h">{a}, </div>; }                            
                                 })} 
                             </div>
                         </Fragment>
                         : <p>Brak informacji o artystach</p>
                     }
                 </div>
-                <div>                    
-                    { album_name ? 
-                        <Fragment>
-                            <p>Album</p>
-                            <h3>{album_name}</h3>
-                        </Fragment>                        
-                        : <p>Brak informacji o albumie</p>
+                <p className="tiny-caption">DATA WYDANIA</p>
+                <p className="release-date">
+                    {
+                    props.item.release_date ?
+                    formatDatetime(props.item.release_date) : "Brak daty powstania"
                     }
-                </div>
+                </p>                
                 <p className="mkey">
                     {musicKey ? musicKey : null} {mode ? mode : null}
                 </p>
             </div>
-            <div className="details-p">
+            <div className="details-p spotify-chart">
                 <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>
             </div>            
         </div>        

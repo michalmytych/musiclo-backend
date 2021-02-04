@@ -77,7 +77,7 @@ export default class ItemForm extends Component {
                             getEditedArtist={args=>{this.setEditedItemObj(args)}}/>
                         : null
                     }                                   
-                    <button onClick={this.props.toggler}>Anuluj</button>
+                    <div className="cancel-btn" onClick={this.props.toggler}>Anuluj</div>
                 </div>
             </Fragment>
         )

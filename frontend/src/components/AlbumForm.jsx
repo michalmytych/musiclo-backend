@@ -11,6 +11,9 @@ import {
 
 import { getSongsOfAlbumRequest } from '../requests';
 
+import popItemIcon from '../assets/pop_item.svg';
+import "../styles/ItemForm.css";
+
 
 export default class AlbumForm extends Component {
     constructor() {
@@ -139,12 +142,6 @@ export default class AlbumForm extends Component {
             <form
                 className="animate__animated animate__fadeInDown" 
                 onSubmit={this.handleSubmit}>
-                {
-                    this.props._editing ?
-                    <h4>Edytowanie {this.props.instance.name}</h4>
-                    :
-                    null
-                }
                 <p className="input-label">Nazwa albumu</p>
                 <input 
                     onChange={this.handleChange}
@@ -160,7 +157,8 @@ export default class AlbumForm extends Component {
                             <li>
                                 <div
                                     className="selected-search-select-item" 
-                                    onClick={()=>this.popArtist(a.id)}>X {
+                                    onClick={()=>this.popArtist(a.id)}>
+                                     <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania artysty."></img>{
                                     a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
                                     }</div>
                             </li>                                
@@ -180,7 +178,8 @@ export default class AlbumForm extends Component {
                             <li>
                                 <div
                                     className="selected-search-select-item" 
-                                    onClick={()=>this.popSong(a.id)}>X {
+                                    onClick={()=>this.popSong(a.id)}>
+                                    <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania piosenki."></img>{
                                     a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
                                     }</div>
                             </li>                                
@@ -213,9 +212,9 @@ export default class AlbumForm extends Component {
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."
                     name="spotify_link"></input>                                                     
-                <button 
+                <div 
                     className="form-submit-btn"
-                    type={"submit"}>Zapisz</button>                    
+                    type={"submit"}>Zapisz</div>                    
             </form>
         )
     }

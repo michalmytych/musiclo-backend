@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import SearchSelect from './SearchSelect';
 
 import { KEYS, encodeMusicKey, onlyUniqueFilter, uniqueArrayOfObjects } from '../constants';
 
 import { setDateInputValue } from '../display';
+import popItemIcon from '../assets/pop_item.svg';
+import "../styles/ItemForm.css";
 
 
 export default class SongForm extends Component {
@@ -130,15 +132,6 @@ export default class SongForm extends Component {
             <form
             className="animate__animated animate__fadeInDown"  
                 onSubmit={this.handleSubmit}>
-                    {
-                        this.props._editing ?
-                            this.props.instance ?
-                                <h4>Edytowanie piosenki {this.props.instance.name}</h4>
-                            :
-                            <h4>Edytowanie</h4>
-                        :
-                        null
-                    }
                 <p className="input-label">Tytuł</p>
                 <input 
                     onChange={this.handleChange}
@@ -175,7 +168,9 @@ export default class SongForm extends Component {
                         this.state.ALBUM ?
                         <div
                             className="selected-search-select-item" 
-                            onClick={this.clearAlbum}>X {
+                            onClick={this.clearAlbum}>
+                            <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania albumu."></img>
+                            {
                             this.state.ALBUM.name ?
                                 this.state.ALBUM.name.length > 20 ? 
                                 this.state.ALBUM.name.slice(0,17) + "..." : this.state.ALBUM.name
@@ -289,9 +284,9 @@ export default class SongForm extends Component {
                     name="spotify_link" 
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."/>                                               
-                <button 
+                <div 
                     className="form-submit-btn"
-                    type={"submit"}>Zapisz</button>                    
+                    type={"submit"}>Zapisz</div>                    
             </form>
         )
     }

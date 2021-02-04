@@ -102,11 +102,15 @@ export default class Item extends Component {
                             {
                                 this.props.category==='songs' ?
                                 <div>
-                                    <h2 className="item-name">{this.props.item.name}</h2>
+                                    <p className="tiny-caption">TYTUŁ</p>
+                                    <h2 className="song-name">{this.props.item.name}</h2>
                                     {
                                         this.props.item.album_name ?
-                                        <h4 className="item-name">{this.props.item.album_name}</h4>   
-                                        : <h5>SINGLE</h5>
+                                        <Fragment>
+                                            <p className="tiny-caption">ALBUM</p>
+                                            <h4 className="album-name">{this.props.item.album_name}</h4>   
+                                        </Fragment>                                        
+                                        : <h5 className="album-name">SINGLE</h5>
                                     }                            
                                     {
                                         this.props.item.spotify_link ?
@@ -130,7 +134,9 @@ export default class Item extends Component {
                             {
                                 this.props.category==='albums' ?
                                 <div>
-                                    <h2 clasName="item-name">{this.props.item.name}</h2>                      
+                                    <p className="tiny-caption">NAZWA</p>
+                                    <h2 className="song-name main-album-name">
+                                        {this.props.item.name}</h2>                      
                                     {
                                         this.props.item.spotify_link ?
                                         <SpotifyPlugin 
@@ -153,7 +159,8 @@ export default class Item extends Component {
                             {
                                 this.props.category==='artists' ?
                                 <div>
-                                    <h2 clasName="item-name">{this.props.item.name}</h2>                           
+                                    <p className="tiny-caption">NAZWA</p>
+                                    <h2 className="songs-name artist-name">{this.props.item.name}</h2>                           
                                     {
                                         this.props.item.spotify_link ?
                                         <SpotifyPlugin 

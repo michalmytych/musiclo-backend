@@ -5,14 +5,9 @@
 .btn {
   border: none;
   cursor: pointer;
-  background-color: rgb(24, 218, 185);
   padding: 0.6rem 2rem 0.6rem 2rem;
   margin: 0.4rem;
   font-weight: bold;
-}
-
-.btn {
-  background-color: rgb(62, 238, 209);
 }
 
 .btn:focus {

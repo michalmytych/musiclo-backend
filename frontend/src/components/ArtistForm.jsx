@@ -9,6 +9,9 @@ import {
     uniqueArrayOfObjects 
 } from '../constants';
 
+import popItemIcon from '../assets/pop_item.svg';
+import "../styles/ItemForm.css";
+
 
 export default class ArtistForm extends Component {
     constructor() {
@@ -113,12 +116,6 @@ export default class ArtistForm extends Component {
             <form 
                 className="animate__animated animate__fadeInDown" 
                 onSubmit={this.handleSubmit}>
-                {
-                    this.props._editing ?
-                    <h4>Edytowanie {this.props.instance.name}</h4>
-                    :
-                    <h4>Dodawanie</h4>
-                }
                 <p className="input-label">Nazwa wykonawcy</p>
                 <input 
                     onChange={this.handleChange}
@@ -147,7 +144,7 @@ export default class ArtistForm extends Component {
                                     <div
                                         className="selected-search-select-item" 
                                         onClick={()=>this.popAlbum(a.id)}>
-                                         {
+                                        <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania piosenki."></img>{
                                         a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
                                         }</div>
                                 </li>                                
@@ -190,9 +187,9 @@ export default class ArtistForm extends Component {
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."/>
                 <p>Opis</p>           
-                <button 
+                <div 
                     className="form-submit-btn"                
-                    type={"submit"}>Zapisz</button>                    
+                    type={"submit"}>Zapisz</div>                    
             </form>
         )
     }
