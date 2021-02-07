@@ -8,12 +8,6 @@ const randInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-// simulate async api call with random delay
-const _simulateApiResponseDelay = () => {
-    var delay = randInt(500, 2500);
-    return new Promise(res => setTimeout(res, delay))
-};
-
 export async function getItemsListRequest(args) { 
     var url = `${API_URL}items_list.php?limit=${args.l}&page=${args.p}&category=${args.c}`;
     var ITEMS = await fetch(url)
@@ -27,9 +21,6 @@ export async function getItemsListRequest(args) {
 export async function createItemRequest(data) {
     console.log(JSON.stringify(data.obj));
     console.log("createItemRequest");
-    /*
-        BĘDZIE ZABLOKOWANE PRZEZ CORS
-    */
     var url = `${API_URL}create_item.php?category=${data.category}`;
     var response = await fetch(url, {
         method: 'POST',
@@ -46,9 +37,6 @@ export async function createItemRequest(data) {
 };
 
 export async function deleteItemRequest(args) {
-    /*
-        ZABLOKOWANE PRZEZ CORS
-    */
     var url = `${API_URL}delete_item.php?id=${args.id}&category=${args.cat}`;
 
     const response = await fetch(url, {
@@ -60,14 +48,8 @@ export async function deleteItemRequest(args) {
 };
 
 export async function putEditedItemRequest(data) {
-    /*
-        BĘDZIE ZABLOKOWANE PRZEZ CORS
-    */    
     console.log("putEditedItemRequest");
     console.log(JSON.stringify(data.obj));
-    /*
-        BĘDZIE ZABLOKOWANE PRZEZ CORS
-    */
     var url = `${API_URL}update_item.php?category=${data.category}&id=${data.id}`;
     var response = await fetch(url, {
         method: 'POST',

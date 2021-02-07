@@ -23,7 +23,6 @@ export default class AlbumForm extends Component {
             "artists_ids"   : [],
             "artists_names" : [],
             "songs_ids"     : [],
-            "explicit"      : false,
             "release_date"  : "",
             "ARTISTS"       : [],
             "spotify_link"  : "",
@@ -40,9 +39,6 @@ export default class AlbumForm extends Component {
     getSelectedArtists(selections) {
         var _ARTISTS = this.state.ARTISTS.concat(selections);
         var _disctinct = uniqueArrayOfObjects(_ARTISTS, "id");
-        /*this.setState({
-            _artists_ids : _disctinct
-        });*/
         this.setState({
             ARTISTS : _disctinct
         });
@@ -117,7 +113,6 @@ export default class AlbumForm extends Component {
         if (!_songs) {_songs = []};
         this.setState({
             "name"              : instance.name,
-            "explicit"          : parseInt(instance.explicit),
             "spotify_link"      : instance.spotify_link,
             "release_date"      : instance.release_date,
             "artists_ids"       : _artists_ids,
@@ -191,12 +186,6 @@ export default class AlbumForm extends Component {
                     _getInitialValue={(s) => this.getSelectedSongs(s)}
                     getValues={(s) => this.getSelectedSongs(s)}
                     category={"songs"} />
-                <p className="input-label">Czy explicit</p>
-                <input
-                    onChange={this.handleChange}
-                    type="checkbox" 
-                    value={this.state.explicit}
-                    name="explicit"/>
                 <p className="input-label">Data wydania</p>
                 <input 
                     onChange={this.handleChange} 

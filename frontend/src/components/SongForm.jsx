@@ -49,10 +49,22 @@ export default class SongForm extends Component {
         });
     }
     
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
+    handleChange(event) {        
+        if(event.target.type == 'checkbox') {
+            let val = this.state[event.target.name];
+            if(!val) {
+                val = 1;
+            } else if(val) {
+                val = 0;
+            } else {
+                val = 1;
+            }
+            this.setState({ [event.target.name]: val });
+        } else {
+            this.setState({
+                [event.target.name]: event.target.value
+            });
+        }        
     }
 
     handleSubmit(event) {
@@ -90,7 +102,7 @@ export default class SongForm extends Component {
             "name"              : instance.name,
             "ALBUM"             : album,
             "ARTISTS"           : _artists,
-            "explicit"          : parseInt(instance.explicit),
+            "explicit"          : instance.explicit,
             "danceability"      : parseFloat(instance.danceability),
             "energy"            : parseFloat(instance.energy),
             "acousticness"      : parseFloat(instance.acousticness),
@@ -128,6 +140,11 @@ export default class SongForm extends Component {
     }
 
     render() {
+        var _explicit = false;
+        if (parseInt(this.state.explicit)) {
+            _explicit = true;
+        }        
+
         return (
             <form
             className="animate__animated animate__fadeInDown"  
@@ -187,6 +204,7 @@ export default class SongForm extends Component {
                 <input
                     onChange={this.handleChange}
                     type="checkbox" 
+                    checked={_explicit}
                     value={this.state.explicit}
                     name="explicit"/>
                 <p className="input-label">Taneczność</p>                
