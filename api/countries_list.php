@@ -30,7 +30,7 @@ if (!mysqli_set_charset($conn, "utf8")) {
     exit();
 } 
 
-mysqli_query($conn, 'SET NAMES utf-8');
+mysqli_query($conn, 'SET NAMES utf8');
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {                       
     $query = "SELECT * FROM countries ORDER BY countries.name ASC";

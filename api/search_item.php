@@ -37,7 +37,7 @@ if (!mysqli_set_charset($conn, "utf8")) {
     exit();
 }
 
-mysqli_query($conn, 'SET NAMES utf-8');
+mysqli_query($conn, 'SET NAMES utf8');
 
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -139,8 +139,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         $arr = array();        
         while($row = mysqli_fetch_assoc($result))
         {
-            $row = array_map('utf8_encode', $row);
-            
             $row = array_map(function($value) {
                 return $value === "" ? NULL : $value;
             }, $row);
