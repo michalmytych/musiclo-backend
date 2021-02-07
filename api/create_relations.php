@@ -124,7 +124,7 @@ function updateOneToMany($conn, $id, $ids_arr, $is_updating) {
 
     $chk_query = "SELECT songs.id FROM songs WHERE songs.id = ?, songs.album_id IS NULL";
     $clear_query = "UPDATE songs SET songs.album_id = NULL WHERE songs.album_id = ?";
-
+    
     $checkStatement = mysqli_prepare($conn, $chk_query);
     $clearStatement = mysqli_prepare($conn, $clear_query);
     mysqli_stmt_bind_param($clearStatement, "s", $id);
@@ -140,8 +140,8 @@ function updateOneToMany($conn, $id, $ids_arr, $is_updating) {
 
         $query = "UPDATE songs SET songs.album_id = ? WHERE songs.id = ?";
         $updateStatement = mysqli_prepare($conn, $query);
-
-   	mysqli_stmt_execute($clearStatement);
+        
+        mysqli_stmt_execute($clearStatement);        
         foreach ($ids_arr as $related_id) {
             mysqli_stmt_bind_param($updateStatement, "ss", $id, $related_id);
             $update_result = mysqli_stmt_execute($updateStatement);

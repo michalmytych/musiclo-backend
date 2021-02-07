@@ -274,7 +274,7 @@ export default class SongForm extends Component {
                     required
                     onChange={this.handleChange} 
                     id="release_date_input"
-                    type="date" 
+                    type="date"
                     value={this.state.release_date}
                     name="release_date"></input>    
                 <p className="input-label">Utwór w Spotify</p>

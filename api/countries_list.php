@@ -25,6 +25,11 @@ if ($_DEBUG_MODE_) {
 $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname)
     or die('Błąd połączenia z serwerem bazy danych: '.mysqli_connect_error());
 
+if (!mysqli_set_charset($conn, "utf8")) {
+    printf("Error loading character set utf8: %s\n", mysqli_error($conn));
+    exit();
+} 
+
 mysqli_query($conn, 'SET NAMES utf-8');
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {                       

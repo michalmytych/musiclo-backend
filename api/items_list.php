@@ -29,6 +29,11 @@ if ($_DEBUG_MODE_) {
 $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname)
     or die('Błąd połączenia z serwerem bazy danych: '.mysqli_connect_error());
 
+if (!mysqli_set_charset($conn, "utf8")) {
+    printf("Error loading character set utf8: %s\n", mysqli_error($conn));
+    exit();
+}
+
 mysqli_query($conn, 'SET NAMES utf-8');
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -64,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                         LEFT JOIN recorded_by
                         ON songs.id = recorded_by.track_id
                         LEFT JOIN artists
-                        ON artists.id = recorded_by.artist_id                        
+                        ON artists.id = recorded_by.artist_id                                                
                         GROUP BY songs.id
                         ORDER BY songs.created_at DESC
                         LIMIT ?, ?";                                            
@@ -118,9 +123,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         $arr = array();
         
         while($row = mysqli_fetch_assoc($result))
-        {
-            $row = array_map('utf8_encode', $row);
-            
+        {            
             $row = array_map(function($value) {
                 return $value === "" ? NULL : $value;
             }, $row);
