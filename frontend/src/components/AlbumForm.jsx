@@ -158,7 +158,7 @@ export default class AlbumForm extends Component {
                                 <div
                                     className="selected-search-select-item" 
                                     onClick={()=>this.popArtist(a.id)}>
-                                     <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania artysty."></img>{
+                                    <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania artysty."></img>{
                                     a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
                                     }</div>
                             </li>                                

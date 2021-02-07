@@ -149,7 +149,8 @@ export default class SongForm extends Component {
                                 <li>
                                     <div
                                         className="selected-search-select-item" 
-                                        onClick={()=>this.popArtist(a.id)}>X {
+                                        onClick={()=>this.popArtist(a.id)}>
+                                        <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania albumu."></img>{
                                         a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
                                         }</div>
                                 </li>                                
