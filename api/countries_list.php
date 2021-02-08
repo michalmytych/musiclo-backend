@@ -40,7 +40,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
     
     while($row = mysqli_fetch_assoc($result))
     {
-        $row = array_map('utf8_encode', $row);            
         $arr[] = $row;
     }
     

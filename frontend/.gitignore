@@ -23,3 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+autoryzacja.php
+.eslintcache
+/styles_old
+/.vscode
