@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 
-// temp
 import { getSearchResultsRequest } from '../requests';
 
 

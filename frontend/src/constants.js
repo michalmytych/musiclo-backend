@@ -52,7 +52,7 @@ export function uniqueArrayOfObjects(array, keyToBeUnique) {
             alert("To nie jest poprawny wybór!");
             console.log(error);
         }            
-    } 
+    }
     return [];
 }
 

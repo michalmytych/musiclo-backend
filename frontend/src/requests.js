@@ -2,11 +2,6 @@
 // Wierzba
 const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
 
-const randInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
 
 export async function getItemsListRequest(args) { 
     var url = `${API_URL}items_list.php?limit=${args.l}&page=${args.p}&category=${args.c}`;
@@ -17,6 +12,7 @@ export async function getItemsListRequest(args) {
 
     return ITEMS;
 };
+
 
 export async function createItemRequest(data) {
     console.log(JSON.stringify(data.obj));
@@ -36,6 +32,7 @@ export async function createItemRequest(data) {
     });
 };
 
+
 export async function deleteItemRequest(args) {
     var url = `${API_URL}delete_item.php?id=${args.id}&category=${args.cat}`;
 
@@ -46,6 +43,7 @@ export async function deleteItemRequest(args) {
         }
     }).then(response => console.log(response.status))
 };
+
 
 export async function putEditedItemRequest(data) {
     console.log("putEditedItemRequest");
@@ -65,6 +63,7 @@ export async function putEditedItemRequest(data) {
     });
 };
 
+
 export async function getSearchResultsRequest(args) {
     var url = `${API_URL}search_item.php?category=${args.c}&phrase=${args.p}`;
     var RESULTS = await fetch(url)
@@ -75,6 +74,7 @@ export async function getSearchResultsRequest(args) {
     return RESULTS;    
 };
 
+
 export async function getSongsOfAlbumRequest(id) {    
     var SONGS = await fetch(API_URL + `songs_of_album.php?id=${id}`)
     .then(response => { console.log(response.status); return response.json(); }) 
@@ -83,6 +83,7 @@ export async function getSongsOfAlbumRequest(id) {
     
     return SONGS;
 };
+
 
 export async function getCountriesDataRequest() {    
     var data = await fetch(API_URL + `countries_list.php`)
