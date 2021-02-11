@@ -6,7 +6,7 @@ body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;    
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: white;
   font-family: 'Work Sans', sans-serif;
   font-weight: normal;
@@ -23,7 +23,7 @@ input, textarea, select {
   padding: 0.3rem;
   margin: 0.5rem;
   margin-left: 0.2rem;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-family: 'Work Sans', sans-serif;
   color: white;
 }
@@ -31,7 +31,7 @@ input, textarea, select {
 input, textarea, select {
   transition: 0.3s;
   border: none;
-  font-size: 1.15rem;
+  font-size: 1rem;
   margin: 0.5rem;
   margin-left: 0.2rem;
   font-family: 'Work Sans', sans-serif;
@@ -70,43 +70,44 @@ ul, li{
 
 .toggle-details-btn{
   border: none;
-  padding: 0.7rem;
+  padding: 0.7rem 0.7rem 0.7rem 0;
   outline: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
-  color: white;
+  color: rgba(255, 255, 255, 0.76);
   margin-bottom: 1rem;
   background-color: transparent;
   text-shadow: 2px 2px 4px rgb(0,0,0);
 }
 
 .toggle-details-btn:hover{
-  transform: scale(1.04);
+  color: white;
   transition: 0.15s;
 }
 
 .toggle-details-btn:active{
-  transform: scale(1.06);
+  transition: 0s;
+  color: rgba(255, 255, 255, 0.397);
 }
 
 .input-label{
   width: 100%;
   padding-bottom: 0.3rem;
   border-bottom: 3px solid #41ead49b; 
-  font-size: 1.4rem;
+  font-size: 0.8rem;
   font-style: italic;
 }
 
 ::-moz-selection {
   color: black;
   text-shadow: none;
-  background: rgb(117, 117, 117);
+  background: rgb(209, 52, 209);
 }
 
 ::selection {
   color: black;
   text-shadow: none;
-  background: rgb(104, 104, 104);
+  background: rgb(209, 52, 209);
 }
 
 option:hover{
@@ -128,13 +129,13 @@ option:checked{
 
 .italic-colored{
   font-style: bold;
-  font-size: 1.7rem;
+  font-size: 1.2rem;
 }
 
 .pink-h{
   color: #ff4d8b;
   font-weight: bolder;
-  font-size: 1.1rem;
+  font-size: 1rem;
   display: inline-block;
   padding-top: 0.6rem;
   padding-bottom: 1.3rem;
@@ -142,7 +143,7 @@ option:checked{
 
 .release-date{
   margin-top: 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   font-style: italic;
 }
 
@@ -154,12 +155,12 @@ option:checked{
 
 .italic-colored-small{
   font-style: italic;
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: rgba(204, 204, 204, 0.63);
 }
 
 .mkey{
-  font-size: 1.7rem;
+  font-size: 1.15rem;
   font-family: 'EB Garamond', serif;
 }
 
@@ -176,7 +177,7 @@ option:checked{
 .yt-btn{
   width: 3rem;
   position: relative;
-  left: -1rem;
+  left: 2rem;
   top: 1rem;
 }
 
@@ -186,12 +187,12 @@ option:checked{
 }
 
 .loader {
-  width: 5rem;
+  width: 8rem;
 }
 
 .tiny-caption{
   color: #ffffff8e;
-  font-size: 1rem;
+  font-size: 0.7rem;
   font-weight: normal;
   padding: 0;
   margin: 0;
@@ -204,23 +205,23 @@ option:checked{
   margin: 0;
   padding-bottom: 0.6rem;
   padding-top: 0.3rem;
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   text-shadow: 2px 2px 4px rgb(0,0,0);
 }
 
 .artist-name{
   margin-top: 0.4rem;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
 }
 
 .album-name{
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   margin-top: 0.4rem;
   color: #fbff12;
 }
 
 .main-album-name{
-  font-size: 1.8rem;
+  font-size: 1.35rem;
 }
 
 .spotify-iframe {
@@ -245,8 +246,8 @@ option:checked{
   height: 130vw;
   top: -10rem;
   left: -10rem;
-  backdrop-filter: blur(20px);
-  background-color: #008d7a1f;
+  background-color: #1313138e;
+  backdrop-filter: blur(5px);
 }
 
 ::-webkit-scrollbar {
@@ -278,7 +279,7 @@ input[type=checkbox] {
 }
 
 .spotify-feature-numerical {
-  font-size: 1.6rem;
+  font-size: 1.25rem;
   display: inline-block;
   padding-left: 0.6rem;
   position: relative;
@@ -294,7 +295,7 @@ input[type=checkbox] {
   border-radius: 0.5rem;
   color: white;
   text-shadow: 2px 2px 4px rgb(0,0,0);
-  font-size: 1.4rem;
+  font-size: 1.15rem;
   background-color: rgba(10, 131, 91, 0.623);
   transition: 0.3s;
   cursor: pointer;
@@ -431,7 +432,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .album-spotify-preview{
   text-decoration: none;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   color: #06a57d; padding: 0.5rem;
   margin-bottom: 0.3rem;
 }

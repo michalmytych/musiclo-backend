@@ -1,8 +1,9 @@
 .Item {
-    border: 2px solid rgba(70, 70, 70, 0.493);
-    background-color: rgba(194, 194, 194, 0.041);
+    border: 1px solid rgba(70, 70, 70, 0.493);
+    background-color: #1f1f1fc2;
+    backdrop-filter: blur(20px);
     box-sizing: border-box;
-    border-radius: 0.5rem;
+    border-radius: 0.15rem;
     margin: 0.8rem;
     margin-left: 1.4rem;
     padding: 0.4rem;
@@ -16,10 +17,6 @@
 
 .spotify-iframe{
     border-radius: 1rem;
-}
-
-.Item:hover{
-    background-color: rgba(194, 194, 194, 0.061);
 }
 
 .item-data{

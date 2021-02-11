@@ -1,11 +1,13 @@
 .above-box {
     padding: 3rem 6rem 3rem 6rem;
-    width: 60vw;
-    height: 80vh;
-    background-color: rgb(27, 27, 27);
+    width: 55vw;
+    height: 65vh;
+    background-color: #131313d5;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     position: fixed;
-    left: 15vw;
-    top: 5vh;
+    left: 15.5vw;
+    top: 13vh;
     z-index: 9999;
     /* All browsers box shadows */
     -webkit-box-shadow: 10px 10px 31px 8px rgba(0,0,0,0.75);
@@ -29,7 +31,7 @@
 
 .cancel-btn, .form-submit-btn{
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     padding: 0.5rem 4rem 0.5rem 4rem;
     background-color: rgba(155, 155, 155, 0.287);
     display: inline-block;

@@ -9,9 +9,11 @@ export default class Homepage extends Component {
     render() {
         return (
             <div className="Homepage">
-                <div className="crud-container">
-                    <div className="list-wrapper">
-                        <List />
+                <div className="crud-wrapper">
+                    <div className="crud-container">                    
+                            <div className="list-wrapper">
+                                <List />
+                            </div>                    
                     </div>
                 </div>
             </div>

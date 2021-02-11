@@ -310,8 +310,8 @@ export default class List extends Component {
                                                 item={item}/>
                                         </li>
                                     ))}
-                                </InfiniteScroll> : <h4>Brak treści.</h4>
-                            : <h4>Brak treści.</h4>
+                                </InfiniteScroll> : loader
+                            : loader
                         }
                     </ul>
                 </div>                

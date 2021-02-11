@@ -1,45 +1,53 @@
 .List {
-    width: 98%;
+    margin: 0 auto;    
     box-sizing: content-box;
 }
 
-.category-switch{
-    margin-bottom: 1rem;
+.items-wrapper{
+    margin: 0 auto;
+    width: 70%;
+    padding-top: 5rem;
+    box-sizing: border-box;
 }
 
 .category-switch{
+    background-color: #131313a8;
+    backdrop-filter: blur(15px);
+    position: fixed;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
+    margin: 0 auto;
+    width: 100%;
+    z-index: 9900;
+    box-shadow: 2px 1px 30px rgb(0,0,0);
 }
 
 .songs-switch-btn {
-    border-bottom: 4px solid #ff206e;
+    border-bottom: 2px solid #ff206e;
 }
 
-
 .albums-switch-btn {
-    border-bottom: 4px solid #fbff12;
+    border-bottom: 2px solid #fbff12;
 }
 
 .artists-switch-btn{
-    border-bottom: 4px solid #41ead4;  
+    border-bottom: 2px solid #41ead4;  
 }
 
 .all-switch-btn,
 .songs-switch-btn,
 .albums-switch-btn,
 .artists-switch-btn{
+    text-align: center;
     text-shadow: 2px 2px 4px rgb(0,0,0);
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin: 0.3rem;
+    font-size: 1.08rem;
+    font-weight: normal;
     box-sizing: border-box;
     transition: 0.35s;
     flex-grow: 1;
     padding: 1rem 1rem 1rem 1rem;
     cursor: pointer;
-    border-radius: 0.5rem;
 }
 
 .all-switch-btn:hover,
@@ -47,8 +55,7 @@
 .albums-switch-btn:hover,
 .artists-switch-btn:hover{
     transition: 0.4s;
-    background-color: rgba(49, 49, 49, 0.842);
-    border-radius: 1rem;    
+    background-color: rgba(117, 117, 117, 0.301);  
 }
 
 .all-switch-btn:active,
@@ -56,26 +63,22 @@
 .albums-switch-btn:active,
 .artists-switch-btn:active{
     transition: 0.2s;
-    background-color: rgb(39, 39, 39);
-    border-radius: 2rem;
+    background-color: rgba(83, 83, 83, 0.472);
 }
 
 .active-category{   
     transition: 0.5s;
-    background-color: rgb(39, 39, 39);
-    border-radius: 0px;
-    border-radius: 1rem;
+    background-color: rgba(83, 83, 83, 0.274);
 }
 
-.active-category:hover {    
+.active-category:hover {
     transition: 0.4s;
-    background-color: rgb(44, 44, 44);
-    border-radius: 0.3rem;
+    background-color: rgba(83, 83, 83, 0.192);
 }
 
 .category-icon{
-    width: 2.3rem;
-    height: 2.3rem;
+    width: 1.6rem;
+    height: 1.6rem;
     padding-right: 0.8rem;
     vertical-align: middle;
     -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
