@@ -50,10 +50,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $name = $data["name"];
             $uid = $_GET['id'];
-        }
-
-        switch ($_GET["category"]) {
+        }        
+        switch ($_GET["category"]) {            
             case 'songs':
+                $explicit = $data["explicit"];
                 $danceability = $data["danceability"];
                 $energy = $data["energy"];
                 $key = $data["key"];
@@ -67,14 +67,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $artists_ids = $data["artists_ids"];                
                         
-                $query = "UPDATE songs SET songs.name = ?, songs.album_id = ?, songs.danceability = ?, 
+                $query = "UPDATE songs SET songs.name = ?, songs.explicit = ?, songs.album_id = ?, songs.danceability = ?, 
                     songs.energy = ?, songs.key = ?, songs.acousticness = ?, songs.instrumentalness = ?, 
                     songs.valence = ?, songs.mode = ?, songs.release_date = ?, songs.spotify_link = ? 
                     WHERE songs.id = ?";
                     
                 $updateStatement = mysqli_prepare($conn, $query);
-                mysqli_stmt_bind_param($updateStatement,'ssddidddisss',
-                    $name,$album_id,$danceability,$energy,$key,$acousticness,
+                mysqli_stmt_bind_param($updateStatement,'sisddidddisss',
+                    $name,$explicit,$album_id,$danceability,$energy,$key,$acousticness,
                     $instrumentalness, $valence,$mode,$release_date,$spotify_link,$uid); 
                 $update_result = mysqli_stmt_execute($updateStatement);                    
 
@@ -88,7 +88,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         "recorded_by",
                         $query = "INSERT INTO recorded_by (`track_id`,`artist_id`) VALUES (?, ?)",
                         true);               
-                }      
+                }                    
                 break;
             case 'artists':                
                 $description = $data["description"];                

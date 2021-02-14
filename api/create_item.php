@@ -51,9 +51,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         switch ($_GET["category"]) {
-            case 'songs':
+            case 'songs':                
                 $uid = generateRandomUniqueId();                
 
+                $explicit = $data["explicit"];
                 $danceability = $data["danceability"];
                 $energy = $data["energy"];
                 $key = $data["key"];
@@ -70,6 +71,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $query =  "INSERT INTO songs (
                         `id`,
                         `name`,
+                        `explicit`,
                         `album_id`,
                         `danceability`,
                         `energy`,
@@ -80,16 +82,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         `valence`,
                         `release_date`,
                         `spotify_link`) 
-                    VALUES ( '".$uid."', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";    
+                    VALUES ( '".$uid."', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";    
                             
                 $insertStatement = mysqli_prepare($conn, $query);
-                mysqli_stmt_bind_param($insertStatement,'ssddiidddss',
-                    $name,$album_id,$danceability,$energy,$key,$mode,$acousticness,
-                    $instrumentalness,$valence,$release_date,$spotify_link); 
-                mysqli_stmt_execute($insertStatement);
+                mysqli_stmt_bind_param($insertStatement,'sisddiidddss',
+                    $name,$explicit,$album_id,$danceability,$energy,$key,$mode,
+                    $acousticness,$instrumentalness,$valence,$release_date,
+                    $spotify_link);                     
+                mysqli_stmt_execute($insertStatement);                
 
-                if (mysqli_stmt_affected_rows($insertStatement) <= 0) {
-                    http_response_code(400);
+                if (mysqli_stmt_affected_rows($insertStatement) <= 0) {                    
+                    http_response_code(400);                    
                 } else {                    
                     updateManyToMany(
                         $conn, 
