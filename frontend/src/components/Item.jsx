@@ -45,28 +45,27 @@ export default class Item extends Component {
         let res = await deleteItemRequest({
             "cat"   : this.props.category, 
             "id"    : item_id
-        });
-        if (res) {
-            this.props.popDeletedItem(item_id);
-            alert("Usunięto!");
-        } else {
-            alert("Request nie powiódł się!");
-        }
+        }).then( res => {
+            if (res) {
+                this.props.popDeletedItem(item_id);
+                alert("Usunięto!");
+            } else { alert("Request nie powiódł się!"); }
+        })        
     }
 
     async _editItem(args) {
         var validArgs = validateItemBeforePost(args);
         if (validArgs) {
             validArgs.id = args.id;
-            let res = await putEditedItemRequest(validArgs);
-            if (res) {
-                alert("Zapisano zmiany!");
-            } else {
-                alert("Request nie powiódł się!");
-            }
+            let res = await putEditedItemRequest(validArgs)
+            .then( res => {
+                if (res) {
+                    alert("Zapisano zmiany!");
+                } else { alert("Request nie powiódł się!"); }
+            })
         } else {
             alert("Niepoprawne dane!");
-        }     
+        }    
     }
 
     render() {

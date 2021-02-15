@@ -121,7 +121,12 @@ export default class List extends Component {
     async _createItem(args) {
         var validArgs = validateItemBeforePost(args);
         if (validArgs) {
-            var response = await createItemRequest(validArgs);  
+            let res = await createItemRequest(validArgs)
+            .then( res => {
+                if (res) {
+                    alert("Dodano!");
+                } else { alert("Request nie powiódł się!"); }                
+            })
         } else {
             alert("Niepoprawne dane!");
         }
