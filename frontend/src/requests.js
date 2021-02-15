@@ -18,7 +18,7 @@ export async function createItemRequest(data) {
     console.log(JSON.stringify(data.obj));
     console.log("createItemRequest");
     var url = `${API_URL}create_item.php?category=${data.category}`;
-    var response = await fetch(url, {
+    let res = await fetch(url, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -32,13 +32,15 @@ export async function createItemRequest(data) {
     .catch(function(error) { 
         console.log('Request failed: ', error) 
     });    
+
+    return res;
 };
 
 
 export async function deleteItemRequest(args) {
     var url = `${API_URL}delete_item.php?id=${args.id}&category=${args.cat}`;
 
-    const response = await fetch(url, {
+    let res = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -46,6 +48,8 @@ export async function deleteItemRequest(args) {
     }).then(response => {
         if (response.status === 200) { return true; } else { return false; }
     })
+
+    return res;
 };
 
 
@@ -53,7 +57,7 @@ export async function putEditedItemRequest(data) {
     console.log("putEditedItemRequest");
     console.log(JSON.stringify(data.obj));
     var url = `${API_URL}update_item.php?category=${data.category}&id=${data.id}`;
-    var response = await fetch(url, {
+    var res = await fetch(url, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -67,6 +71,8 @@ export async function putEditedItemRequest(data) {
     .catch(function(error) {
         console.log('Request failed: ', error) 
     });
+
+    return res;
 };
 
 
