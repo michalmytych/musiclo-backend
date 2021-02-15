@@ -105,6 +105,10 @@ export default class Item extends Component {
                                     <p className="tiny-caption">TYTUŁ</p>
                                     <h2 className="song-name">{this.props.item.name}</h2>
                                     {
+                                        this.props.item.explicit ?
+                                        <div className="explicit-mark">E</div> : null
+                                    }
+                                    {
                                         this.props.item.album_name ?
                                         <Fragment>
                                             <p className="tiny-caption">ALBUM</p>

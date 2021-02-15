@@ -200,6 +200,7 @@ option:checked{
 }
 
 .song-name{
+  display: inline-block;
   font-family: 'Work Sans', sans-serif;
   padding: 0;
   margin: 0;
@@ -435,4 +436,20 @@ input[type=range]:focus::-ms-fill-upper {
   font-size: 1.25rem;
   color: #06a57d; padding: 0.5rem;
   margin-bottom: 0.3rem;
+}
+
+.explicit-mark{
+  display: inline-block;
+  width: 0.89rem;
+  height: 0.89rem;
+  color: #1f1f1f;
+  background-color: rgb(230, 230, 230);
+  border-radius: 0.3rem;
+  text-align: center;
+  font-weight: 900;
+  box-shadow: 2px 2px 4px rgb(0,0,0);
+  font-size: 0.7rem;
+  position: relative;
+  bottom: 0.15rem;
+  left: 0.55rem;
 }

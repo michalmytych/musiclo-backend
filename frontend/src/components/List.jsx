@@ -121,9 +121,7 @@ export default class List extends Component {
     async _createItem(args) {
         var validArgs = validateItemBeforePost(args);
         if (validArgs) {
-            console.log(validArgs);            
             var response = await createItemRequest(validArgs);  
-            console.log(validArgs);
         } else {
             alert("Niepoprawne dane!");
         }
