@@ -7,6 +7,7 @@ header("Access-Control-Allow-Methods: *");
 include "autoryzacja.php";
 include "config.php";
 include "create_relations.php";
+include "queries.php";
 
 /**
  * 
@@ -68,21 +69,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $artists_ids = $data["artists_ids"];
 
-                $query =  "INSERT INTO songs (
-                        `id`,
-                        `name`,
-                        `explicit`,
-                        `album_id`,
-                        `danceability`,
-                        `energy`,
-                        `key`,
-                        `mode`,
-                        `acousticness`,
-                        `instrumentalness`,
-                        `valence`,
-                        `release_date`,
-                        `spotify_link`) 
-                    VALUES ( '".$uid."', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";    
+                $query = $_CREATE_SONG;
                             
                 $insertStatement = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($insertStatement,'sisddiidddss',
@@ -113,13 +100,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $songs_ids = $data["songs_ids"];
                 $albums_ids = $data["albums_ids"];
 
-                $query =  "INSERT INTO artists (
-                    `id`,
-                    `name`,
-                    `description`,
-                    `country`,
-                    `spotify_link`) 
-                VALUES ('".$uid."', ?, ?, ?, ?)";                    
+                $query =  $_CREATE_ARTIST;                  
                 
                 $insertStatement = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($insertStatement,'ssss',
@@ -154,12 +135,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $artists_ids = $data["artists_ids"];
                 $songs_ids = $data["songs_ids"];
 
-                $query =  "INSERT INTO albums (
-                    albums.id,
-                    albums.name,
-                    albums.release_date,
-                    albums.spotify_link )
-                VALUES ('".$uid."', ?, ?, ?)";                
+                $query = $_CREATE_ALBUM;              
 
                 $insertStatement = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($insertStatement,'sss',$name,$release_date,$spotify_link); 

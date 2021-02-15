@@ -6,6 +6,7 @@ header("Access-Control-Allow-Methods: *");
 
 include "autoryzacja.php";
 include "config.php";
+include "queries.php";
 
 /**
  * 
@@ -39,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['id'])) {                        
         $album_id = $_GET['id'];        
 
-        $query = "SELECT * FROM songs WHERE songs.album_id = ?";
+        $query = $_GET_SONGS_OF_ALBUM;
         
         $selectStatement = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($selectStatement, "s", $album_id);
