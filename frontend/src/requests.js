@@ -26,12 +26,12 @@ export async function createItemRequest(data) {
         },
         body: JSON.stringify(data.obj)
     })
-    .then(response => console.log(response.status))
+    .then(response => {
+        if (response.status === 200) { return true; } else { return false; }
+    })
     .catch(function(error) { 
         console.log('Request failed: ', error) 
-    });
-
-    if (response.status === 200) { return true; } else { return false; }
+    });    
 };
 
 
@@ -43,9 +43,9 @@ export async function deleteItemRequest(args) {
         headers: {
             'Content-Type': 'application/json',
         }
-    }).then(response => console.log(response.status))
-
-    if (response.status === 200) { return true; } else { return false; }
+    }).then(response => {
+        if (response.status === 200) { return true; } else { return false; }
+    })
 };
 
 
@@ -61,12 +61,12 @@ export async function putEditedItemRequest(data) {
         },
         body: JSON.stringify(data.obj)
     })
-    .then(response => console.log(response.status))  
+    .then(response => {
+        if (response.status === 200) { return true; } else { return false; }
+    })  
     .catch(function(error) {
         console.log('Request failed: ', error) 
     });
-
-    if (response.status === 200) { return true; } else { return false; }
 };
 
 
