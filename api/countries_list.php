@@ -6,6 +6,7 @@ header("Access-Control-Allow-Methods: *");
 
 include "autoryzacja.php";
 include "config.php";
+include "queries.php";
 
 /**
  * 
@@ -33,9 +34,9 @@ if (!mysqli_set_charset($conn, "utf8")) {
 mysqli_query($conn, 'SET NAMES utf8');
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {                       
-    $query = "SELECT * FROM countries ORDER BY countries.name ASC";
+    $query = $_GET_COUNTRIES_LIST;
     
-    $result = mysqli_query($conn, $query);             
+    $result = mysqli_query($conn, $query);
     $arr = array();
     
     while($row = mysqli_fetch_assoc($result))

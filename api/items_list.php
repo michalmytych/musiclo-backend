@@ -6,6 +6,7 @@ header("Access-Control-Allow-Methods: *");
 
 include "autoryzacja.php";
 include "config.php";
+include "queries.php";
 
 /**
  * 
@@ -46,70 +47,13 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         switch ($_GET['category']) {
             case 'songs':
-                $query = "SELECT 
-                        songs.id,
-                        songs.name,
-                        songs.explicit,
-                        songs.key,
-                        songs.mode,
-                        songs.danceability,
-                        songs.energy,
-                        songs.acousticness,
-                        songs.instrumentalness,
-                        songs.release_date,
-                        songs.valence,                        
-                        songs.spotify_link,
-                        albums.name AS album_name,
-                        songs.album_id AS album_id,
-                        JSON_ARRAYAGG(artists.name) AS _artists_names,
-                        JSON_ARRAYAGG(artists.id) AS _artists_ids
-                        FROM songs
-                        LEFT JOIN albums
-                        ON songs.album_id = albums.id                                                  
-                        LEFT JOIN recorded_by
-                        ON songs.id = recorded_by.track_id
-                        LEFT JOIN artists
-                        ON artists.id = recorded_by.artist_id                                                
-                        GROUP BY songs.id
-                        ORDER BY songs.created_at DESC
-                        LIMIT ?, ?";                                            
+                $query = $_GET_SONGS_LIST;                                            
                 break;         
             case 'albums':
-                $query = "SELECT
-                        albums.id,
-                        albums.name,
-                        albums.release_date,
-                        albums.spotify_link,
-                        JSON_ARRAYAGG(artists.name) AS _artist_names,
-                        JSON_ARRAYAGG(artists.id) AS _artist_ids
-                        FROM albums
-                        LEFT JOIN belongs_to
-                        ON albums.id = belongs_to.album_id
-                        LEFT JOIN artists
-                        ON belongs_to.artist_id = artists.id
-                        GROUP BY albums.id
-                        ORDER BY albums.created_at DESC
-                        LIMIT ?, ?";
+                $query = $_GET_ALBUMS_LIST;
                 break;
             case 'artists':
-                $query = "SELECT
-                        artists.id,
-                        artists.name,
-                        artists.description,
-                        artists.spotify_link,
-                        JSON_ARRAYAGG(albums.name) AS _albums_names,
-                        JSON_ARRAYAGG(albums.id) AS _albums_ids,
-                        countries.name AS _country_name
-                        FROM artists
-                        LEFT JOIN belongs_to
-                        ON artists.id = belongs_to.artist_id
-                        LEFT JOIN albums
-                        ON belongs_to.album_id = albums.id
-                        LEFT JOIN countries
-                        ON artists.country = countries.iso_code
-                        GROUP BY artists.id
-                        ORDER BY artists.created_at DESC
-                        LIMIT ?, ?";
+                $query = $_GET_ARTISTS_LIST;
                 break;
             default:
                 http_response_code(400);

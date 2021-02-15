@@ -6,6 +6,7 @@ header("Access-Control-Allow-Methods: *");
 
 include "autoryzacja.php";
 include "config.php";
+include "queries.php";
 include "create_relations.php";
  
 /**
@@ -45,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $data = json_decode($posted_data, true);
 
-        if (empty($data["name"])) {      
+        if (empty($data["name"])) {
             http_response_code(400);  
         } else {
             $name = $data["name"];
@@ -67,10 +68,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $artists_ids = $data["artists_ids"];                
                         
-                $query = "UPDATE songs SET songs.name = ?, songs.explicit = ?, songs.album_id = ?, songs.danceability = ?, 
-                    songs.energy = ?, songs.key = ?, songs.acousticness = ?, songs.instrumentalness = ?, 
-                    songs.valence = ?, songs.mode = ?, songs.release_date = ?, songs.spotify_link = ? 
-                    WHERE songs.id = ?";
+                $query = $_UPDATE_SONG;
                     
                 $updateStatement = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($updateStatement,'sisddidddisss',
@@ -98,12 +96,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $songs_ids = $data["songs_ids"];
                 $albums_ids = $data["albums_ids"];
 
-                $query =  "UPDATE artists SET
-                        artists.name = ?,
-                        artists.description = ?,
-                        artists.country = ?,
-                        artists.spotify_link = ?
-                        WHERE artists.id = ?";                                
+                $query =  $_UPDATE_ARTIST;                               
                 
                 $updateStatement = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($updateStatement,'sssss',
@@ -136,11 +129,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $songs_ids = $data["songs_ids"];
                 $artists_ids = $data["artists_ids"];
 
-                $query =  "UPDATE albums SET                    
-                    albums.name = ?,
-                    albums.release_date = ?,
-                    albums.spotify_link =  ?
-                    WHERE albums.id = ?";
+                $query = $_UPDATE_ALBUM;
                     
                 $updateStatement = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($updateStatement,'ssss',
