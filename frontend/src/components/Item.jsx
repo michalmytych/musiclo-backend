@@ -59,14 +59,12 @@ export default class Item extends Component {
         var validArgs = validateItemBeforePost(args);        
         if (validArgs) {
             validArgs.id = args.id;
-            let res = await putEditedItemRequest(validArgs)
-            .then( res => {
-                if (res) {
-                    let item = await getItemRequest(args);
-                    this.setState({ item : item });
-                    alert("Zapisano zmiany!");                    
-                } else { alert("Request nie powiódł się!"); }
-            })
+            let res = await putEditedItemRequest(validArgs);
+            if (res) {
+                let item = await getItemRequest(args);
+                this.setState({ item : item });
+                alert("Zapisano zmiany!");                    
+            } else { alert("Request nie powiódł się!"); }
         } else {
             alert("Niepoprawne dane!");
         }    
