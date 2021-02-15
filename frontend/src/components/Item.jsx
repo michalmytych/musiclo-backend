@@ -62,7 +62,7 @@ export default class Item extends Component {
             let res = await putEditedItemRequest(validArgs)
             .then( res => {
                 if (res) {
-                    let item = getItemRequest(args);
+                    let item = await getItemRequest(args);
                     this.setState({ item : item });
                     alert("Zapisano zmiany!");                    
                 } else { alert("Request nie powiódł się!"); }
