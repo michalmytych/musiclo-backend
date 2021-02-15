@@ -54,7 +54,7 @@ export async function deleteItemRequest(args) {
 
 
 export async function getItemRequest(args) {
-    var url = `${API_URL}get_item.php?category=${args.cat}&id=${args.id}`;
+    var url = `${API_URL}get_item.php?category=${args.category}&id=${args.id}`;
 
     let res = await fetch(url, { method: 'GET' })
     .then(response => { console.log(response.status); return response.json(); }) 
