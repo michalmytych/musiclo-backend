@@ -16,7 +16,8 @@ import { uniqueArrayOfObjects } from '../constants';
 
 import { 
     handleCategoryViewChange,
-    setActiveCategoryStyles
+    setActiveCategoryStyles,
+    viewAlert
 } from '../display';
 
 import '../styles/Search.css';
@@ -124,11 +125,11 @@ export default class List extends Component {
             let res = await createItemRequest(validArgs)
             .then( res => {
                 if (res) {
-                    alert("Dodano!");
-                } else { alert("Request nie powiódł się!"); }                
+                    viewAlert("Dodano!", true);
+                } else { viewAlert("Request nie powiódł się!", false); }                
             })
         } else {
-            alert("Niepoprawne dane!");
+            viewAlert("Niepoprawne dane!", false);
         }
     }
 

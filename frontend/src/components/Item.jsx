@@ -18,6 +18,8 @@ import {
 
 import { validateItemBeforePost } from '../validators';
 
+import { viewAlert } from '../display';
+
 
 export default class Item extends Component {
     state = {
@@ -50,8 +52,8 @@ export default class Item extends Component {
         }).then( res => {
             if (res) {
                 this.props.popDeletedItem(item_id);
-                alert("Usunięto!");
-            } else { alert("Request nie powiódł się!"); }
+                viewAlert("Usunięto!", true);
+            } else { viewAlert("Request nie powiódł się!", false); }
         })        
     }
 
@@ -63,10 +65,10 @@ export default class Item extends Component {
             if (res) {
                 let item = await getItemRequest(args);
                 this.setState({ item : item });
-                alert("Zapisano zmiany!");                    
-            } else { alert("Request nie powiódł się!"); }
+                viewAlert("Zapisano zmiany!", true);                    
+            } else { viewAlert("Request nie powiódł się!", false); }
         } else {
-            alert("Niepoprawne dane!");
+            viewAlert("Niepoprawne dane!", false);
         }    
     }
 

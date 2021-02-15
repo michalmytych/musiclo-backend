@@ -453,3 +453,29 @@ input[type=range]:focus::-ms-fill-upper {
   bottom: 0.15rem;
   left: 0.55rem;
 }
+
+#success-alert-box,
+#fail-alert-box{
+  position: fixed;
+  font-size: 1rem;
+  padding: 1rem 2rem 1rem 2rem;
+  width: 24rem;
+  z-index: 9999;
+  bottom: 1rem;
+  left: 37vw;
+  display: none;
+  color: white;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 2px 2px 4px rgb(0,0,0);  
+}
+
+#success-alert-box{
+  background-color: rgba(61, 122, 0, 0.575);
+  border: 1px solid rgb(100, 200, 0);
+}
+
+#fail-alert-box{
+  background-color: rgba(189, 16, 0, 0.575);
+  border: 1px solid rgb(248, 21, 0);
+}
