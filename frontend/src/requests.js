@@ -53,6 +53,18 @@ export async function deleteItemRequest(args) {
 };
 
 
+export async function getItemRequest(args) {
+    var url = `${API_URL}get_item.php?category=${args.cat}&id=${args.id}`;
+
+    let res = await fetch(url, { method: 'GET' })
+    .then(response => { console.log(response.status); return response.json(); }) 
+    .then(ITEM => { return ITEM; })
+    .catch(function(error) { console.log('Request failed: ', error) } );
+
+    return res;
+};
+
+
 export async function putEditedItemRequest(data) {
     console.log("putEditedItemRequest");
     console.log(JSON.stringify(data.obj));
