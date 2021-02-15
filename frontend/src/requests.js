@@ -30,6 +30,8 @@ export async function createItemRequest(data) {
     .catch(function(error) { 
         console.log('Request failed: ', error) 
     });
+
+    if (response.status === 200) { return true; } else { return false; }
 };
 
 
@@ -42,6 +44,8 @@ export async function deleteItemRequest(args) {
             'Content-Type': 'application/json',
         }
     }).then(response => console.log(response.status))
+
+    if (response.status === 200) { return true; } else { return false; }
 };
 
 
@@ -61,6 +65,8 @@ export async function putEditedItemRequest(data) {
     .catch(function(error) {
         console.log('Request failed: ', error) 
     });
+
+    if (response.status === 200) { return true; } else { return false; }
 };
 
 
