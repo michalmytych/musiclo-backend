@@ -28,13 +28,20 @@ export async function viewAlert(message, success) {
         _id = "success-alert-box";
     } else {
         _id = "fail-alert-box";
-    }
-    setElementDisplay(_id, "block");
+    }    
     var alert_box = document.getElementById(_id);
+    setElementDisplay(_id, "block");
+    alert_box.classList.add("animate__animated");
+    alert_box.classList.add("animate__fadeInUp");
     alert_box.innerHTML = message;
-    await sleep(2000).then(
+    await sleep(3000).then( () => {
+        alert_box.classList.remove("animate__fadeInUp") 
+        alert_box.classList.add("animate__fadeOutDown") 
+    });
+    await sleep(400).then(
         () => {
             setElementDisplay(_id, "none");
+            alert_box.classList.remove("animate__fadeOutDown")
             alert_box.innerHTML = "";
         }
     );

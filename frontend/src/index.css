@@ -457,12 +457,14 @@ input[type=range]:focus::-ms-fill-upper {
 #success-alert-box,
 #fail-alert-box{
   position: fixed;
-  font-size: 1rem;
-  padding: 1rem 2rem 1rem 2rem;
-  width: 24rem;
+  font-size: 0.9rem;
+  margin: 0 auto;
+  padding: 0.35rem;
+  width: 100%;
+  box-sizing: border-box;
   z-index: 9999;
-  bottom: 1rem;
-  left: 37vw;
+  bottom: 0;
+  left: 0;
   display: none;
   color: white;
   border-radius: 4px;
