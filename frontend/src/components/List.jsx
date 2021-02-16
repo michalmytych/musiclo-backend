@@ -12,7 +12,10 @@ import {
     getCountriesDataRequest
 } from '../requests';
 
-import { uniqueArrayOfObjects } from '../constants';
+import { 
+    uniqueArrayOfObjects, 
+    validateItems 
+} from '../constants';
 
 import { 
     handleCategoryViewChange,
@@ -39,6 +42,7 @@ const AddItemButton = (props) => {
     )
 }
 
+
 export default class List extends Component {
     constructor() {
         super();
@@ -55,7 +59,8 @@ export default class List extends Component {
             items_limit         : 7,
             phrase              : "",
             item_deleted        : false,
-            COUNTRIES           : []
+            COUNTRIES           : [],
+            nothingFound        : false
         };
         this.handleChange = this.handleChange.bind(this);
         this._getItemsList = this._getItemsList.bind(this);
@@ -97,13 +102,18 @@ export default class List extends Component {
             c    : args.category, 
             p    : args.phrase
         });
-        this.setState({ hasMoreItems: false });
-        this.setState({
-            [args.category] : {
-                "category"  : args.category, 
-                "items"     : this.state[args.category].items.concat(LIST)
-            }
-        });
+        LIST = validateItems(LIST);
+        if (!LIST.length) {
+            this.setState({ nothingFound: true });
+        } else {
+            this.setState({ hasMoreItems: false, nothingFound: false });
+            this.setState({
+                [args.category] : {
+                    "category"  : args.category, 
+                    "items"     : this.state[args.category].items.concat(LIST)
+                }
+            });
+        }        
     }    
 
     refreshListAfterEdit = () => {
@@ -144,7 +154,6 @@ export default class List extends Component {
         this.setState({
             page : this.state.page+1
         });
-        // SPRAWDZIC                  /moze powinno byc parametryzowanie
         this._getItemsList({category: this.state.category, page: page+1});
     }
 
@@ -155,7 +164,6 @@ export default class List extends Component {
     }
 
     updateListAfterDelete = (item_id) => {
-        // SPRAWDZIC
         var list = this.state[this.state.category].items;
         const index = list.map(e => e.id).indexOf(item_id);
         list.splice(index, 1);
@@ -166,7 +174,6 @@ export default class List extends Component {
     }
 
     renderItems(LIST) {
-        // SPRAWDZIC
         return (
             <Fragment>
                 {LIST.items.map(item => (
@@ -185,7 +192,6 @@ export default class List extends Component {
             this.setState({
                 "category": category
             });
-            // SPRAWDZIC czy setState nie jest opozniony
             this._getItemsList({category: category, page: 0});
             handleCategoryViewChange(category);
         }        
@@ -226,7 +232,6 @@ export default class List extends Component {
         const loader = <div className="loader-wrapper"><img alt="" className="loader" src={loadingSpinner}/></div>
         var _ITEMS_LIST;
         switch (this.state.category) {
-            // czy tu nie powinno byc this.state.items
             case 'songs':
                 _ITEMS_LIST = this.state.songs; break;
             case 'albums':
@@ -297,7 +302,7 @@ export default class List extends Component {
                     </div>
                     <ul>
                         {
-                            _ITEMS_LIST ?
+                            _ITEMS_LIST.items ?
                                 _ITEMS_LIST.items.length !==0 ?
                                 <InfiniteScroll
                                     dataLength={_dataLength}
@@ -314,8 +319,10 @@ export default class List extends Component {
                                                 item={item}/>
                                         </li>
                                     ))}
-                                </InfiniteScroll> : loader
-                            : loader
+                                </InfiniteScroll> :
+                                    this.state.nothingFound ? 
+                                    <h3 className="NoData">Nic tu nie ma</h3> : loader                                
+                            : <h3 className="NoData">Nic tu nie ma</h3>
                         }
                     </ul>
                 </div>                

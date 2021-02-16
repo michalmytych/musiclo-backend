@@ -3,6 +3,7 @@
     padding-top: 2rem;
     padding-bottom: 2rem;
     margin: 0 auto;
+    width: 80%;
 }
 
 .search-bar-input{
@@ -20,12 +21,12 @@
 .search-bar-input:hover{    
     color: rgb(255, 255, 255);
     border-radius: 0.3rem;
-    transform: scale(1.05);
+    transform: scale(1.025);
     background-color: transparent
 }
 
 .search-bar-input:active{
-    transform: scale(1.05);
+    transform: scale(1.03);
     transition: 0.2s;
     border-radius: 1.5rem;
     background-color: rgba(65, 65, 65, 0.315);
@@ -33,7 +34,7 @@
 
 .search-bar-input:focus{
     background-color: rgba(65, 65, 65, 0.315);
-    transform: scale(1.05);
+    transform: scale(1.03);
     outline: none;
     border-radius: 0;
     color: white;

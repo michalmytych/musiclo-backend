@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 
 import SpotifyFeaturesChart from './SpotifyFeaturesChart';
 
+import YouTubeSearch from './YouTubeSearch';
+
 import { 
     encodeMusicKey,
     formatDatetime, 
@@ -11,6 +13,7 @@ import {
 import { getSongsOfAlbumRequest } from '../requests';
 
 const spotify_icon = "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg";
+
 
 const TogglerBtn = (props) => {
     return (
@@ -63,7 +66,7 @@ const SongDetails = (props) => {
                 <div>
                     { _artists_names ? 
                         <Fragment>
-                            <p className="tiny-caption">WYKONAWCY</p>
+                            { _artists_names.length ? <p className="tiny-caption">WYKONAWCY</p> : null }                            
                             <div>{
                                 _artists_names.map((a, index) => {
                                     if (index===_artists_names.length-1) {
@@ -82,8 +85,9 @@ const SongDetails = (props) => {
                     formatDatetime(props.item.release_date) : "Brak daty powstania"
                     }
                 </p>                
-                <p className="mkey">
-                    {musicKey ? musicKey : null} {mode ? mode : null}
+                {musicKey || mode ? <p className="tiny-caption">TONACJA UTWORU</p> : null} 
+                <p className="mkey">                    
+                    {musicKey} {mode}
                 </p>
             </div>
             <div className="details-p spotify-chart">
@@ -123,46 +127,67 @@ class AlbumDetails extends Component {
 
     render() {
         return (
-            <Fragment>
-                <h3>{this.props.item.name}</h3>           
+            <Fragment>       
                 <p>
                     {
                         this.props.item.release_date ?
-                        formatDatetime(this.props.item.release_date) 
-                        : "Brak daty powstania"
+                        <Fragment>
+                            <p className="tiny-caption">DATA WYDANIA</p>
+                            <p className="release-date">
+                                {formatDatetime(this.props.item.release_date)}
+                            </p>                            
+                        </Fragment>
+                        : null
                     }
                 </p>
                 <div>
                     { this.state._artists ? 
-                        this.state._artists.map((a, index) => {
-                            if (index===this.state._artists.length-1) {
-                                return <span>{a.name}</span>;
-                            } else { return <span>{a}, </span>; }                            
-                        }) 
+                        this.state._artists.length ? 
+                        <Fragment>
+                            <p className="tiny-caption">WYKONAWCY</p>
+                            {this.state._artists.map((a, index) => {
+                                if (index===this.state._artists.length-1) {
+                                    return <span>{a.name}</span>;
+                                } else { return <span>{a}, </span>; }                            
+                            })}
+                        </Fragment> : null
                         : null
                     }
                 </div>                
-                <div>
-                    <h4>Utwory</h4>                    
+                <div>                  
                     <ul>
                         {
                             this.state.songs ?
-                            this.state.songs.map((s, i) => {
-                                if (s.spotify_link) {
-                                    return (<li key={s.id}>{i+1}. {s.name}
-                                    <a
-                                    target="_blank" rel="noreferrer"  
-                                    href={s.spotify_link}>
-                                    <img
-                                        style={{width: "1.2rem"}} 
-                                        alt="Ikona spotify." 
-                                        src={spotify_icon}></img>    
-                                    </a>
-                                    </li>)       
-                                } else {
-                                    return <li key={s.id}>{i+1}. {s.name}</li>;       
-                                }                                
-                            }) : <p>Brak utworów.</p>
+                                this.state.songs.length ?
+                                <Fragment>
+                                    <p className="tiny-caption">UTWORY</p>
+                                    {this.state.songs.map((s, i) => {
+                                        if (s.spotify_link) {
+                                            return (
+                                            <li className="album-track" key={s.id}>
+                                                <div className="track-no">{i+1}</div>                                        
+                                                {
+                                                s.spotify_link ?
+                                                    <a
+                                                    target="_blank" rel="noreferrer"  
+                                                    href={s.spotify_link}>
+                                                    <img
+                                                        className="track-spotify-icon"
+                                                        alt="Ikona spotify." 
+                                                        src={spotify_icon}></img>    
+                                                    </a>
+                                                : <YouTubeSearch 
+                                                    category={"songs"}
+                                                    query={"name"}/>
+                                                }                                            
+                                                {s.name.length>=35 ? s.name.slice(0, 40) + "..." : s.name}                                            
+                                            </li>)       
+                                        } else {
+                                            return <li key={s.id}>{i+1}. {s.name}</li>;       
+                                        }                                
+                                    })}
+                                </Fragment> : <p>Brak utworów.</p>
+                            : <p>Brak utworów.</p>
                         }                        
                     </ul>
                 </div>
@@ -194,16 +219,23 @@ const ArtistDetails = (props) => {
 
     return (
         <Fragment>   
-            <p>{props.item.description}</p>
+            {props.item.description ?
+                <Fragment>
+                    <p className="tiny-caption">O WYKONAWCY</p>
+                    <p>{props.item.description}</p>                    
+                </Fragment> : null
+            }     
+            <p className="tiny-caption">KRAJ POCHODZENIA</p>       
             <p className="italic-colored-small">{countryName}</p>            
                 {
                 _albums ?
                     <ul>
-                    {_albums.length ? <h4>Albumy</h4> : <p>Brak albumów.</p>}
+                    {_albums.length ? 
+                    <p className="tiny-caption">ALBUMY</p> : <p>Brak albumów.</p>}
                     {
                     _albums.map((a, i) => (
                         <li key={"album_" + i}>
-                            {a.name}
+                            <div className="artists-album">{a.name}</div>
                         </li>
                     ))
                     }

@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,500;0,700;1,200;1,300;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,200;0,400;0,500;0,600;1,300&display=swap');
 
-
 body{
   margin: 0;
   padding: 0;
@@ -66,6 +65,13 @@ ul, li{
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.NoData{
+  color: rgba(255, 255, 255, 0.726);
+  font-size: 1.6rem;
+  font-weight: lighter;
+  text-align: center;
 }
 
 .toggle-details-btn{
@@ -161,6 +167,8 @@ option:checked{
 
 .mkey{
   font-size: 1.15rem;
+  padding-top: 0;
+  margin-top: 0.3rem;
   font-family: 'EB Garamond', serif;
 }
 
@@ -171,14 +179,6 @@ option:checked{
 .yt-link{
   color: white;
   text-decoration: none; 
-  text-shadow: 2px 2px 4px rgb(0,0,0);
-}
-
-.yt-btn{
-  width: 3rem;
-  position: relative;
-  left: 2rem;
-  top: 1rem;
 }
 
 .loader-wrapper{
@@ -318,7 +318,7 @@ input[type=checkbox] {
 
 input[type=range] {
   display: inline-block;
-  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  -webkit-appearance: none;
   width: 88%;
   background: transparent;
 }
@@ -328,20 +328,17 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 input[type=range]:focus {
-  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+  outline: none; 
 }
 
 input[type=range]::-ms-track {
   width: 100%;
   cursor: pointer;
-
-  /* Hides the slider so custom styles can be added */
   background: transparent; 
   border-color: transparent;
   color: transparent;
 }
 
-/* Special styling for WebKit/Blink */
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: 1px solid #000000;
@@ -350,11 +347,10 @@ input[type=range]::-webkit-slider-thumb {
   border-radius: 3px;
   background: #ffffff;
   cursor: pointer;
-  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+  margin-top: -14px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 
-/* All the same stuff for Firefox */
 input[type=range]::-moz-range-thumb {
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
   border: 1px solid #000000;
@@ -365,7 +361,6 @@ input[type=range]::-moz-range-thumb {
   cursor: pointer;
 }
 
-/* All the same stuff for IE */
 input[type=range]::-ms-thumb {
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
   border: 1px solid #000000;
@@ -408,21 +403,25 @@ input[type=range]::-ms-track {
   border-width: 16px 0;
   color: transparent;
 }
+
 input[type=range]::-ms-fill-lower {
   background: #06a57d;
   border: 0.2px solid #010101;
   border-radius: 2.6px;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
+
 input[type=range]:focus::-ms-fill-lower {
   background: #06a57d;
 }
+
 input[type=range]::-ms-fill-upper {
   background: #06a57d;
   border: 0.2px solid #010101;
   border-radius: 2.6px;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
+
 input[type=range]:focus::-ms-fill-upper {
   background: #06a57d;
 }
@@ -433,9 +432,21 @@ input[type=range]:focus::-ms-fill-upper {
 
 .album-spotify-preview{
   text-decoration: none;
-  font-size: 1.25rem;
-  color: #06a57d; padding: 0.5rem;
-  margin-bottom: 0.3rem;
+  font-size: 1.1rem;
+  color: #fbff12; 
+  margin: 1rem 0 1rem 0;
+  padding: 2rem 0 2rem 0;
+  margin-bottom: 0.3rem;  
+}
+
+.album-spotify-preview:hover{
+  color: #fcff5c; 
+  transition: 0.3s;
+}
+
+.album-spotify-preview:active{
+  transition: 0s;
+  color: #909200; 
 }
 
 .explicit-mark{
@@ -457,9 +468,9 @@ input[type=range]:focus::-ms-fill-upper {
 #success-alert-box,
 #fail-alert-box{
   position: fixed;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin: 0 auto;
-  padding: 0.35rem;
+  padding: 0.25rem;
   width: 100%;
   box-sizing: border-box;
   z-index: 9999;
@@ -470,14 +481,32 @@ input[type=range]:focus::-ms-fill-upper {
   border-radius: 4px;
   text-align: center;
   box-shadow: 2px 2px 4px rgb(0,0,0);  
+  backdrop-filter: blur(5px);
 }
 
 #success-alert-box{
   background-color: rgba(61, 122, 0, 0.575);
-  border: 1px solid rgb(100, 200, 0);
 }
 
 #fail-alert-box{
   background-color: rgba(189, 16, 0, 0.575);
-  border: 1px solid rgb(248, 21, 0);
+}
+
+.album-track, .artists-album{
+  padding: 0.4rem 0 0.1rem 0;
+}
+
+.track-no{
+  display: inline-block;
+  width: 0.5rem;
+  font-size: 0.8rem;
+  padding-right: 1.1rem;
+  color: rgba(255, 255, 255, 0.541);
+}
+
+.track-spotify-icon, .yt-btn{
+  width: 0.9rem;
+  position: relative;
+  bottom: -0.15rem;
+  left: -0.25rem;
 }

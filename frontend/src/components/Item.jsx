@@ -83,7 +83,7 @@ export default class Item extends Component {
         return (
             <Fragment>
                 {
-                this.state.item ?
+                this.state.item && this.state.item.name ?
                 <Fragment>
                     <div 
                         id={"item_row_" + this.state.item.id}>

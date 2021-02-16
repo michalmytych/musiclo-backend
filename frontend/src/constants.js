@@ -59,3 +59,6 @@ export function uniqueArrayOfObjects(array, keyToBeUnique) {
 export const objectsEqual = (o1, o2) =>
     Object.keys(o1).length === Object.keys(o2).length 
         && Object.keys(o1).every(p => o1[p] === o2[p]);
+
+
+export const validateItems = (_items) => (_items.filter( i => i.name ));

@@ -15,8 +15,6 @@ export async function getItemsListRequest(args) {
 
 
 export async function createItemRequest(data) {
-    console.log(JSON.stringify(data.obj));
-    console.log("createItemRequest");
     var url = `${API_URL}create_item.php?category=${data.category}`;
     let res = await fetch(url, {
         method: 'POST',

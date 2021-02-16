@@ -32,6 +32,6 @@ export default function YouTubeSearch(props) {
                 className="yt-btn" 
                 src={ytIcon} 
                 alt="Ikona You Tube"></img>    
-            Wyszukaj na YouTube</a>
+        </a>
     )
 }
