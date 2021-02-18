@@ -44,3 +44,21 @@
   transition: 0.1s;
   transform: scale(0.9);
 }
+
+@media only screen and (max-width: 800px) {
+  .crud-icon {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .add-item-icon, .add-item-wrapper {
+    padding: 0;
+    margin-right: 0rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .add-item-wrapper{
+    margin-left: 0.2rem;
+  }
+}
