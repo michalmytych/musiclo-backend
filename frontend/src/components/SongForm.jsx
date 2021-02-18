@@ -163,7 +163,7 @@ export default class SongForm extends Component {
                         this.state.ARTISTS ?
                             this.state.ARTISTS.length>0 ?
                             this.state.ARTISTS.map((a) => (
-                                <li>
+                                <li className="select-srch-li">
                                     <div
                                         className="selected-search-select-item" 
                                         onClick={()=>this.popArtist(a.id)}>
@@ -207,6 +207,12 @@ export default class SongForm extends Component {
                     checked={_explicit}
                     value={this.state.explicit}
                     name="explicit"/>
+                <p className="tiny-caption">
+                Zaznacz, jeśli uważasz, że utwór jest wulgarny.
+                    Wulgarny utwór to taki, który zawiera przekleństwa, 
+                    język lub sztukę o charakterze seksualnym, brutalnym 
+                    lub obraźliwym. To od Ciebie zależy, czy Twoja muzyka 
+                    zostanie oznaczona jako wulgarna</p>                    
                 <p className="input-label">Taneczność</p>                
                 <input
                     onChange={this.handleChange} 

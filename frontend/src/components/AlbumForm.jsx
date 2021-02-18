@@ -149,7 +149,7 @@ export default class AlbumForm extends Component {
                     this.state.ARTISTS ?
                         this.state.ARTISTS.length ?
                         this.state.ARTISTS.map((a) => (
-                            <li>
+                            <li className="select-srch-li">
                                 <div
                                     className="selected-search-select-item" 
                                     onClick={()=>this.popArtist(a.id)}>
@@ -170,7 +170,7 @@ export default class AlbumForm extends Component {
                     this.state.SONGS ?
                         this.state.SONGS.length ?
                         this.state.SONGS.map((a) => (
-                            <li>
+                            <li className="select-srch-li">
                                 <div
                                     className="selected-search-select-item" 
                                     onClick={()=>this.popSong(a.id)}>

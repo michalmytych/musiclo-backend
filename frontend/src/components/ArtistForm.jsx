@@ -140,7 +140,7 @@ export default class ArtistForm extends Component {
                         this.state.ALBUMS ?
                             _ALBUMS.length ?
                             _ALBUMS.map((a) => (
-                                <li>
+                                <li className="select-srch-li">
                                     <div
                                         className="selected-search-select-item" 
                                         onClick={()=>this.popAlbum(a.id)}>

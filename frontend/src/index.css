@@ -105,11 +105,13 @@ ul, li{
 }
 
 ::-moz-selection {
+  background-color: rgb(143, 0, 107);
   color: black;
   text-shadow: none;
 }
 
 ::selection {
+  background-color: rgb(143, 0, 107);
   color: black;
   text-shadow: none;
 }
@@ -240,13 +242,19 @@ option:checked{
 }
 
 .selected-search-select-item{
-  margin: 0.3rem;
+  font-size: 0.7rem;
+  margin: 0.2rem;
   cursor: pointer;
   display: inline-block;
   color: white;
-  padding: 0.4rem;
+  padding: 0.25rem 0.3rem 0.1rem 0.2rem;
   border-radius: 10px;
   border: 3px solid #41ead49b; 
+  width: fit-content;
+}
+
+.select-srch-li{
+  display: inline-block;
 }
 
 .blurred-form-background{
@@ -286,9 +294,10 @@ option:checked{
 }
 
 input[type=checkbox] {
-  width: 10%;
   padding: 0.3rem;
   box-shadow: 0;
+  box-shadow: none;
+  text-align: left;
 }
 
 .spotify-feature-numerical {
