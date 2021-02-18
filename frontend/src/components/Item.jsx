@@ -50,7 +50,7 @@ export default class Item extends Component {
             "cat"   : this.props.category, 
             "id"    : item_id
         }).then( res => {
-            if (res) {
+            if (res===200) {
                 this.props.popDeletedItem(item_id);
                 viewAlert("Usunięto!", true);
             } else { viewAlert("Request nie powiódł się!", false); }
@@ -62,7 +62,7 @@ export default class Item extends Component {
         if (validArgs) {
             validArgs.id = args.id;
             let res = await putEditedItemRequest(validArgs);
-            if (res) {
+            if (res===200) {
                 let item = await getItemRequest(args);
                 this.setState({ item : item });
                 viewAlert("Zapisano zmiany!", true);                    

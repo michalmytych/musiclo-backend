@@ -37,7 +37,7 @@ import { validateItemBeforePost } from '../validators';
 const AddItemButton = (props) => {
     return (
         <div className="add-item-wrapper" onClick={props.handler}>
-            <img className="crud-icon" src={addIcon} alt="Przycisk dodawania."/>
+            <img className="crud-icon add-item-icon" src={addIcon} alt="Przycisk dodawania."/>
         </div>
     )
 }
@@ -117,7 +117,6 @@ export default class List extends Component {
     }    
 
     refreshListAfterEdit = () => {
-        // SPRAWDZIC
         if (this.state.page !== 0) {
             this.setState({
                 page : 0
@@ -134,7 +133,7 @@ export default class List extends Component {
         if (validArgs) {
             let res = await createItemRequest(validArgs)
             .then( res => {
-                if (res) {
+                if (res===201 || res===201) {
                     viewAlert("Dodano!", true);
                 } else { viewAlert("Request nie powiódł się!", false); }                
             })
@@ -269,21 +268,21 @@ export default class List extends Component {
                         onClick={() => this.handleCategorySwitch('songs')}
                         className="songs-switch-btn">
                         <img alt="Ikona piosenek." src={trackIcon} className="category-icon"></img>
-                        Piosenki
+                        <div className="cat-text-name">Piosenki</div>
                     </div>
                     <div
                         id="albums-swt"
                         onClick={() => this.handleCategorySwitch('albums')} 
                         className="albums-switch-btn">
                         <img alt="Ikona albumów." src={albumIcon} className="category-icon"></img>
-                        Albumy
+                        <div className="cat-text-name">Albumy</div>
                     </div>
                     <div
                         id="artists-swt"
                         onClick={() => this.handleCategorySwitch('artists')} 
                         className="artists-switch-btn">
                         <img alt="Ikona artystów." src={artistIcon} className="category-icon"></img>
-                        Artyści         
+                        <div className="cat-text-name">Artyści</div>         
                     </div>
                 </div>
                 <div className="items-wrapper">
