@@ -47,8 +47,8 @@
 
 @media only screen and (max-width: 800px) {
   .crud-icon {
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .add-item-icon, .add-item-wrapper {

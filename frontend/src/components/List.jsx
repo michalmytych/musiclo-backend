@@ -286,18 +286,20 @@ export default class List extends Component {
                     </div>
                 </div>
                 <div className="items-wrapper">
-                    <AddItemButton 
-                        handler={() => this.toggleCreationFormDisplay()}/>
-                    <div className="Search">
-                        <input
-                            spellCheck="false"
-                            autoComplete="off"
-                            contentEditable="true" 
-                            value={this.state.phrase}
-                            onChange={this.handleChange}
-                            placeholder={"Znajdź..."}
-                            className="search-bar-input"
-                            name="phrase" ></input>
+                    <div className="add-and-search-wrapper">
+                        <AddItemButton 
+                            handler={() => this.toggleCreationFormDisplay()}/>
+                        <div className="Search">
+                            <input
+                                spellCheck="false"
+                                autoComplete="off"
+                                contentEditable="true" 
+                                value={this.state.phrase}
+                                onChange={this.handleChange}
+                                placeholder={"Znajdź..."}
+                                className="search-bar-input"
+                                name="phrase" ></input>
+                        </div>
                     </div>
                     <ul>
                         {

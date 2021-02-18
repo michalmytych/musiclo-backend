@@ -22,6 +22,7 @@ export default function SpotifyFeaturesChart(props) {
         height: 200,
         width: 600,
         theme: "dark1",
+        backgroundColor: 'transparent',
 		data: [              
             {
                 type: "column",

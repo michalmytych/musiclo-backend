@@ -90,7 +90,7 @@ const SongDetails = (props) => {
                     {musicKey} {mode}
                 </p>
             </div>
-            <div className="details-p spotify-chart">
+            <div className="spotify-chart">
                 <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>
             </div>            
         </div>        
