@@ -210,7 +210,7 @@ const ArtistDetails = (props) => {
     
     if (props.item.country) {
         country = props._COUNTRIES.filter((country) => {
-            return country.iso_code === props.item.country
+            return country.iso_code === props.item._country_name
         });
         countryName = country.name;
     } else {
