@@ -9,7 +9,8 @@ import {
     getItemsListRequest,
     createItemRequest,
     getSearchResultsRequest,
-    getCountriesDataRequest
+    getCountriesDataRequest,
+    getItemsCountDataRequest
 } from '../requests';
 
 import { 
@@ -60,7 +61,8 @@ export default class List extends Component {
             phrase              : "",
             item_deleted        : false,
             COUNTRIES           : [],
-            nothingFound        : false
+            nothingFound        : false,
+            dbRecordsCount      : null
         };
         this.handleChange = this.handleChange.bind(this);
         this._getItemsList = this._getItemsList.bind(this);
@@ -72,6 +74,7 @@ export default class List extends Component {
         this.renderItems = this.renderItems.bind(this);
         this.handleCategorySwitch = this.handleCategorySwitch.bind(this);
         this._getCountriesData = this._getCountriesData.bind(this);
+        this._getItemsCountData = this._getItemsCountData.bind(this);
     }
  
     /*
@@ -143,9 +146,11 @@ export default class List extends Component {
     }
 
     async _getCountriesData() {
-        var data = await getCountriesDataRequest()
-        .then(data => this.setState({ "COUNTRIES" : data }));
-        return data;  
+        getCountriesDataRequest().then(data => this.setState({ "COUNTRIES" : data }));
+    }
+
+    async _getItemsCountData() { 
+        getItemsCountDataRequest().then(data => this.setState({ dbRecordsCount: data }));
     }
 
     _getMoreItems = () => {
@@ -224,10 +229,12 @@ export default class List extends Component {
     componentDidMount() {
         this._getItemsList({category: this.state.category, page: this.state.page});
         this._getCountriesData();
+        this._getItemsCountData();
         setActiveCategoryStyles('songs-swt');
     }
 
     render() {
+        var dbCount = this.state.dbRecordsCount;
         const loader = <div className="loader-wrapper"><img alt="" className="loader" src={loadingSpinner}/></div>
         var _ITEMS_LIST;
         switch (this.state.category) {
@@ -301,6 +308,12 @@ export default class List extends Component {
                                 name="phrase" ></input>
                         </div>
                     </div>
+                    {
+                        dbCount ? 
+                        <p className="count-capt">Baza danych zawiera <div className="c-capt so">{dbCount.so}</div> 
+                        utworów, <div className="c-capt al">{dbCount.al}</div> albumów i 
+                        <div className="c-capt ar">{dbCount.ar}</div> artystów.</p> : null
+                    }                    
                     <ul>
                         {
                             _ITEMS_LIST.items ?

@@ -99,6 +99,22 @@
     transform: scale(0.9);
 }
 
+.count-capt{
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.849);
+    text-align: center;
+}
+
+.c-capt{    
+    font-size: 1.2rem;
+    display: inline-block;
+    padding: 0 .4rem 0 .4rem;
+} 
+
+.so { color: #ff206e; }
+.al { color: #fbff12; }
+.ar { color: #41ead4; }
+
 @media only screen and (max-width: 1500px) {
     .items-wrapper{
         padding-top: 3.5rem;
