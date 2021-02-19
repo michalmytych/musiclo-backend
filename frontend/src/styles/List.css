@@ -100,13 +100,16 @@
 }
 
 .count-capt{
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.849);
     text-align: center;
+    margin: 0 auto;
+    padding-top: 0;
+    width: 60%;
 }
 
 .c-capt{    
-    font-size: 1.2rem;
+    font-size: 1rem;
     display: inline-block;
     padding: 0 .4rem 0 .4rem;
 } 
@@ -145,5 +148,13 @@
     .artists-switch-btn{
         padding: .6rem;
     }
+
+    .count-capt{
+        font-size: 0.7rem;
+    }
+    
+    .c-capt{    
+        font-size: 0.9rem;
+    }     
 }
 
