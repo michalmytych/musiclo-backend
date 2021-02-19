@@ -97,11 +97,14 @@ ul, li{
 }
 
 .input-label{
+  display: block;
   width: 100%;
   padding-bottom: 0.3rem;
-  border-bottom: 3px solid #41ead49b; 
+  border-bottom: 2px solid #41ead49b; 
   font-size: 0.8rem;
   font-style: italic;
+  padding-top: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 ::-moz-selection {
@@ -251,6 +254,11 @@ option:checked{
   border-radius: 10px;
   border: 3px solid #41ead49b; 
   width: fit-content;
+}
+
+.narr{
+  font-size: 1rem;
+  padding: 0.3rem 0.4rem 0.3rem 0.4rem;
 }
 
 .select-srch-li{

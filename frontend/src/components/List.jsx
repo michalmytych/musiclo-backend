@@ -228,7 +228,7 @@ export default class List extends Component {
 
     componentDidMount() {
         this._getItemsList({category: this.state.category, page: this.state.page});
-        this._getCountriesData();
+        this._getCountriesData();        
         this._getItemsCountData();
         setActiveCategoryStyles('songs-swt');
     }
@@ -250,6 +250,8 @@ export default class List extends Component {
         
         var _dataLength = this.state[_ITEMS_LIST.category].items.length;
         _ITEMS_LIST.items = uniqueArrayOfObjects(_ITEMS_LIST.items, "id");
+
+        console.log(_ITEMS_LIST.items);
 
         return (
             <div className="List">

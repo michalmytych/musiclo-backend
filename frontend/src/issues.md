@@ -1,5 +1,5 @@
 ## CREATE
-- na próbę stworzenia piosenki serwer odpowiada 400
+- na próbę stworzenia piosenki serwer odpowiada 400 ( problem jest przy dodawaniu wykonawców do niej)
 - na próbę stworzenia albumu serwer odpowiada 400
 - na próbę stworzenia artysty serwer odpowiada 400 ale tworzy wykonawce
      ( co ciekawe potem nie da się go usunąć xd - prawdopodobnie

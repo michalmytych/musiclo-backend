@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import SearchSelect from './SearchSelect';
 
@@ -26,13 +26,13 @@ export default class SongForm extends Component {
             "release_date"      : "",
             "spotify_link"      : ""
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.getSelectedAlbums = this.getSelectedAlbums.bind(this);
+        this.handleChange       = this.handleChange.bind(this);
+        this.handleSubmit       = this.handleSubmit.bind(this);
+        this.getSelectedAlbums  = this.getSelectedAlbums.bind(this);
         this.getSelectedArtists = this.getSelectedArtists.bind(this);
-        this._mountInstance = this._mountInstance.bind(this);        
-        this.popArtist = this.popArtist.bind(this);        
-        this.clearAlbum = this.clearAlbum.bind(this);
+        this._mountInstance     = this._mountInstance.bind(this);        
+        this.popArtist          = this.popArtist.bind(this);        
+        this.clearAlbum         = this.clearAlbum.bind(this);
     }
 
     getSelectedAlbums(selection) {
@@ -149,8 +149,9 @@ export default class SongForm extends Component {
             <form
             className="animate__animated animate__fadeInDown"  
                 onSubmit={this.handleSubmit}>
-                <p className="input-label">Tytuł</p>
+                <label id="lab_name" htmlFor="name" className="input-label">Tytuł</label>
                 <input 
+                    aria-labelledby="lab_name"
                     onChange={this.handleChange}
                     type="text" 
                     name="name" 
@@ -163,7 +164,9 @@ export default class SongForm extends Component {
                         this.state.ARTISTS ?
                             this.state.ARTISTS.length>0 ?
                             this.state.ARTISTS.map((a) => (
-                                <li className="select-srch-li">
+                                <li 
+                                    key={"artistId_" + a.id}
+                                    className="select-srch-li">
                                     <div
                                         className="selected-search-select-item" 
                                         onClick={()=>this.popArtist(a.id)}>
@@ -200,8 +203,9 @@ export default class SongForm extends Component {
                     _getInitialValue={(p) => this.getSelectedAlbums(p)}
                     getValues={(p) => this.getSelectedAlbums(p)} 
                     category={"albums"}/>
-                <p className="input-label">EXPLICIT</p>
+                <label id="lab_explicit" htmlFor="explicit" className="input-label">EXPLICIT</label>
                 <input
+                    aria-labelledby="lab_explicit"
                     onChange={this.handleChange}
                     type="checkbox" 
                     checked={_explicit}
@@ -213,8 +217,8 @@ export default class SongForm extends Component {
                     język lub sztukę o charakterze seksualnym, brutalnym 
                     lub obraźliwym. To od Ciebie zależy, czy Twoja muzyka 
                     zostanie oznaczona jako wulgarna</p>                    
-                <p className="input-label">Taneczność</p>                
-                <input
+                <label id="lab_dance" htmlFor="danceability" className="input-label">Taneczność</label>                
+                <input aria-labelledby="lab_dance"
                     onChange={this.handleChange} 
                     type="range" 
                     name="danceability" 
@@ -225,8 +229,8 @@ export default class SongForm extends Component {
                 <p 
                     className="spotify-feature-numerical">
                         {this.state.danceability ? this.state.danceability : "0"}</p>    
-                <p className="input-label">Energia</p>
-                <input
+                <label id="lab_energy" htmlFor="energy" className="input-label">Energia</label>
+                <input aria-labelledby="lab_energy"
                     onChange={this.handleChange} 
                     type="range"
                     value={this.state.energy}
@@ -236,8 +240,8 @@ export default class SongForm extends Component {
                     max="1"/>
                 <p className="spotify-feature-numerical">
                     {this.state.energy ? this.state.energy : "0"}</p>
-                <p className="input-label">Akustyczność</p>
-                <input 
+                <label id="lab_acou" htmlFor="acousticness" className="input-label">Akustyczność</label>
+                <input aria-labelledby="lab_acou"
                     onChange={this.handleChange}
                     type="range" 
                     name="acousticness" 
@@ -247,8 +251,8 @@ export default class SongForm extends Component {
                     max="1"/>
                 <p className="spotify-feature-numerical">
                     {this.state.acousticness ? this.state.acousticness : "0"}</p>
-                <p className="input-label">Żywe instrumenty</p>                
-                <input 
+                <label id="lab_instr" htmlFor="instrumentalness" className="input-label">Żywe instrumenty</label>
+                <input aria-labelledby="lab_instr"
                     onChange={this.handleChange} 
                     type="range" 
                     value={this.state.instrumentalness}
@@ -258,8 +262,8 @@ export default class SongForm extends Component {
                     max="1"/>
                 <p className="spotify-feature-numerical">
                     {this.state.instrumentalness ? this.state.instrumentalness : "0"}</p>
-                <p className="input-label">Pozytywność</p>
-                <input 
+                <label id="lab_val" htmlFor="valence" className="input-label">Pozytywność</label>
+                <input aria-labelledby="lab_val"
                     onChange={this.handleChange}
                     type="range" 
                     name="valence" 
@@ -269,10 +273,13 @@ export default class SongForm extends Component {
                     max="1"/>                                                   
                 <p className="spotify-feature-numerical">
                     {this.state.valence ? this.state.valence : "0"}</p>                                                  
-                <p className="input-label">Klucz</p>
-                {this.state.key ? encodeMusicKey(this.state.key) : 
+                <label htmlFor="key" id="lab_key" className="input-label">Klucz</label>                
+                {this.state.key ? 
+                <div className="selected-search-select-item narr">
+                    {encodeMusicKey(this.state.key)}
+                </div> : 
                 "Nie określono klucza muzycznego utworu."}
-                <select
+                <select aria-labelledby="lab_key"
                     onChange={this.handleChange}  
                     value={this.state.key}
                     name="key">
@@ -282,28 +289,34 @@ export default class SongForm extends Component {
                         </option>                        
                     ))}        
                 </select>
-                <p className="input-label">Tryb</p>    
+                <label id="lab_mode" className="input-label">Tryb</label>    
                 {this.state.mode ? 
-                    this.state.mode==="1" ?
-                    "dur" : "moll" 
-                : "Nie określono trybu utworu."}                        
-                <select 
+                    parseInt(this.state.mode)===1 ?
+                    <div className="selected-search-select-item narr">dur</div>
+                    : 
+                    <div className="selected-search-select-item narr">moll</div>
+                    : "Nie określono trybu utworu."}                        
+                <select aria-labelledby="lab_mode"
                     onChange={this.handleChange} 
                     value={this.state.mode}
                     name="mode">
-                    <option value="0">moll</option>
-                    <option value="1">dur</option>
+                        {
+                            <Fragment>
+                                <option value="1">dur</option>
+                                <option value="0">moll</option>
+                            </Fragment>                            
+                        }                    
                 </select>
-                <p className="input-label">Data wydania</p>
-                <input 
+                <label id="lab_rel_date" className="input-label">Data wydania</label>
+                <input aria-labelledby="lab_rel_date"
                     required
                     onChange={this.handleChange} 
                     id="release_date_input"
                     type="date"
                     value={this.state.release_date}
                     name="release_date"></input>    
-                <p className="input-label">Utwór w Spotify</p>
-                <input 
+                <label id="rel_spotl" className="input-label">Utwór w Spotify</label>
+                <input aria-labelledby="rel_spotl"
                     onChange={this.handleChange}
                     type="text" 
                     name="spotify_link" 

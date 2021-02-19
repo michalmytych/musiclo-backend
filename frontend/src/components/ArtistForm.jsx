@@ -25,11 +25,11 @@ export default class ArtistForm extends Component {
             "ALBUMS"        : [],
             "COUNTRIES"     : []
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.getSelectedAlbums = this.getSelectedAlbums.bind(this);
-        this._mountInstance = this._mountInstance.bind(this);
-        this.popAlbum = this.popAlbum.bind(this);
+        this.handleChange       = this.handleChange.bind(this);
+        this.handleSubmit       = this.handleSubmit.bind(this);
+        this.getSelectedAlbums  = this.getSelectedAlbums.bind(this);
+        this._mountInstance     = this._mountInstance.bind(this);
+        this.popAlbum           = this.popAlbum.bind(this);
     }
 
     handleChange(event) {

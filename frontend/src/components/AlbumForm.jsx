@@ -28,12 +28,12 @@ export default class AlbumForm extends Component {
             "spotify_link"  : "",
             "SONGS"         : [],
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange       = this.handleChange.bind(this);
+        this.handleSubmit       = this.handleSubmit.bind(this);
         this.getSelectedArtists = this.getSelectedArtists.bind(this);
-        this.getSelectedSongs = this.getSelectedSongs.bind(this);
-        this._getSongsOfAlbum = this._getSongsOfAlbum.bind(this);
-        this._mountInstance = this._mountInstance.bind(this);        
+        this.getSelectedSongs   = this.getSelectedSongs.bind(this);
+        this._getSongsOfAlbum   = this._getSongsOfAlbum.bind(this);
+        this._mountInstance     = this._mountInstance.bind(this);        
     }
 
     getSelectedArtists(selections) {
@@ -137,8 +137,8 @@ export default class AlbumForm extends Component {
             <form
                 className="animate__animated animate__fadeInDown" 
                 onSubmit={this.handleSubmit}>
-                <p className="input-label">Nazwa albumu</p>
-                <input 
+                <label id="lab_name" className="input-label">Nazwa albumu</label>
+                <input aria-labelledby="lab_name"
                     onChange={this.handleChange}
                     type="text" 
                     name="name" 
@@ -186,15 +186,15 @@ export default class AlbumForm extends Component {
                     _getInitialValue={(s) => this.getSelectedSongs(s)}
                     getValues={(s) => this.getSelectedSongs(s)}
                     category={"songs"} />
-                <p className="input-label">Data wydania</p>
-                <input 
+                <label id="rel_date_name" className="input-label">Data wydania</label>
+                <input aria-labelledby="rel_date_name"
                     onChange={this.handleChange} 
                     id="release_date_input"
-                    type="date" 
+                    type="date"
                     value={this.state.release_date}
                     name="release_date"></input>
-                <p className="input-label">Link do albumu w Spotify</p>
-                <input 
+                <label id="lab_spotl" className="input-label">Link do albumu w Spotify</label>
+                <input aria-labelledby="lab_spotl"
                     onChange={this.handleChange} 
                     id="spotify_link"
                     type="text" 
