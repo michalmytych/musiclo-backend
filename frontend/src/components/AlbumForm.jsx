@@ -77,8 +77,9 @@ export default class AlbumForm extends Component {
     }
 
     async _getSongsOfAlbum(album_id) {
-        var SONGS = await getSongsOfAlbumRequest(album_id);
-        return SONGS;
+        await getSongsOfAlbumRequest(album_id).then(songs => 
+            this.setState({ "SONGS" : songs })
+        );
     }
 
     handleSubmit(event) {
@@ -98,8 +99,7 @@ export default class AlbumForm extends Component {
     }
 
     async _mountInstance(instance) {
-        var _artists = [];
-        var _songs = await this._getSongsOfAlbum(instance.id);        
+        var _artists = [];         
         if (instance._artist_ids && instance._artist_ids !== "[null]") {
             var _artists_ids = JSON.parse(instance._artist_ids).filter(onlyUniqueFilter);
             var _artists_names = JSON.parse(instance._artist_names).filter(onlyUniqueFilter);
@@ -110,14 +110,12 @@ export default class AlbumForm extends Component {
                 });
             } 
         }
-        if (!_songs) {_songs = []};
         this.setState({
             "name"              : instance.name,
             "spotify_link"      : instance.spotify_link,
             "release_date"      : instance.release_date,
             "artists_ids"       : _artists_ids,
             "artists_names"     : _artists_names,
-            "SONGS"             : _songs,
             "ARTISTS"           : _artists
         });
     }
@@ -125,6 +123,7 @@ export default class AlbumForm extends Component {
     componentDidMount() {
         if (this.props._editing) {
             this._mountInstance(this.props.instance);
+            this._getSongsOfAlbum(this.props.instance.id);
         } else {
             this.setState({
                 "release_date" : setDateInputValue()

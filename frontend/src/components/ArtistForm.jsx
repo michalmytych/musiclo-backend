@@ -24,6 +24,7 @@ export default class ArtistForm extends Component {
             "spotify_link"  : "",
             "ALBUMS"        : [],
             "COUNTRIES"     : []
+            //"COUNTRIES"     : [ { name: "Ameryczka", iso_code: "US" } ]
         };
         this.handleChange       = this.handleChange.bind(this);
         this.handleSubmit       = this.handleSubmit.bind(this);
@@ -80,6 +81,7 @@ export default class ArtistForm extends Component {
                 });
             }        
         }        
+        if (!instance.description) { instance.description = ""; };
         this.setState({
             "name"          : instance.name,
             "albums_ids"    : _albums_ids,
@@ -90,10 +92,7 @@ export default class ArtistForm extends Component {
         });        
     }
 
-    async componentDidMount() {
-        var data = await getCountriesDataRequest();
-        this.setState({ "COUNTRIES" : data });  
-            
+    async componentDidMount() {                    
         if (this.props._editing) {
             if (this.props.instance) {
                 this._mountInstance(this.props.instance);
@@ -101,36 +100,43 @@ export default class ArtistForm extends Component {
                 alert("Błąd podczas pobierania obiektu.");
             }            
         }
+        /*
+            This async call must by places somewhere else to
+            view artist country at first render() call properly.
+        */
+        var data = await getCountriesDataRequest();
+        this.setState({ "COUNTRIES" : data });  
     }
 
     render() {
+        var _COUNTRIES = uniqueArrayOfObjects(this.state.COUNTRIES, "iso_code");
         var _ALBUMS = [];
         try{ 
             if (this.state.ALBUMS.length) { _ALBUMS = this.state.ALBUMS; };
         } catch (error) {
             console.log("Obsłużono błąd: " + error);
             _ALBUMS = [];
-        } 
+        }
 
         return (
             <form 
                 className="animate__animated animate__fadeInDown" 
                 onSubmit={this.handleSubmit}>
-                <p className="input-label">Nazwa wykonawcy</p>
-                <input 
+                <label id="lab_name" className="input-label">Nazwa wykonawcy</label>
+                <input aria-labelledby="lab_name"
                     onChange={this.handleChange}
                     type="text" 
                     name="name" 
                     value={this.state.name}
                     placeholder="Nazwa..."/>
-                <p className="input-label">Opis</p>
-                <textarea 
+                <label id="lab_dscrpt" className="input-label">Opis</label>
+                <textarea aria-labelledby="lab_dscrpt"
                     onChange={this.handleChange}
                     type="" 
                     name="description" 
                     value={
                         this.state.description ?
-                        this.state.description : null
+                        this.state.description : ""
                     }
                     rows="4" cols="50">
                 </textarea>                    
@@ -140,7 +146,7 @@ export default class ArtistForm extends Component {
                         this.state.ALBUMS ?
                             _ALBUMS.length ?
                             _ALBUMS.map((a) => (
-                                <li className="select-srch-li">
+                                <li key={"albumId_" + a.id} className="select-srch-li">
                                     <div
                                         className="selected-search-select-item" 
                                         onClick={()=>this.popAlbum(a.id)}>
@@ -159,18 +165,18 @@ export default class ArtistForm extends Component {
                     category={"albums"} />
                 {
                     <Fragment>
-                        <p>Kraj</p>
-                        <select
+                        <label id="lab_ctry" className="input-label">Kraj</label>
+                        <select aria-labelledby="lab_ctry"
                             onChange={this.handleChange}  
-                            value={this.state.country}
+                            defaultValue={this.state.country}
                             name="country">
                             {
-                                this.state.COUNTRIES ?
-                                    this.state.COUNTRIES.length ?
-                                    this.state.COUNTRIES.map(country => (
+                                _COUNTRIES ?
+                                _COUNTRIES.length ?
+                                    _COUNTRIES.map(country => (
                                         <option                                         
                                             value={country.iso_code} 
-                                            key={country.is_code} >
+                                            key={"countryId_" + country.is_code} >
                                             {country.name}
                                         </option>                        
                                     )) : null
@@ -179,14 +185,13 @@ export default class ArtistForm extends Component {
                         </select>
                     </Fragment>
                 }                 
-                <p className="input-label">Artysta w Spotify</p>
-                <input 
+                <label id="lab_spotl" className="input-label">Artysta w Spotify</label>
+                <input aria-labelledby="lab_spotl"
                     onChange={this.handleChange}
                     type="text" 
                     name="spotify_link" 
                     value={this.state.spotify_link}
                     placeholder="Wklej link..."/>
-                <p>Opis</p>           
                 <button 
                     className="form-submit-btn"                
                     type={"submit"}>Zapisz</button>                    

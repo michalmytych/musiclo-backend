@@ -212,7 +212,7 @@ export default class SongForm extends Component {
                     value={this.state.explicit}
                     name="explicit"/>
                 <p className="tiny-caption">
-                Zaznacz, jeśli uważasz, że utwór jest wulgarny.
+                    Zaznacz, jeśli uważasz, że utwór jest wulgarny.
                     Wulgarny utwór to taki, który zawiera przekleństwa, 
                     język lub sztukę o charakterze seksualnym, brutalnym 
                     lub obraźliwym. To od Ciebie zależy, czy Twoja muzyka 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import AlbumForm from '../components/AlbumForm';
 
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 
 
 afterEach(cleanup);
@@ -24,13 +24,13 @@ it('Inserts instance object into form when editing', () => {
             instance={albumInstance}/>
     );
 
-    const nameInput =               albumForm.getByPlaceholderText("Nazwa...");    
-    const releaseDateInput =        albumForm.getByLabelText("Data wydania");        
-    const spotifyLinkDateInput =    albumForm.getByLabelText("Link do albumu w Spotify");   
+    const nameInput         = albumForm.getByPlaceholderText("Nazwa...");    
+    const releaseDateInput  = albumForm.getByLabelText("Data wydania");        
+    const spotifyLinkInput  = albumForm.getByLabelText("Link do albumu w Spotify");   
 
-    expect(nameInput.value)             .toBe(albumInstance.name);        
-    expect(releaseDateInput.value)      .toBe(albumInstance.release_date);
-    expect(spotifyLinkDateInput.value)  .toBe(albumInstance.spotify_link);        
+    expect(nameInput.value)         .toBe(albumInstance.name);        
+    expect(releaseDateInput.value)  .toBe(albumInstance.release_date);
+    expect(spotifyLinkInput.value)  .toBe(albumInstance.spotify_link);        
 
         /*
             Songs ids and artists ids should be tested
