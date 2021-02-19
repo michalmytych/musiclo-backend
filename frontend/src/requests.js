@@ -107,3 +107,20 @@ export async function getCountriesDataRequest() {
     return data;
 };
 
+
+export async function getItemsCountDataRequest() {    
+    var url = API_URL + `items_count.php`;
+    
+    var data = await fetch(url)
+    .then(response => { return response.json(); }) 
+    .catch(err => { console.log('Request failed: ', err) });
+
+    var counted = {
+        so  : data.filter(c => (c.category === 'songs'))[0].count,
+        al  : data.filter(c => (c.category === 'albums'))[0].count,
+        ar  : data.filter(c => (c.category === 'artists'))[0].count
+    }
+
+    return counted;
+};
+
