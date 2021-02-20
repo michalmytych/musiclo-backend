@@ -3,19 +3,23 @@ import React from 'react';
 import ArtistForm from '../components/ArtistForm';
 
 import { render, cleanup } from '@testing-library/react';
+import { shallow } from 'enzyme';
 
 
 afterEach(cleanup);
 
-it('Inserts instance object into form when editing', () => {
-    const artistInstance = {
-        "name"          : "Metallica",
-        "albums_ids"    : ["0aODrxJCgCKmmwYZSyld4O", "0APePhDDGAvshjJ88zRdWc"],            
-        "description"   : "Amerykański zespół thrashmetalowy z Los Angeles",
-        "country"       : "US",
-        "spotify_link"  : "https://open.spotify.com/artist/2ye2Wgw4gimLv2eAKyk1NB?si=uo9QgEVOR8ywfuvE73kFAQ"
-    };
-    
+const artistInstance = {
+    "id"            : "somefakeidTestTestTest",
+    "name"          : "Metallica",
+    "albums_names"  : ["Antheil Ballet"],
+    "albums_ids"    : ["2QkfFdcgTH2tHMi9cTu51q"],  
+    "description"   : "Amerykański zespół thrashmetalowy z Los Angeles",
+    "country"       : "US",
+    "spotify_link"  : "https://open.spotify.com/artist/2ye2Wgw4gimLv2eAKyk1NB?si=uo9QgEVOR8ywfuvE73kFAQ"
+};
+
+
+it('Inserts instance object into form when editing', () => {    
     const artistForm = render(
         <ArtistForm 
             _editing={true}
@@ -37,7 +41,50 @@ it('Inserts instance object into form when editing', () => {
     */
     expect(countryInput.value)      .toBe(artistInstance.country);
 
-        /*
-            Albums ids should be tested in SelectSearch component.
-        */
+    /*
+        Albums ids should be tested in SelectSearch component.
+    */
 })
+
+
+it('Submits data from form correctly', () => {
+    const getEditedArtist = jest.fn(args => args);
+    
+    const wrapper = shallow(
+        <ArtistForm 
+            _editing={true}
+            getEditedArtist={getEditedArtist}
+            category={"artists"}
+            instance={artistInstance}/>
+    );
+
+    wrapper.find('form').simulate('submit', { preventDefault: jest.fn() });
+    
+    expect(getEditedArtist).toBeCalledTimes(1);
+    
+    expect(getEditedArtist).toBeCalledWith({
+        id          : "somefakeidTestTestTest",
+        category    : "artists",
+        obj         : {
+            "name"          : "Metallica",
+            /* 
+                getSelectedAlbums() implementation must be mocked to check
+                if ALBUMS and albums_ids arrays are submitted properly 
+            */
+            "albums_ids"    : [],
+            "ALBUMS"        : [],
+            
+            //"albums_ids"    : ["2QkfFdcgTH2tHMi9cTu51q"],
+            //"ALBUMS"        : [{id: "2QkfFdcgTH2tHMi9cTu51q", name: "Antheil Ballet"}],            
+
+            "description"   : "Amerykański zespół thrashmetalowy z Los Angeles",
+            "country"       : "US",
+            "spotify_link"  : "https://open.spotify.com/artist/2ye2Wgw4gimLv2eAKyk1NB?si=uo9QgEVOR8ywfuvE73kFAQ"            
+        }
+    });
+})
+
+
+
+
+

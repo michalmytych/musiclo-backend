@@ -24,7 +24,6 @@ export default class ArtistForm extends Component {
             "spotify_link"  : "",
             "ALBUMS"        : [],
             "COUNTRIES"     : []
-            //"COUNTRIES"     : [ { name: "Ameryczka", iso_code: "US" } ]
         };
         this.handleChange       = this.handleChange.bind(this);
         this.handleSubmit       = this.handleSubmit.bind(this);
@@ -54,15 +53,16 @@ export default class ArtistForm extends Component {
     }
 
     handleSubmit(event) {
-        if (this.props._editing) {        
+        var obj = this.state; delete obj.COUNTRIES; // COUNTRIES array is redundant further on
+        if (this.props._editing) {            
             this.props.getEditedArtist({
-                obj         : this.state,
+                obj         : obj,
                 category    : 'artists',
                 id          : this.props.instance.id
             });
         } else {
             this.props.getEditedArtist({
-                obj         : this.state,
+                obj         : obj,
                 category    : 'artists'
             });
         }

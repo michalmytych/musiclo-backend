@@ -108,3 +108,5 @@ autoryzacja.php
 .eslintcache
 /styles_old
 /.vscode
+/venv
+secrets.py

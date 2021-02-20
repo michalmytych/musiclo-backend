@@ -60,8 +60,8 @@ it('Inserts instance object into form when editing', () => {
     expect(keyInput.value).toBe(instance.key.toString());
     expect(modeInput.value).toBe(instance.mode.toString());
 
-        /*
-            Artists ids and albums ids should be tested
-            in SelectSearch component.
-        */
+    /*
+        Artists ids and albums ids should be tested
+        in SelectSearch component.
+    */
 })
