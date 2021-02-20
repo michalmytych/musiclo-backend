@@ -6,7 +6,6 @@
      id nie jest wstrzykiwane poprawnie )
 
 ## READ
-- tonacja chyb źle się wyświetla
 - przy albumie nie wyświetla się wykonawca
 - kraj pochodzenia chyba w ogóle się nie zapisuje
 - W select search o kategorii artyści jakoś to dziwnie działa

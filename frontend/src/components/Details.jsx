@@ -105,14 +105,13 @@ class AlbumDetails extends Component {
     };
 
     async _getSongsOfAlbum(album_id) {
-        var SONGS = await getSongsOfAlbumRequest(album_id);
-        return SONGS;
+        return getSongsOfAlbumRequest(album_id).then(songs => songs)
     }
 
     async componentDidMount() {
         var _songs = await this._getSongsOfAlbum(this.props.item.id);   
         var _artists = [];
-        if (this.props.item._artists_ids && this.props.item._artists_ids !== "[null]") {
+        if (this.props.item._artist_ids && this.props.item._artist_names !== "[null]") {
             var _artists_names = JSON.parse(this.props.item._artist_names).filter(onlyUniqueFilter);
             var _artists_ids = JSON.parse(this.props.item._artist_ids).filter(onlyUniqueFilter);
             _artists_names.forEach((a, i) => {
@@ -128,6 +127,20 @@ class AlbumDetails extends Component {
     render() {
         return (
             <Fragment>       
+                <div>
+                    { this.state.artists ? 
+                        this.state.artists.length ? 
+                        <Fragment>
+                            <p className="tiny-caption">WYKONAWCY</p>
+                            {this.state.artists.map((a, index) => {
+                                if (index===this.state.artists.length-1) {
+                                    return <div className="pink-h">{a.name}</div>;
+                                } else { return <div className="pink-h">{a}, </div>; }
+                            })}
+                        </Fragment> : null
+                        : null
+                    }
+                </div>       
                 <p>
                     {
                         this.props.item.release_date ?
@@ -139,21 +152,7 @@ class AlbumDetails extends Component {
                         </Fragment>
                         : null
                     }
-                </p>
-                <div>
-                    { this.state._artists ? 
-                        this.state._artists.length ? 
-                        <Fragment>
-                            <p className="tiny-caption">WYKONAWCY</p>
-                            {this.state._artists.map((a, index) => {
-                                if (index===this.state._artists.length-1) {
-                                    return <span>{a.name}</span>;
-                                } else { return <span>{a}, </span>; }                            
-                            })}
-                        </Fragment> : null
-                        : null
-                    }
-                </div>                
+                </p>                         
                 <div>                  
                     <ul>
                         {

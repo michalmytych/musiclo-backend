@@ -71,6 +71,7 @@ export default class ItemForm extends Component {
                     {
                         this.props.category==="artists" ? 
                         <ArtistForm 
+                            _countries={this.props._countries}
                             _editing={edition_mode}
                             category={this.props.category}
                             instance={this.props.instance}

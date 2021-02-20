@@ -88,7 +88,8 @@ export default class ArtistForm extends Component {
             "description"   : instance.description,
             "country"       : instance.country,
             "spotify_link"  : instance.spotify_link,
-            "ALBUMS"        : _albums
+            "ALBUMS"        : _albums,
+            "COUNTRIES"     : this.props._countries
         });        
     }
 
@@ -100,12 +101,6 @@ export default class ArtistForm extends Component {
                 alert("Błąd podczas pobierania obiektu.");
             }            
         }
-        /*
-            This async call must by places somewhere else to
-            view artist country at first render() call properly.
-        */
-        var data = await getCountriesDataRequest();
-        this.setState({ "COUNTRIES" : data });  
     }
 
     render() {

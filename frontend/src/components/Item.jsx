@@ -111,6 +111,7 @@ export default class Item extends Component {
                             <ItemForm
                                 _editing={true}
                                 category={this.props.category}            
+                                _countries={this.props._countries}
                                 instance={this.state.item}
                                 onSave={(edited_object) => this._editItem(edited_object)}
                             toggler={this.toggleEditionFormDisplay} />
