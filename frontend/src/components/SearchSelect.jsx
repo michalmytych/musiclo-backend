@@ -2,6 +2,11 @@ import React, { Component, Fragment } from 'react'
 
 import { getSearchResultsRequest } from '../requests';
 
+import { 
+    uniqueArrayOfObjects, 
+    validateItems 
+} from '../constants';
+
 
 export default class SearchSelect extends Component {
     constructor() {
@@ -90,6 +95,9 @@ export default class SearchSelect extends Component {
     }
 
     render() {
+        var _results = uniqueArrayOfObjects(this.state.results, "id");
+        _results = validateItems(_results);
+
         return (
             <div>
                 <input 
@@ -103,9 +111,9 @@ export default class SearchSelect extends Component {
                         value={this.state.selected_options}
                         id="search_select" multiple onChange={this.getSelectedOptions}>                           
                         {
-                        this.state.results ?
-                            this.state.results.length ?
-                            this.state.results.map(result => (
+                        _results ?
+                            _results.length ?
+                            _results.map(result => (
                                 <option 
                                     name={result.name}
                                     value={result.id} 
@@ -121,9 +129,9 @@ export default class SearchSelect extends Component {
                         value={this.state.selected_options}
                         id="search_select" onChange={this.getSelectedOptions}>                           
                         {
-                        this.state.results ?
-                            this.state.results.length ?
-                            this.state.results.map(result => (
+                        _results ?
+                            _results.length ?
+                            _results.map(result => (
                                     <option 
                                         name={result.name}
                                         value={result.id} key={result.id} >

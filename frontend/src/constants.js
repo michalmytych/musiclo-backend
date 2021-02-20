@@ -67,4 +67,6 @@ export const objectsEqual = (o1, o2) =>
         && Object.keys(o1).every(p => o1[p] === o2[p]);
 
 
-export const validateItems = (_items) => (_items.filter( i => i.name ));
+export const validateItems = (_items) => (_items.filter( i => { 
+    if (i) { return i.name } else { return false; }} 
+));
