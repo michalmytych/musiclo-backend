@@ -69,11 +69,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $artists_ids = $data["artists_ids"];
 
-                $query = $_CREATE_SONG;
+                $query = $_CREATE_SONG;                
                             
                 $insertStatement = mysqli_prepare($conn, $query);
-                mysqli_stmt_bind_param($insertStatement,'sisddiidddss',
-                    $name,$explicit,$album_id,$danceability,$energy,$key,$mode,
+                mysqli_stmt_bind_param($insertStatement,'ssisddiidddss',
+                    $uid,$name,$explicit,$album_id,$danceability,$energy,$key,$mode,
                     $acousticness,$instrumentalness,$valence,$release_date,
                     $spotify_link);                     
                 mysqli_stmt_execute($insertStatement);                
@@ -100,11 +100,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $songs_ids = $data["songs_ids"];
                 $albums_ids = $data["albums_ids"];
 
-                $query =  $_CREATE_ARTIST;                  
+                $query =  $_CREATE_ARTIST;                                
                 
                 $insertStatement = mysqli_prepare($conn, $query);
-                mysqli_stmt_bind_param($insertStatement,'ssss',
-                    $name,$description,$country,$spotify_link); 
+                mysqli_stmt_bind_param($insertStatement,'sssss',
+                    $uid,$name,$description,$country,$spotify_link); 
                 mysqli_stmt_execute($insertStatement);                            
 
                 if (mysqli_stmt_affected_rows($insertStatement) <= 0) {                    
@@ -138,7 +138,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $query = $_CREATE_ALBUM;              
 
                 $insertStatement = mysqli_prepare($conn, $query);
-                mysqli_stmt_bind_param($insertStatement,'sss',$name,$release_date,$spotify_link); 
+                mysqli_stmt_bind_param($insertStatement,'ssss',$uid,$name,$release_date,$spotify_link); 
                 mysqli_stmt_execute($insertStatement);
 
                 if (mysqli_stmt_affected_rows($insertStatement) <= 0) {                                       

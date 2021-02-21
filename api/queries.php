@@ -51,7 +51,8 @@ $_BASE_ARTIST_SELECT = "SELECT
           artists.spotify_link,
           JSON_ARRAYAGG(albums.name) AS _albums_names,
           JSON_ARRAYAGG(albums.id) AS _albums_ids,
-          countries.name AS _country_name
+          countries.name AS _country_name,
+          countries.iso_code AS _country
           FROM artists
           LEFT JOIN belongs_to
           ON artists.id = belongs_to.artist_id
@@ -97,7 +98,7 @@ $_SEARCH_SONG = "SELECT songs.id, songs.name, songs.explicit, songs.key,
           ON songs.id = recorded_by.track_id
           LEFT JOIN artists
           ON artists.id = recorded_by.artist_id                        
-          WHERE songs.name LIKE ? GROUP BY songs.id LIMIT 50";
+          WHERE songs.name LIKE ? GROUP BY songs.id LIMIT 80";
 
 
 $_SEARCH_ALBUM = "SELECT albums.id, albums.name, 
@@ -117,13 +118,14 @@ $_SEARCH_ALBUM = "SELECT albums.id, albums.name,
           ON albums.id = belongs_to.album_id
           LEFT JOIN artists
           ON belongs_to.artist_id = artists.id
-          WHERE albums.name LIKE ? GROUP BY albums.id LIMIT 50";
+          WHERE albums.name LIKE ? GROUP BY albums.id LIMIT 80";
 
 
 $_SEARCH_ARTIST = "SELECT artists.id, artists.name, artists.spotify_link,
           JSON_ARRAYAGG(albums.name) AS _albums_names,
           JSON_ARRAYAGG(albums.id) AS _albums_ids,
-          countries.name AS _country_name
+          countries.name AS _country_name,
+          countries.iso_code AS _country
           FROM artists
           LEFT JOIN belongs_to
           ON artists.id = belongs_to.artist_id
@@ -136,7 +138,8 @@ $_SEARCH_ARTIST = "SELECT artists.id, artists.name, artists.spotify_link,
           SELECT artists.id, artists.name, artists.spotify_link,
           JSON_ARRAYAGG(albums.name) AS _albums_names,
           JSON_ARRAYAGG(albums.id) AS _albums_ids,
-          countries.name AS _country_name
+          countries.name AS _country_name,
+          countries.iso_code AS _country
           FROM artists
           LEFT JOIN belongs_to
           ON artists.id = belongs_to.artist_id
@@ -144,7 +147,7 @@ $_SEARCH_ARTIST = "SELECT artists.id, artists.name, artists.spotify_link,
           ON belongs_to.album_id = albums.id
           LEFT JOIN countries
           ON artists.country = countries.iso_code
-          WHERE artists.name LIKE ? GROUP BY artists.id LIMIT 50";
+          WHERE artists.name LIKE ? GROUP BY artists.id LIMIT 80";
 
 
 $_GET_SONGS_OF_ALBUM = "SELECT * FROM songs WHERE songs.album_id = ?";
@@ -204,7 +207,7 @@ $_CREATE_SONG = "INSERT INTO songs (
          `valence`,
          `release_date`,
          `spotify_link`) 
-         VALUES ( '".$uid."', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+         VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 
 $_CREATE_ARTIST = "INSERT INTO artists (
@@ -213,7 +216,7 @@ $_CREATE_ARTIST = "INSERT INTO artists (
          `description`,
          `country`,
          `spotify_link`) 
-         VALUES ('".$uid."', ?, ?, ?, ?)";  
+         VALUES (?, ?, ?, ?, ?)";  
 
 
 $_CREATE_ALBUM = "INSERT INTO albums (
@@ -221,7 +224,13 @@ $_CREATE_ALBUM = "INSERT INTO albums (
          albums.name,
          albums.release_date,
          albums.spotify_link )
-         VALUES ('".$uid."', ?, ?, ?)";  
+         VALUES (?, ?, ?, ?)";  
+
+
+$_COUNT_RECORDS = "SELECT 'songs' AS category, 
+         count(songs.id) AS 'count' from songs
+         UNION SELECT 'albums', count(albums.id) from albums
+         UNION SELECT 'artists', count(artists.id) from artists;";
 
 
 $_GET_SONG = $_BASE_SONG_SELECT . "WHERE songs.id = ?";  
