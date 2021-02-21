@@ -179,6 +179,12 @@ option:checked{
   color: rgba(204, 204, 204, 0.63);
 }
 
+.italic-w-p{
+  color: white;
+  font-size: 1rem;
+  font-style: italic;
+}
+
 .mkey{
   font-size: 1.15rem;
   padding-top: 0;

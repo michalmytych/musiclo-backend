@@ -84,7 +84,7 @@ export default class ArtistForm extends Component {
             "name"          : instance.name,
             "albums_ids"    : _albums_ids,
             "description"   : instance.description,
-            "country"       : instance.country,
+            "country"       : instance._country,
             "spotify_link"  : instance.spotify_link,
             "ALBUMS"        : _albums,
             "COUNTRIES"     : this.props._countries
@@ -182,7 +182,7 @@ export default class ArtistForm extends Component {
                                     _COUNTRIES.map(country => (
                                         <option                                         
                                             value={country.iso_code} 
-                                            key={"countryId_" + country.is_code} >
+                                            key={"countryId_" + country.iso_code} >
                                             {country.name}
                                         </option>                        
                                     )) : null

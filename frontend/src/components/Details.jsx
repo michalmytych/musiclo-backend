@@ -207,13 +207,11 @@ const ArtistDetails = (props) => {
         });    
     }                     
     
-    if (props.item.country) {
-        country = props._COUNTRIES.filter((country) => {
-            return country.iso_code === props.item._country_name
-        });
-        countryName = country.name;
-    } else {
-        countryName = "Brak informacji o kraju pochodzenia.";
+    if (props.item._country) {
+        country = props._COUNTRIES.filter(c => {
+            return c.iso_code === props.item._country
+        })[0];
+        if (country) { countryName = country.name; }
     }
 
     return (
@@ -225,7 +223,9 @@ const ArtistDetails = (props) => {
                 </Fragment> : null
             }     
             <p className="tiny-caption">KRAJ POCHODZENIA</p>       
-            <p className="italic-colored-small">{countryName}</p>            
+            <p className="italic-w-p">
+                {countryName ? countryName : "Brak informacji o kraju pochodzenia"}
+            </p>            
                 {
                 _albums ?
                     <ul>

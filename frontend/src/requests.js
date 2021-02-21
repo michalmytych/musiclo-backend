@@ -59,7 +59,7 @@ export async function getItemRequest(args) {
 
 export async function putEditedItemRequest(data) {
     var url = `${API_URL}update_item.php?category=${data.category}&id=${data.id}`;
-    
+
     var res = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(data.obj),
