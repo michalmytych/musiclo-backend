@@ -109,4 +109,5 @@ autoryzacja.php
 /styles_old
 /.vscode
 /venv
+issues.md
 secrets.py
