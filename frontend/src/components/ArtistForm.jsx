@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 
 import SearchSelect from './SearchSelect';
 
-import { getCountriesDataRequest } from '../requests';
-
 import { 
     onlyUniqueFilter,
     uniqueArrayOfObjects 
@@ -93,6 +91,12 @@ export default class ArtistForm extends Component {
         });        
     }
 
+    encodeCountryByISO = (code) => {
+        if (!this.props._countries || !code) { return; }
+        try { return this.props._countries.filter(c => c.iso_code===code)[0].name; }
+        catch(err) { console.log(err); return; }
+    }
+
     async componentDidMount() {                    
         if (this.props._editing) {
             if (this.props.instance) {
@@ -105,6 +109,7 @@ export default class ArtistForm extends Component {
 
     render() {
         var _COUNTRIES = uniqueArrayOfObjects(this.state.COUNTRIES, "iso_code");
+        var chosenCountry = this.encodeCountryByISO(this.state.country);
         var _ALBUMS = [];
         try{ 
             if (this.state.ALBUMS.length) { _ALBUMS = this.state.ALBUMS; };
@@ -152,7 +157,7 @@ export default class ArtistForm extends Component {
                             )) : <p>Brak albumów.</p>
                         : null
                     }
-                </ul>                 
+                </ul>
                 <SearchSelect 
                     multiple_choice={true}
                     _getInitialValue={(p) => this.getSelectedAlbums(p)}
@@ -161,6 +166,12 @@ export default class ArtistForm extends Component {
                 {
                     <Fragment>
                         <label id="lab_ctry" className="input-label">Kraj</label>
+                        {
+                            chosenCountry ? 
+                            <div className="selected-search-select-item narr">
+                                {chosenCountry}
+                            </div> : null
+                        }                        
                         <select aria-labelledby="lab_ctry"
                             onChange={this.handleChange}  
                             defaultValue={this.state.country}

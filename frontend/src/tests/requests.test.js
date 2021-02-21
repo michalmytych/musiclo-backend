@@ -235,7 +235,7 @@ test('Get artists search results request', () => {
     )
 })
 
-
+/*
 test('Create song request', () => {
     let args = {}; args.category = "songs";
     args.obj = {
@@ -301,3 +301,4 @@ test('Create artist request', () => {
         }
     )
 })
+*/

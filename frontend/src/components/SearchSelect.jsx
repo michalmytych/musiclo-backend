@@ -25,15 +25,11 @@ export default class SearchSelect extends Component {
     }
 
     async _getSearchResults(category, search_input) {
-        var results = await getSearchResultsRequest({
+        await getSearchResultsRequest({
             c : category,
             p : search_input
-        });
-
-
-        this.setState({
-            "results" : results
-        });
+        })
+        .then(results => this.setState({ "results" : results }))        
     }
 
     setSearchCategory = () => {
@@ -45,7 +41,7 @@ export default class SearchSelect extends Component {
             case 'artists':
                 this.setState({ "category_name" : "wykonawcę" }); break;
             default:
-                this.setState({ "category_name" : "piosenkę" }); break;
+                this.setState({ "category_name" : "piosenkę" });
         }
     }
 
@@ -72,10 +68,9 @@ export default class SearchSelect extends Component {
                 }                 
             } 
         );
-        if (!failed) {
-            this.setState({ "selected_options" : selected_values });
-            this.props.getValues(selected_values);    
-        }        
+        if (failed) { return; }
+        this.setState({ "selected_options" : selected_values });
+        this.props.getValues(selected_values);    
     }
 
     setInitialValues = () => {

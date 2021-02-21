@@ -30,9 +30,7 @@ export default class Item extends Component {
     };
 
     toggleConfirmationDisplay = () => {
-        this.setState({
-            "show_confirmation_box" : !this.state.show_confirmation_box,
-        });
+        this.setState({"show_confirmation_box" : !this.state.show_confirmation_box});
     }
 
     toggleEditionFormDisplay = () => {
@@ -46,30 +44,25 @@ export default class Item extends Component {
         CRUD methods for single item instance
     */
     async _deleteItem(item_id) {
-        let res = await deleteItemRequest({
+        await deleteItemRequest({
             "cat"   : this.props.category, 
             "id"    : item_id
         }).then( res => {
-            if (res===200) {
-                this.props.popDeletedItem(item_id);
-                viewAlert("Usunięto!", true);
-            } else { viewAlert("Request nie powiódł się!", false); }
+            if (res!==200) { viewAlert("Request nie powiódł się!", false); return; }
+            this.props.popDeletedItem(item_id);
+            viewAlert("Usunięto!", true);
         })        
     }
 
     async _editItem(args) {
         var validArgs = validateItemBeforePost(args);        
-        if (validArgs) {
-            validArgs.id = args.id;
-            let res = await putEditedItemRequest(validArgs);
-            if (res===200) {
-                let item = await getItemRequest(args);
-                this.setState({ item : item });
-                viewAlert("Zapisano zmiany!", true);                    
-            } else { viewAlert("Request nie powiódł się!", false); }
-        } else {
-            viewAlert("Niepoprawne dane!", false);
-        }    
+        if (!validArgs) { viewAlert("Niepoprawne dane!", false); return; }
+        validArgs.id = args.id;
+        let res = await putEditedItemRequest(validArgs);
+        if (res!==200) { viewAlert("Request nie powiódł się!", false); return; }
+        let item = await getItemRequest(args);
+        this.setState({ item : item });
+        viewAlert("Zapisano zmiany!", true);                    
     }
 
     async componentDidMount() {

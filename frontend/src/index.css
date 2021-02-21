@@ -520,6 +520,11 @@ input[type=range]:focus::-ms-fill-upper {
   padding: 0.4rem 0 0.1rem 0;
 }
 
+.yellow-inl{
+  color: #fbff12;
+  font-size: 1rem;
+}
+
 .track-no{
   display: inline-block;
   width: 0.5rem;

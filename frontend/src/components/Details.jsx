@@ -234,7 +234,7 @@ const ArtistDetails = (props) => {
                     {
                     _albums.map((a, i) => (
                         <li key={"album_" + i}>
-                            <div className="artists-album">{a.name}</div>
+                            <div className="artists-album yellow-inl">{a.name}</div>
                         </li>
                     ))
                     }
@@ -281,7 +281,6 @@ export default class Details extends Component {
                             this.props.category==='artists' ?
                             <ArtistDetails 
                                 _COUNTRIES={this.props._countries}
-                                countries={this.state.COUNTRIES}
                                 item={this.props.item}/> : null
                         }                        
                     </Fragment>

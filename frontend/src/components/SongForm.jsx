@@ -309,7 +309,6 @@ export default class SongForm extends Component {
                 </select>
                 <label id="lab_rel_date" className="input-label">Data wydania</label>
                 <input aria-labelledby="lab_rel_date"
-                    required
                     onChange={this.handleChange} 
                     id="release_date_input"
                     type="date"

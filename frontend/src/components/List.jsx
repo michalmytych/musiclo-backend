@@ -51,9 +51,7 @@ export default class List extends Component {
             category            : 'songs',    // can be: songs, albums, artists
             songs               : {"category": 'songs', "items": []},
             albums              : {"category": 'albums', "items": []},
-            artists             : {"category": 'artists', "items": []},
-            filtering_options   : {'songs' : 1, 'albums' : 2, 'artists' : 3},
-            sorting_options     : {'songs' : 1, 'albums' : 2, 'artists' : 3},
+            artists             : {"category": 'artists', "items": []},            
             show_creation_box   : false,
             page                : 0,
             hasMoreItems        : true,
@@ -71,7 +69,6 @@ export default class List extends Component {
         this._getMoreItems = this._getMoreItems.bind(this);
         this.toggleCreationFormDisplay = this.toggleCreationFormDisplay.bind(this);
         this.updateListAfterDelete = this.updateListAfterDelete.bind(this);
-        this.renderItems = this.renderItems.bind(this);
         this.handleCategorySwitch = this.handleCategorySwitch.bind(this);
         this._getCountriesData = this._getCountriesData.bind(this);
         this._getItemsCountData = this._getItemsCountData.bind(this);
@@ -81,34 +78,32 @@ export default class List extends Component {
         CRUD method for list view
     */
     async _getItemsList(args) {
-        const LIST = await getItemsListRequest({ 
+        await getItemsListRequest({ 
             c : args.category, 
             p : args.page,
             l : this.state.items_limit
-        }).then((LIST) => {
-            if (LIST) {
-                if (LIST.length < this.state.items_limit) {
+        }).then(items => {
+                if (!items) return;
+                if (items.length < this.state.items_limit) {
                     this.setState({ hasMoreItems: false });
                 }
                 this.setState({
                     [args.category] : {
                         "category" : args.category, 
-                        "items" : this.state[args.category].items.concat(LIST)
+                        "items" : this.state[args.category].items.concat(items)
                     }
                 });
-            }}        
+            }        
         )        
     }
 
     async _getSearchResults(args) {
-        var LIST = await getSearchResultsRequest({
+        let LIST = await getSearchResultsRequest({
             c    : args.category, 
             p    : args.phrase
-        });
-        LIST = validateItems(LIST);
-        if (!LIST.length) {
-            this.setState({ nothingFound: true });
-        } else {
+        }).then(list => validateItems(list))
+        if (!LIST.length) { this.setState({ nothingFound: true }) } 
+        else {
             this.setState({ hasMoreItems: false, nothingFound: false });
             this.setState({
                 [args.category] : {
@@ -121,28 +116,18 @@ export default class List extends Component {
 
     refreshListAfterEdit = () => {
         if (this.state.page !== 0) {
-            this.setState({
-                page : 0
-            });
+            this.setState({ page : 0 });
         }
-        this._getItemsList({
-            category : this.state.category,
-            page     : 0
-        }); 
+        this._getItemsList({ category : this.state.category, page : 0 }); 
     }   
 
     async _createItem(args) {
         var validArgs = validateItemBeforePost(args);
-        if (validArgs) {
-            let res = await createItemRequest(validArgs)
-            .then( res => {
-                if (res===201 || res===201) {
-                    viewAlert("Dodano!", true);
-                } else { viewAlert("Request nie powiódł się!", false); }                
-            })
-        } else {
-            viewAlert("Niepoprawne dane!", false);
-        }
+        if (!validArgs) { viewAlert("Niepoprawne dane!", false); return; }
+        await createItemRequest(validArgs).then( res => {
+            if (res===201 || res===200) { viewAlert("Dodano!", true); return; } 
+            viewAlert("Request nie powiódł się!", false);
+        })
     }
 
     async _getCountriesData() {
@@ -155,40 +140,22 @@ export default class List extends Component {
 
     _getMoreItems = () => {
         var page = this.state.page;
-        this.setState({
-            page : this.state.page+1
-        });
+        this.setState({ page : this.state.page+1 });
         this._getItemsList({category: this.state.category, page: page+1});
     }
 
     toggleCreationFormDisplay = () => {
-        this.setState({
-            "show_creation_box" : !this.state.show_creation_box
-        });
+        this.setState({ "show_creation_box" : !this.state.show_creation_box });
     }
 
     updateListAfterDelete = (item_id) => {
         var list = this.state[this.state.category].items;
-        const index = list.map(e => e.id).indexOf(item_id);
+        var index = list.map(e => e.id).indexOf(item_id);
         list.splice(index, 1);
         this.setState({
             [this.state.category]   : { category: this.state.category, items: list},
             item_deleted            : !this.state.item_deleted
         });
-    }
-
-    renderItems(LIST) {
-        return (
-            <Fragment>
-                {LIST.items.map(item => (
-                    <li key={item.id} >
-                        <Item
-                            category={LIST.category}                                    
-                            item={item}/>
-                    </li>
-                ))}
-            </Fragment>
-        );
     }
 
     handleCategorySwitch = (category) => {
@@ -250,8 +217,6 @@ export default class List extends Component {
         
         var _dataLength = this.state[_ITEMS_LIST.category].items.length;
         _ITEMS_LIST.items = uniqueArrayOfObjects(_ITEMS_LIST.items, "id");
-
-        console.log(_ITEMS_LIST.items);
 
         return (
             <div className="List">
