@@ -1,8 +1,14 @@
+/**
+ * 
+ * All source related mainly to display of html elements,
+ * or formatting data to display it properly.
+ * 
+ */
+
+
 export function handleCategoryViewChange(category) {
     var SWITCHES = document.querySelectorAll('div[id*="-swt"]');
-    SWITCHES.forEach((swt) => {
-        swt.classList.remove('active-category');
-    });
+    SWITCHES.forEach(swt => { swt.classList.remove('active-category') });
     document.getElementById(category + '-swt').classList.add('active-category');
 }
 
@@ -38,8 +44,7 @@ export async function viewAlert(message, success) {
         alert_box.classList.remove("animate__fadeInUp") 
         alert_box.classList.add("animate__fadeOutDown") 
     });
-    await sleep(400).then(
-        () => {
+    await sleep(400).then( () => {
             setElementDisplay(_id, "none");
             alert_box.classList.remove("animate__fadeOutDown")
             alert_box.innerHTML = "";

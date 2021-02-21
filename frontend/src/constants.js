@@ -1,3 +1,9 @@
+/**
+ * 
+ * Constant values and commonly used functions.
+ * 
+ */
+
 export const KEYS = [
     {"id" : 0,  "name" 	: "C"},
     {"id" : 1,  "name" 	: "C#"},
@@ -19,11 +25,10 @@ export function getRandomInt(min, max) {
 }
 
 export function encodeMusicKey(key_number) {
-    if (key_number) {
-        key_number = parseInt(key_number);
-        var key = KEYS.filter(key => { return key.id === key_number })[0];        
-        if (key && key.name) { return key.name; }
-    } else { return null; }
+    if (!key_number && key_number!==0) return; 
+    key_number = parseInt(key_number);
+    var key = KEYS.filter(key => ( key.id === key_number ))[0];        
+    if (key && key.name) return key.name;
 }
 
 export function formatDatetime(iso_str) {
@@ -50,16 +55,15 @@ export function onlyUniqueFilter(value, index, self) {
 }
 
 export function uniqueArrayOfObjects(array, keyToBeUnique) {
-    if (array) {
-        try {
-            return array.filter((x, xi) => !array.slice(xi + 1)
-            .some(y => y[keyToBeUnique] === x[keyToBeUnique]));
-        } catch (error) {
-            alert("To nie jest poprawny wybór!");
-            console.log(error);
-        }            
-    }
-    return [];
+    if (!array) return [];
+    try {
+        return array.filter((x, xi) => !array.slice(xi + 1)
+        .some(y => y[keyToBeUnique] === x[keyToBeUnique]));
+    } catch (error) {
+        alert("To nie jest poprawny wybór!");
+        console.log(error);
+    }            
+    
 }
 
 export const objectsEqual = (o1, o2) =>

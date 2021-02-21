@@ -1,10 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import Item from './Item';
 import ItemForm from './ItemForm';
-
 import { 
     getItemsListRequest,
     createItemRequest,
@@ -12,27 +10,21 @@ import {
     getCountriesDataRequest,
     getItemsCountDataRequest
 } from '../requests';
-
-import { 
-    uniqueArrayOfObjects, 
-    validateItems 
-} from '../constants';
-
 import { 
     handleCategoryViewChange,
     setActiveCategoryStyles,
     viewAlert
 } from '../display';
-
-import '../styles/Search.css';
-import '../styles/List.css';
+import { uniqueArrayOfObjects, validateItems } from '../constants';
 import loadingSpinner from '../assets/loading.svg';
 import addIcon from '../assets/add.svg';
 import artistIcon from '../assets/artist.svg';
 import albumIcon from '../assets/cd.svg';
 import trackIcon from '../assets/tune.svg';
-
 import { validateItemBeforePost } from '../validators';
+import '../styles/Search.css';
+import '../styles/List.css';
+
 
 
 const AddItemButton = (props) => {
@@ -48,30 +40,30 @@ export default class List extends Component {
     constructor() {
         super();
         this.state = {
-            category            : 'songs',    // can be: songs, albums, artists
+            category            : 'songs',
             songs               : {"category": 'songs', "items": []},
             albums              : {"category": 'albums', "items": []},
             artists             : {"category": 'artists', "items": []},            
-            show_creation_box   : false,
-            page                : 0,
-            hasMoreItems        : true,
             items_limit         : 7,
+            page                : 0,
             phrase              : "",
-            item_deleted        : false,
-            COUNTRIES           : [],
+            hasMoreItems        : true,
+            dbRecordsCount      : false,
             nothingFound        : false,
-            dbRecordsCount      : null
+            show_creation_box   : false,
+            item_deleted        : false,
+            COUNTRIES           : []
         };
-        this.handleChange = this.handleChange.bind(this);
-        this._getItemsList = this._getItemsList.bind(this);
-        this.refreshListAfterEdit = this.refreshListAfterEdit.bind(this);
-        this._createItem = this._createItem.bind(this);
-        this._getMoreItems = this._getMoreItems.bind(this);
-        this.toggleCreationFormDisplay = this.toggleCreationFormDisplay.bind(this);
-        this.updateListAfterDelete = this.updateListAfterDelete.bind(this);
-        this.handleCategorySwitch = this.handleCategorySwitch.bind(this);
-        this._getCountriesData = this._getCountriesData.bind(this);
-        this._getItemsCountData = this._getItemsCountData.bind(this);
+        this.handleChange               = this.handleChange.bind(this);
+        this._getItemsList              = this._getItemsList.bind(this);
+        this.refreshListAfterEdit       = this.refreshListAfterEdit.bind(this);
+        this._createItem                = this._createItem.bind(this);
+        this._getMoreItems              = this._getMoreItems.bind(this);
+        this.toggleCreationFormDisplay  = this.toggleCreationFormDisplay.bind(this);
+        this.updateListAfterDelete      = this.updateListAfterDelete.bind(this);
+        this.handleCategorySwitch       = this.handleCategorySwitch.bind(this);
+        this._getCountriesData          = this._getCountriesData.bind(this);
+        this._getItemsCountData         = this._getItemsCountData.bind(this);
     }
  
     /*
@@ -115,9 +107,7 @@ export default class List extends Component {
     }    
 
     refreshListAfterEdit = () => {
-        if (this.state.page !== 0) {
-            this.setState({ page : 0 });
-        }
+        if (this.state.page !== 0) { this.setState({ page : 0 }) }
         this._getItemsList({ category : this.state.category, page : 0 }); 
     }   
 
@@ -160,18 +150,15 @@ export default class List extends Component {
 
     handleCategorySwitch = (category) => {
         if (this.state.category !== category) {
-            this.setState({
-                "category": category
-            });
+            this.setState({ "category": category });
             this._getItemsList({category: category, page: 0});
             handleCategoryViewChange(category);
         }        
     }
 
     handleChange(event) {        
-        this.setState({
-            [event.target.name] : event.target.value
-        });
+        this.setState({ [event.target.name] : event.target.value });
+
         if (!event.target.value) {
             this.setState({ 
                 hasMoreItems        : true,
@@ -234,26 +221,22 @@ export default class List extends Component {
                                 created_object
                             )}
                             toggler={this.toggleCreationFormDisplay} />                            
-                    </Fragment>
-                    : null
+                    </Fragment> : null
                 }                
                 <div className="category-switch">
-                    <div 
-                        id="songs-swt"
+                    <div id="songs-swt"
                         onClick={() => this.handleCategorySwitch('songs')}
                         className="songs-switch-btn">
                         <img alt="Ikona piosenek." src={trackIcon} className="category-icon"></img>
                         <div className="cat-text-name">Piosenki</div>
                     </div>
-                    <div
-                        id="albums-swt"
+                    <div id="albums-swt"
                         onClick={() => this.handleCategorySwitch('albums')} 
                         className="albums-switch-btn">
                         <img alt="Ikona albumów." src={albumIcon} className="category-icon"></img>
                         <div className="cat-text-name">Albumy</div>
                     </div>
-                    <div
-                        id="artists-swt"
+                    <div id="artists-swt"
                         onClick={() => this.handleCategorySwitch('artists')} 
                         className="artists-switch-btn">
                         <img alt="Ikona artystów." src={artistIcon} className="category-icon"></img>
@@ -284,27 +267,24 @@ export default class List extends Component {
                     }                    
                     <ul>
                         {
-                            _ITEMS_LIST.items ?
-                                _ITEMS_LIST.items.length !==0 ?
-                                <InfiniteScroll
-                                    dataLength={_dataLength}
-                                    next={() => this._getMoreItems()}
-                                    hasMore={this.state.hasMoreItems}
-                                    loader={loader}>
-                                    {this.state[_ITEMS_LIST.category].items.map((item) => (
-                                        <li key={item.id}>
-                                            <Item
-                                                _countries={this.state.COUNTRIES}
-                                                popDeletedItem={(id) => this.updateListAfterDelete(id)}
-                                                refreshAfterEdit={() => this.refreshListAfterEdit()}
-                                                category={_ITEMS_LIST.category}                                    
-                                                item={item}/>
-                                        </li>
-                                    ))}
-                                </InfiniteScroll> :
-                                    this.state.nothingFound ? 
-                                    <h3 className="NoData">Nic tu nie ma</h3> : loader                                
-                            : <h3 className="NoData">Nic tu nie ma</h3>
+                            _ITEMS_LIST.items && _ITEMS_LIST.items.length ?
+                            <InfiniteScroll
+                                dataLength={_dataLength}
+                                next={() => this._getMoreItems()}
+                                hasMore={this.state.hasMoreItems}
+                                loader={loader}>
+                                {this.state[_ITEMS_LIST.category].items.map((item) => (
+                                    <li key={item.id}>
+                                        <Item
+                                            _countries={this.state.COUNTRIES}
+                                            popDeletedItem={(id) => this.updateListAfterDelete(id)}
+                                            refreshAfterEdit={() => this.refreshListAfterEdit()}
+                                            category={_ITEMS_LIST.category}                                    
+                                            item={item}/>
+                                    </li>
+                                ))}
+                            </InfiniteScroll> 
+                            : this.state.nothingFound ? <h3 className="NoData">Nic tu nie ma</h3> : loader                                
                         }
                     </ul>
                 </div>                

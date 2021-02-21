@@ -1,16 +1,20 @@
+/**
+ * 
+ * All API http requests functions.
+ * 
+ */
 
-// Wierzba
 const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
 
 
 export async function getItemsListRequest(args) { 
     var url = `${API_URL}items_list.php?limit=${args.l}&page=${args.p}&category=${args.c}`;
     
-    var ITEMS = await fetch(url)
+    var items = await fetch(url)
     .then(response => { return response.json(); }) 
     .catch(err => { console.log('Request failed: ', err) });
 
-    return ITEMS;
+    return items;
 };
 
 
@@ -78,49 +82,49 @@ export async function putEditedItemRequest(data) {
 export async function getSearchResultsRequest(args) {
     var url = `${API_URL}search_item.php?category=${args.c}&phrase=${args.p}`;
     
-    var RESULTS = await fetch(url)
+    var results = await fetch(url)
     .then(response => { return response.json(); }) 
     .catch(err => { console.log('Request failed: ', err) } );
 
-    return RESULTS;    
+    return results;    
 };
 
 
 export async function getSongsOfAlbumRequest(id) {    
     var url = API_URL + `songs_of_album.php?id=${id}`;
 
-    var SONGS = await fetch(url)
+    var songs = await fetch(url)
     .then(response => { return response.json(); }) 
     .catch(err => { console.log('Request failed: ', err) });
     
-    return SONGS;
+    return songs;
 };
 
 
 export async function getCountriesDataRequest() {    
     var url = API_URL + `countries_list.php`;
     
-    var data = await fetch(url)
+    var countries = await fetch(url)
     .then(response => { return response.json(); }) 
     .catch(err => { console.log('Request failed: ', err) });
 
-    return data;
+    return countries;
 };
 
 
 export async function getItemsCountDataRequest() {    
     var url = API_URL + `items_count.php`;
     
-    var data = await fetch(url)
+    var counts = await fetch(url)
     .then(response => { return response.json(); }) 
     .catch(err => { console.log('Request failed: ', err) });
 
-    var counted = {
-        so  : data.filter(c => (c.category === 'songs'))[0].count,
-        al  : data.filter(c => (c.category === 'albums'))[0].count,
-        ar  : data.filter(c => (c.category === 'artists'))[0].count
+    var countsByCategory = {
+        so  : counts.filter(c => (c.category === 'songs'))[0].count,
+        al  : counts.filter(c => (c.category === 'albums'))[0].count,
+        ar  : counts.filter(c => (c.category === 'artists'))[0].count
     }
 
-    return counted;
+    return countsByCategory;
 };
 

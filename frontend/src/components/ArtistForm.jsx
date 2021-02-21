@@ -1,14 +1,11 @@
 import React, { Component, Fragment } from 'react';
 
 import SearchSelect from './SearchSelect';
-
-import { 
-    onlyUniqueFilter,
-    uniqueArrayOfObjects 
-} from '../constants';
-
+import { onlyUniqueFilter, uniqueArrayOfObjects } from '../constants';
 import popItemIcon from '../assets/pop_item.svg';
+import { viewAlert } from '../display';
 import "../styles/ItemForm.css";
+
 
 
 export default class ArtistForm extends Component {
@@ -16,10 +13,10 @@ export default class ArtistForm extends Component {
         super();
         this.state = {
             "name"          : "",
-            "albums_ids"    : [],            
             "description"   : "",
             "country"       : "",
             "spotify_link"  : "",
+            "albums_ids"    : [],            
             "ALBUMS"        : [],
             "COUNTRIES"     : []
         };
@@ -31,17 +28,13 @@ export default class ArtistForm extends Component {
     }
 
     handleChange(event) {
-        this.setState({
-            [event.target.name] : event.target.value
-        });
+        this.setState({ [event.target.name] : event.target.value });
     }
 
     getSelectedAlbums(selections) {
         var _ALBUMS = this.state.ALBUMS.concat(selections);
         var _disctinct = uniqueArrayOfObjects(_ALBUMS, "id");
-        this.setState({
-            "ALBUMS" : _disctinct
-        });
+        this.setState({ "ALBUMS" : _disctinct });
     }
 
     popAlbum(id) {
@@ -86,8 +79,8 @@ export default class ArtistForm extends Component {
             "description"   : instance.description,
             "country"       : instance._country,
             "spotify_link"  : instance.spotify_link,
-            "ALBUMS"        : _albums,
-            "COUNTRIES"     : this.props._countries
+            "COUNTRIES"     : this.props._countries,
+            "ALBUMS"        : _albums
         });        
     }
 
@@ -102,7 +95,7 @@ export default class ArtistForm extends Component {
             if (this.props.instance) {
                 this._mountInstance(this.props.instance);
             } else {
-                alert("Błąd podczas pobierania obiektu.");
+                viewAlert("Błąd podczas pobierania obiektu.", false);
             }            
         }
     }
@@ -110,13 +103,6 @@ export default class ArtistForm extends Component {
     render() {
         var _COUNTRIES = uniqueArrayOfObjects(this.props._countries, "iso_code");
         var chosenCountry = this.encodeCountryByISO(this.state.country);
-        var _ALBUMS = [];
-        try{ 
-            if (this.state.ALBUMS.length) { _ALBUMS = this.state.ALBUMS; };
-        } catch (error) {
-            console.log("Obsłużono błąd: " + error);
-            _ALBUMS = [];
-        }
 
         return (
             <form 
@@ -134,28 +120,22 @@ export default class ArtistForm extends Component {
                     onChange={this.handleChange}
                     type="" 
                     name="description" 
-                    value={
-                        this.state.description ?
-                        this.state.description : ""
-                    }
+                    value={this.state.description ? this.state.description : ""}
                     rows="4" cols="50">
                 </textarea>                    
                 <p className="input-label">Albumy</p>
                 <ul>
                     {
-                        this.state.ALBUMS ?
-                            _ALBUMS.length ?
-                            _ALBUMS.map((a) => (
-                                <li key={"albumId_" + a.id} className="select-srch-li">
-                                    <div
-                                        className="selected-search-select-item" 
-                                        onClick={()=>this.popAlbum(a.id)}>
-                                        <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania piosenki."></img>{
-                                        a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
-                                        }</div>
+                        this.state.ALBUMS && this.state.ALBUMS.length ?
+                        this.state.ALBUMS.map((a) => (
+                            <li key={"albumId_" + a.id} className="select-srch-li">
+                                <div
+                                    className="selected-search-select-item" 
+                                    onClick={()=>this.popAlbum(a.id)}>
+                                    <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania piosenki."></img>{
+                                    a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name}</div>
                                 </li>                                
                             )) : <p>Brak albumów.</p>
-                        : null
                     }
                 </ul>
                 <SearchSelect 
@@ -173,20 +153,18 @@ export default class ArtistForm extends Component {
                             </div> : null
                         }                        
                         <select aria-labelledby="lab_ctry"
-                            onChange={this.handleChange}  
+                            onChange={this.handleChange}
                             defaultValue={this.state.country}
                             name="country">
                             {
-                                _COUNTRIES ?
-                                _COUNTRIES.length ?
-                                    _COUNTRIES.map(country => (
-                                        <option                                         
-                                            value={country.iso_code} 
-                                            key={"countryId_" + country.iso_code} >
-                                            {country.name}
-                                        </option>                        
-                                    )) : "Brak treści"
-                                : "Brak treści"
+                                _COUNTRIES && _COUNTRIES.length ?
+                                _COUNTRIES.map(country => (
+                                    <option                                         
+                                        value={country.iso_code} 
+                                        key={"countryId_" + country.iso_code} >
+                                        {country.name}
+                                    </option>                        
+                                )) : "Brak treści"
                             }       
                         </select>
                     </Fragment>

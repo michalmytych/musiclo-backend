@@ -3,6 +3,7 @@ import React from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
 
 
+
 export default function SpotifyFeaturesChart(props) {
     const PREPARED_DATASET = [
         { label: "Taneczność",       y: props.DATASET.danceability,      color: '#ff4d8b', },
@@ -13,25 +14,16 @@ export default function SpotifyFeaturesChart(props) {
     ];
 
     const CHART_CONFIG = {
-		title: {
-			text: "Statystyki utworu według Spotify"              
-		},
-        axisY: {
-            maximum: 1,
-        },
+		title: { text: "Statystyki utworu według Spotify" },
+        axisY: { maximum: 1, },
         height: 200,
         width: 600,
         theme: "dark1",
         backgroundColor: 'transparent',
 		data: [              
-            {
-                type: "column",
-                dataPoints: PREPARED_DATASET
-            }
+            { type: "column", dataPoints: PREPARED_DATASET }
 		]
 	}
     
-    return (
-        <CanvasJSChart options={CHART_CONFIG}/>  
-    )
+    return <CanvasJSChart options={CHART_CONFIG}/>
 }

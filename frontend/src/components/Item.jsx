@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react'
 
-import '../styles/Item.css';
-
 import DeleteBtn from './DeleteBtn';
 import EditBtn from './EditBtn';
 import Confirm from './Confirm';
@@ -9,16 +7,15 @@ import ItemForm from './ItemForm';
 import SpotifyPlugin from './SpotifyPlugin';
 import YouTubeSearch from './YouTubeSearch';
 import Details from './Details';
-
 import {
     deleteItemRequest,
     putEditedItemRequest,
     getItemRequest
 } from '../requests.js';
-
 import { validateItemBeforePost } from '../validators';
-
 import { viewAlert } from '../display';
+import '../styles/Item.css';
+
 
 
 export default class Item extends Component {
@@ -78,13 +75,11 @@ export default class Item extends Component {
                 {
                 this.state.item && this.state.item.name ?
                 <Fragment>
-                    <div 
-                        id={"item_row_" + this.state.item.id}>
+                    <div id={"item_row_" + this.state.item.id}>
                     {
                         this.state.show_confirmation_box ?
                         <Fragment>
-                            <div
-                                onClick={this.toggleConfirmationDisplay} 
+                            <div onClick={this.toggleConfirmationDisplay} 
                                 className="animate__animated animate__fadeIn blurred-form-background"></div>
                             <Confirm 
                                 item={this.state.item}
@@ -98,8 +93,7 @@ export default class Item extends Component {
                     {
                         this.state.show_edition_box ?
                         <Fragment>
-                            <div
-                                onClick={this.toggleEditionFormDisplay} 
+                            <div onClick={this.toggleEditionFormDisplay} 
                                 className="animate__animated animate__fadeIn blurred-form-background"></div>
                             <ItemForm
                                 _editing={true}
@@ -136,18 +130,14 @@ export default class Item extends Component {
                                                 id={this.state.item.id}
                                                 category={this.props.category} 
                                                 link={this.state.item.spotify_link}/>
-                                            :
-                                            <YouTubeSearch 
+                                            : <YouTubeSearch 
                                                 category={this.props.category}
                                                 query={this.state.item.name}/>
                                         }
                                         <Details                                         
                                             item={this.state.item}
-                                            category={this.props.category}
-                                        />                            
-                                    </div>                                            
-                                    :
-                                    null
+                                            category={this.props.category}/>                            
+                                    </div> : null
                                 }
                                 {
                                     this.props.category==='albums' ?
@@ -161,18 +151,14 @@ export default class Item extends Component {
                                                 id={this.state.item.id}
                                                 category={this.props.category} 
                                                 link={this.state.item.spotify_link}/>
-                                            :
-                                            <YouTubeSearch 
+                                            : <YouTubeSearch 
                                                 category={this.props.category}
                                                 query={this.state.item.name}/>
                                         }                      
                                         <Details 
-                                                item={this.state.item}
-                                                category={this.props.category}
-                                            />                              
-                                    </div>
-                                    :
-                                    null
+                                            item={this.state.item}
+                                            category={this.props.category}/>                              
+                                    </div> : null
                                 }
                                 {
                                     this.props.category==='artists' ?
@@ -185,30 +171,24 @@ export default class Item extends Component {
                                                 id={this.state.item.id}
                                                 category={this.props.category} 
                                                 link={this.state.item.spotify_link}/>
-                                            :
-                                            <YouTubeSearch 
+                                            : <YouTubeSearch 
                                                 category={this.props.category}
                                                 query={this.state.item.name}/>
                                         }
                                         <Details 
-                                                _countries={this.props._countries}
-                                                item={this.state.item}
-                                                category={this.props.category}
-                                            />                                                      
-                                    </div>
-                                    :
-                                    null
+                                            _countries={this.props._countries}
+                                            item={this.state.item}
+                                            category={this.props.category}/>                                                      
+                                    </div> : null
                                 }   
                             </div>
                                 <div className='item-crud-options'>
-                                    <EditBtn 
-                                        handler={() => this.toggleEditionFormDisplay()}/>
-                                    <DeleteBtn 
-                                        handler={() => this.toggleConfirmationDisplay()}/>
+                                    <EditBtn handler={() => this.toggleEditionFormDisplay()}/>
+                                    <DeleteBtn handler={() => this.toggleConfirmationDisplay()}/>
                                 </div>
                             </div>
                         </div>
-                            </Fragment> : null
+                        </Fragment> : null
                     }
             </Fragment>            
         )

@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 
 import { getSearchResultsRequest } from '../requests';
-
 import { 
     uniqueArrayOfObjects, 
     validateItems 
 } from '../constants';
+import { viewAlert } from '../display';
 
 
 export default class SearchSelect extends Component {
@@ -13,15 +13,15 @@ export default class SearchSelect extends Component {
         super();
         this.state = {
             "results"           : [],
-            "category_name"     : "",
             "search_input"      : "",
+            "category_name"     : "",
             "selected_options"  : []
             
         };
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChange       = this.handleChange.bind(this);
         this.getSelectedOptions = this.getSelectedOptions.bind(this);
-        this._getSearchResults = this._getSearchResults.bind(this);
-        this.setSearchCategory = this.setSearchCategory.bind(this);
+        this._getSearchResults  = this._getSearchResults.bind(this);
+        this.setSearchCategory  = this.setSearchCategory.bind(this);
     }
 
     async _getSearchResults(category, search_input) {
@@ -56,32 +56,25 @@ export default class SearchSelect extends Component {
                     }
                     if (this.props.category === 'songs') {
                         var chosen = this.state.results.filter((r) => (r.id === obj.id));
-                        if (!chosen[0].album_id) { 
-                            return obj;
-                        } else {
-                            alert('Ten utwór ma już przypisany album!'); 
+                        if (!chosen[0].album_id) { return obj; } 
+                        else {
+                            viewAlert('Ten utwór ma już przypisany album!', false); 
                             failed = true;
                         }
-                    } else {
-                        return obj;
-                    }
+                    } else { return obj; }
                 }                 
             } 
         );
         if (failed) { return; }
         this.setState({ "selected_options" : selected_values });
-        this.props.getValues(selected_values);    
+        this.props.getValues(selected_values);
     }
 
-    setInitialValues = () => {
-        this.props._getInitialValue([]);
-    } 
+    setInitialValues = () => { this.props._getInitialValue([]); } 
 
     handleChange(event) {        
         this._getSearchResults(this.props.category, event.target.value);
-        this.setState({
-            [event.target.name] : event.target.value
-        });
+        this.setState({ [event.target.name] : event.target.value });
     }
 
     componentDidMount = () => {
@@ -103,11 +96,10 @@ export default class SearchSelect extends Component {
                     {
                         this.props.multiple_choice ?
                         <select 
-                        value={this.state.selected_options}
-                        id="search_select" multiple onChange={this.getSelectedOptions}>                           
+                            value={this.state.selected_options}
+                            id="search_select" multiple onChange={this.getSelectedOptions}>                           
                         {
-                        _results ?
-                            _results.length ?
+                        _results && _results.length ?
                             _results.map(result => (
                                 <option 
                                     name={result.name}
@@ -116,7 +108,6 @@ export default class SearchSelect extends Component {
                                     {result.name}
                                 </option>                        
                             )) : <option>{"Wybierz..."}</option>
-                        : <option>{"Wybierz..."}</option>
                         }
                         </select>
                         :
@@ -124,8 +115,7 @@ export default class SearchSelect extends Component {
                         value={this.state.selected_options}
                         id="search_select" onChange={this.getSelectedOptions}>                           
                         {
-                        _results ?
-                            _results.length ?
+                        _results && _results.length ?
                             _results.map(result => (
                                     <option 
                                         name={result.name}
@@ -133,7 +123,6 @@ export default class SearchSelect extends Component {
                                         {result.name}
                                     </option>                              
                             )) : <option>{"Wybierz..."}</option>
-                        : <option>{"Wybierz..."}</option>
                         }
                         </select>
                     }

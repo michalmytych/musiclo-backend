@@ -1,6 +1,7 @@
 import React from 'react'
 
 
+
 const constructSpotifyLink = (category, link) => {
     var id;
     if (link.includes("?si=")) {
@@ -11,26 +12,26 @@ const constructSpotifyLink = (category, link) => {
     
     switch (category) {
         case 'songs':
-            return "https://open.spotify.com/embed/track/" + id;
+            return `https://open.spotify.com/embed/track/${id}`;
         case 'albums':
-            return "https://open.spotify.com/embed/album/" + id;
+            return `https://open.spotify.com/embed/album/${id}`;
         case 'artists':
-            return "https://open.spotify.com/embed/artist/" + id;
+            return `https://open.spotify.com/embed/artist/${id}`;
         default:
-            return "https://open.spotify.com/embed/track/" + id;
+            return 'https://open.spotify.com/';
     }
 }
 
 
 export default function SpotifyPlugin(props) {
-    const spotify_link = constructSpotifyLink(props.category, props.link);
+    const spotifyLink = constructSpotifyLink(props.category, props.link);
 
     return (
         <div>
             <iframe             
                 className="spotify-iframe"
                 title={"track_id=" + props.id}
-                src={spotify_link} 
+                src={spotifyLink} 
                 width="300" 
                 height="70" 
                 frameBorder="0" 
@@ -40,13 +41,11 @@ export default function SpotifyPlugin(props) {
             {
                 props.category==='albums' ?
                 <div>
-                    <a 
-                        className="album-spotify-preview"
+                    <a className="album-spotify-preview"
                         rel="noreferrer"
                         target="_blank" 
-                        href={spotify_link}>Album w serwisie Spotify</a>
-                </div> 
-                : null        
+                        href={spotifyLink}>Album w serwisie Spotify</a>
+                </div> : null        
             }
         </div>
     )

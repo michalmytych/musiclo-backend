@@ -1,18 +1,16 @@
 import React, { Component, Fragment } from 'react'
 
 import SpotifyFeaturesChart from './SpotifyFeaturesChart';
-
 import YouTubeSearch from './YouTubeSearch';
-
 import { 
     encodeMusicKey,
     formatDatetime, 
     onlyUniqueFilter
 } from '../constants';
-
 import { getSongsOfAlbumRequest } from '../requests';
 
 const spotify_icon = "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg";
+
 
 
 const TogglerBtn = (props) => {
@@ -21,10 +19,7 @@ const TogglerBtn = (props) => {
             className="toggle-details-btn"
             id={"toggle_details_".concat(props.id)} 
             onClick={props.toggleItemDetails}>
-            {
-                props.details_expanded ?
-                "Pokaż mniej" : "Pokaż więcej"
-            }                                    
+            {props.details_expanded ? "Pokaż mniej" : "Pokaż więcej"}                                    
         </button>  
     )
 }
@@ -43,9 +38,7 @@ const SongDetails = (props) => {
     var musicKey = false;
     var mode = false;
 
-    if (props.item.key) {
-        musicKey = encodeMusicKey(parseInt(props.item.key));
-    }
+    if (props.item.key) { musicKey = encodeMusicKey(parseInt(props.item.key)); }
     if (props.item.mode) {
         if (parseInt(props.item.mode) === 0) {
             mode = 'moll';
@@ -64,9 +57,9 @@ const SongDetails = (props) => {
         <div className="details-box">
             <div className="details-p">
                 <div>
-                    { _artists_names ? 
+                    { _artists_names && _artists_names.length ? 
                         <Fragment>
-                            { _artists_names.length ? <p className="tiny-caption">WYKONAWCY</p> : null }                            
+                            <p className="tiny-caption">WYKONAWCY</p>
                             <div>{
                                 _artists_names.map((a, index) => {
                                     if (index===_artists_names.length-1) {
@@ -80,15 +73,10 @@ const SongDetails = (props) => {
                 </div>
                 <p className="tiny-caption">DATA WYDANIA</p>
                 <p className="release-date">
-                    {
-                    props.item.release_date ?
-                    formatDatetime(props.item.release_date) : "Brak daty powstania"
-                    }
+                    {props.item.release_date ? formatDatetime(props.item.release_date) : "Brak daty powstania"}
                 </p>                
                 {musicKey || mode ? <p className="tiny-caption">TONACJA UTWORU</p> : null} 
-                <p className="mkey">                    
-                    {musicKey} {mode}
-                </p>
+                <p className="mkey">{musicKey} {mode}</p>
             </div>
             <div className="spotify-chart">
                 <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>
@@ -118,27 +106,23 @@ class AlbumDetails extends Component {
                 _artists[i] = { name : a, id : _artists_ids[i] };
             });    
         }                     
-        this.setState({ 
-            songs   : _songs,
-            artists : _artists
-        });
+        this.setState({ songs : _songs, artists : _artists });
     }    
 
     render() {
         return (
             <Fragment>       
                 <div>
-                    { this.state.artists ? 
-                        this.state.artists.length ? 
+                    {
+                    this.state.artists && this.state.artists.length ? 
                         <Fragment>
                             <p className="tiny-caption">WYKONAWCY</p>
                             {this.state.artists.map((a, index) => {
                                 if (index===this.state.artists.length-1) {
                                     return <div className="pink-h">{a.name}</div>;
-                                } else { return <div className="pink-h">{a}, </div>; }
+                                } else { return <div className="pink-h">{a.name}, </div>; }
                             })}
                         </Fragment> : null
-                        : null
                     }
                 </div>       
                 <p>
@@ -149,44 +133,41 @@ class AlbumDetails extends Component {
                             <p className="release-date">
                                 {formatDatetime(this.props.item.release_date)}
                             </p>                            
-                        </Fragment>
-                        : null
+                        </Fragment> : null
                     }
                 </p>                         
                 <div>                  
                     <ul>
                         {
-                            this.state.songs ?
-                                this.state.songs.length ?
-                                <Fragment>
-                                    <p className="tiny-caption">UTWORY</p>
-                                    {this.state.songs.map((s, i) => {
-                                        if (s.spotify_link) {
-                                            return (
-                                            <li className="album-track" key={s.id}>
-                                                <div className="track-no">{i+1}</div>                                        
-                                                {
-                                                s.spotify_link ?
-                                                    <a
-                                                    target="_blank" rel="noreferrer"  
-                                                    href={s.spotify_link}>
-                                                    <img
-                                                        className="track-spotify-icon"
-                                                        alt="Ikona spotify." 
-                                                        src={spotify_icon}></img>    
-                                                    </a>
-                                                : <YouTubeSearch 
-                                                    category={"songs"}
-                                                    query={"name"}/>
-                                                }                                            
-                                                {s.name.length>=35 ? s.name.slice(0, 40) + "..." : s.name}                                            
-                                            </li>)       
-                                        } else {
-                                            return <li key={s.id}>{i+1}. {s.name}</li>;       
-                                        }                                
-                                    })}
-                                </Fragment> : <p>Brak utworów.</p>
-                            : <p>Brak utworów.</p>
+                            this.state.songs && this.state.songs.length?
+                            <Fragment>
+                                <p className="tiny-caption">UTWORY</p>
+                                {this.state.songs.map((s, i) => {
+                                    if (s.spotify_link) {
+                                        return (
+                                        <li className="album-track" key={s.id}>
+                                            <div className="track-no">{i+1}</div>                                        
+                                            {
+                                            s.spotify_link ?
+                                                <a
+                                                target="_blank" rel="noreferrer"  
+                                                href={s.spotify_link}>
+                                                <img
+                                                    className="track-spotify-icon"
+                                                    alt="Ikona spotify." 
+                                                    src={spotify_icon}></img>    
+                                                </a>
+                                            : <YouTubeSearch 
+                                                category={"songs"}
+                                                query={"name"}/>
+                                            }                                            
+                                            {s.name.length>=35 ? s.name.slice(0, 40) + "..." : s.name}                                            
+                                        </li>)       
+                                    } else {
+                                        return <li key={s.id}>{i+1}. {s.name}</li>;       
+                                    }                                
+                                })}
+                            </Fragment> : <p>Brak utworów.</p>
                         }                        
                     </ul>
                 </div>
@@ -227,18 +208,15 @@ const ArtistDetails = (props) => {
                 {countryName ? countryName : "Brak informacji o kraju pochodzenia"}
             </p>            
                 {
-                _albums ?
-                    <ul>
-                    {_albums.length ? 
-                    <p className="tiny-caption">ALBUMY</p> : <p>Brak albumów.</p>}
-                    {
-                    _albums.map((a, i) => (
+                _albums && _albums.length ?
+                <ul>
+                <p className="tiny-caption">ALBUMY</p>
+                    {_albums.map((a, i) => (
                         <li key={"album_" + i}>
                             <div className="artists-album yellow-inl">{a.name}</div>
                         </li>
-                    ))
-                    }
-                    </ul> : null
+                    ))}
+                </ul> : null
                 }                            
         </Fragment>        
     )
@@ -250,8 +228,7 @@ export default class Details extends Component {
         "details_expanded"  : false
     };
 
-    toggleDetails(element_id) {
-        const toggle_btn_id = 'toggle_details_'.concat(element_id);
+    toggleDetails = (element_id) => {
         if (this.state.details_expanded) {
             this.setState({"details_expanded" : false});
         } else {
@@ -266,7 +243,7 @@ export default class Details extends Component {
                 this.state.details_expanded ?
                     <Fragment>                          
                         <TogglerBtn 
-                            toggleItemDetails={() => this.toggleDetails(this.props.item.id)}
+                            toggleItemDetails={this.toggleDetails}
                             id={this.props.item.id}
                             details_expanded={this.state.details_expanded}/>                        
                         {
@@ -286,7 +263,7 @@ export default class Details extends Component {
                     </Fragment>
                     :       
                     <TogglerBtn                    
-                        toggleItemDetails={() => this.toggleDetails(this.props.item.id)}
+                        toggleItemDetails={this.toggleDetails}
                         id={'toggle_details_'.concat(this.props.item.id)}
                         details_expanded={this.state.details_expanded}/>                            
                 }

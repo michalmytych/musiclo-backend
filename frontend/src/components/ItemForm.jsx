@@ -3,8 +3,8 @@ import React, { Component, Fragment } from 'react';
 import SongForm from './SongForm';
 import AlbumForm from './AlbumForm';
 import ArtistForm from './ArtistForm';
-
 import "../styles/ItemForm.css";
+
 
 
 export default class ItemForm extends Component {
@@ -15,7 +15,7 @@ export default class ItemForm extends Component {
 
     setEditedItemObj(args) {
         if (this.props._editing) {
-            this.setState({ "edited_saved_object"   : args });
+            this.setState({ "edited_saved_object" : args });
         } else {
             this.setState({ "new_saved_object" : args });
         }
@@ -48,8 +48,7 @@ export default class ItemForm extends Component {
                             _editing={this.props._editing}
                             category={this.props.category}
                             instance={this.props.instance}
-                            getEditedSong={args=>{this.setEditedItemObj(args)}}/>
-                        : null
+                            getEditedSong={args=>{this.setEditedItemObj(args)}}/> : null
                     }
                     {
                         this.props.category==="albums" ? 
@@ -57,8 +56,7 @@ export default class ItemForm extends Component {
                             _editing={this.props._editing}
                             category={this.props.category}
                             instance={this.props.instance}
-                            getEditedAlbum={args=>{this.setEditedItemObj(args)}}/>
-                        : null
+                            getEditedAlbum={args=>{this.setEditedItemObj(args)}}/> : null
                     }     
                     {
                         this.props.category==="artists" ? 
@@ -67,8 +65,7 @@ export default class ItemForm extends Component {
                             _editing={this.props._editing}
                             category={this.props.category}
                             instance={this.props.instance}
-                            getEditedArtist={args=>{this.setEditedItemObj(args)}}/>
-                        : null
+                            getEditedArtist={args=>{this.setEditedItemObj(args)}}/> : null
                     }                                   
                     <div className="cancel-btn" onClick={this.props.toggler}>Anuluj</div>
                 </div>

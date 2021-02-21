@@ -5,12 +5,8 @@ import '../styles/Confirm.css';
 
 export default class Confirm extends Component {
     handleConfirmChoice = (choice) => {
-        if (choice) {
-            this.props.on_ok();
-            this.props.toggler();
-        } else {
-            this.props.toggler();
-        }
+        if (choice) { this.props.on_ok(); }
+        this.props.toggler();
     }
 
     render() {

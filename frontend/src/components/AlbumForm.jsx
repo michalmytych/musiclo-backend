@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 
 import SearchSelect from './SearchSelect';
-
+import { onlyUniqueFilter,uniqueArrayOfObjects } from '../constants';
 import { setDateInputValue } from '../display';
-
-import { 
-    onlyUniqueFilter,
-    uniqueArrayOfObjects 
-} from '../constants';
-
 import { getSongsOfAlbumRequest } from '../requests';
-
 import popItemIcon from '../assets/pop_item.svg';
 import "../styles/ItemForm.css";
+
 
 
 export default class AlbumForm extends Component {
@@ -20,12 +14,12 @@ export default class AlbumForm extends Component {
         super();
         this.state = {
             "name"          : "",
+            "release_date"  : "",
+            "spotify_link"  : "",
             "artists_ids"   : [],
             "artists_names" : [],
             "songs_ids"     : [],
-            "release_date"  : "",
             "ARTISTS"       : [],
-            "spotify_link"  : "",
             "SONGS"         : [],
         };
         this.handleChange       = this.handleChange.bind(this);
@@ -39,29 +33,17 @@ export default class AlbumForm extends Component {
     getSelectedArtists(selections) {
         var _ARTISTS = this.state.ARTISTS.concat(selections);
         var _disctinct = uniqueArrayOfObjects(_ARTISTS, "id");
-        this.setState({
-            ARTISTS : _disctinct
-        });
+        this.setState({ ARTISTS : _disctinct });
     }
 
     getSelectedSongs(selections) {
-        for (var i=0;i<selections.length; i++) {
-            if (selections[i].album_id) {
-                alert(selections[i].album_id);
-                return false;
-            }
-        }
         var _SONGS = this.state.SONGS.concat(selections);
         var _disctinct = uniqueArrayOfObjects(_SONGS, "id");
-        this.setState({
-            SONGS : _disctinct
-        });
+        this.setState({ SONGS : _disctinct });
     }
 
     handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
+        this.setState({ [event.target.name] : event.target.value });
     }
 
     popArtist(id) {
@@ -101,8 +83,8 @@ export default class AlbumForm extends Component {
     async _mountInstance(instance) {
         var _artists = [];         
         if (instance._artist_ids && instance._artist_ids !== "[null]") {
-            var _artists_ids = JSON.parse(instance._artist_ids).filter(onlyUniqueFilter);
-            var _artists_names = JSON.parse(instance._artist_names).filter(onlyUniqueFilter);
+            var _artists_ids    = JSON.parse(instance._artist_ids).filter(onlyUniqueFilter);
+            var _artists_names  = JSON.parse(instance._artist_names).filter(onlyUniqueFilter);
             if (_artists_names.length===_artists_ids.length) {
                 var _artists = [];
                 _artists_names.forEach((a, i) => {
@@ -125,9 +107,7 @@ export default class AlbumForm extends Component {
             this._mountInstance(this.props.instance);
             this._getSongsOfAlbum(this.props.instance.id);
         } else {
-            this.setState({
-                "release_date" : setDateInputValue()
-            });
+            this.setState({ "release_date" : setDateInputValue() });
         }
     }
 

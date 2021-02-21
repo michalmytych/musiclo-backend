@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react'
 
 import SearchSelect from './SearchSelect';
-
 import { KEYS, encodeMusicKey, onlyUniqueFilter, uniqueArrayOfObjects } from '../constants';
-
-import { setDateInputValue } from '../display';
+import { setDateInputValue, viewAlert } from '../display';
 import popItemIcon from '../assets/pop_item.svg';
 import "../styles/ItemForm.css";
+
 
 
 export default class SongForm extends Component {
@@ -14,8 +13,9 @@ export default class SongForm extends Component {
         super();
         this.state = {
             "name"              : "",
+            "release_date"      : "",
+            "spotify_link"      : "",
             "ALBUM"             : null,
-            "ARTISTS"           : [],
             "explicit"          : false,
             "danceability"      : 0.50,
             "energy"            : 0.50,
@@ -23,8 +23,7 @@ export default class SongForm extends Component {
             "instrumentalness"  : 0.50,
             "key"               : 0,
             "mode"              : 0,
-            "release_date"      : "",
-            "spotify_link"      : ""
+            "ARTISTS"           : []
         };
         this.handleChange       = this.handleChange.bind(this);
         this.handleSubmit       = this.handleSubmit.bind(this);
@@ -36,17 +35,13 @@ export default class SongForm extends Component {
     }
 
     getSelectedAlbums(selection) {
-        this.setState({
-            "ALBUM" : selection[0]
-        });
+        this.setState({ "ALBUM" : selection[0] });
     }
 
     getSelectedArtists(selections) {
         var artists = this.state.ARTISTS.concat(selections);
         var _disctinct = uniqueArrayOfObjects(artists, "id");
-        this.setState({
-            "ARTISTS" : _disctinct
-        });
+        this.setState({ "ARTISTS" : _disctinct });
     }
     
     handleChange(event) {        
@@ -59,12 +54,9 @@ export default class SongForm extends Component {
             } else {
                 val = 1;
             }
-            this.setState({ [event.target.name]: val });
-        } else {
-            this.setState({
-                [event.target.name]: event.target.value
-            });
-        }        
+            this.setState({ [event.target.name]: val }); return;
+        }
+        this.setState({ [event.target.name]: event.target.value });
     }
 
     handleSubmit(event) {
@@ -121,29 +113,23 @@ export default class SongForm extends Component {
         this.setState({ ARTISTS : updated_artists }); 
     }
 
-    clearAlbum() {
-        this.setState({ ALBUM : null });
-    }
+    clearAlbum() { this.setState({ ALBUM : null }); }
 
     componentDidMount() {
         if (this.props._editing) {
             if (this.props.instance) {
                 this._mountInstance(this.props.instance);
             } else {
-                alert("Błąd podczas montowania obiektu.");
+                viewAlert("Błąd podczas wczytywania obiektu.", false);
             }
         } else {
-            this.setState({
-                "release_date" : setDateInputValue()
-            });
+            this.setState({ "release_date" : setDateInputValue() });
         }
     }
 
     render() {
         var _explicit = false;
-        if (parseInt(this.state.explicit)) {
-            _explicit = true;
-        }        
+        if (parseInt(this.state.explicit)) { _explicit = true; }        
 
         return (
             <form
@@ -161,21 +147,18 @@ export default class SongForm extends Component {
                 <p className="input-label">Artyści</p>
                 <ul>
                     {
-                        this.state.ARTISTS ?
-                            this.state.ARTISTS.length>0 ?
-                            this.state.ARTISTS.map((a) => (
-                                <li 
-                                    key={"artistId_" + a.id}
-                                    className="select-srch-li">
-                                    <div
-                                        className="selected-search-select-item" 
-                                        onClick={()=>this.popArtist(a.id)}>
-                                        <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania albumu."></img>{
-                                        a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name
-                                        }</div>
-                                </li>                                
-                            )) : <p>Brak wykonawców.</p>
-                        : null
+                        this.state.ARTISTS && this.state.ARTISTS.length ?
+                        this.state.ARTISTS.map(a => (
+                            <li 
+                                key={"artistId_" + a.id}
+                                className="select-srch-li">
+                                <div
+                                    className="selected-search-select-item" 
+                                    onClick={()=>this.popArtist(a.id)}>
+                                    <img className="pop-item-btn" src={popItemIcon} alt="Ikona usuwania albumu."></img>{
+                                    a.name.length > 20 ? a.name.slice(0,17) + "..." : a.name}</div>
+                            </li>                                
+                        )) : <p>Brak wykonawców.</p>
                     }   
                 </ul>
                 <SearchSelect                     
@@ -194,7 +177,7 @@ export default class SongForm extends Component {
                             {
                             this.state.ALBUM.name ?
                                 this.state.ALBUM.name.length > 20 ? 
-                                this.state.ALBUM.name.slice(0,17) + "..." : this.state.ALBUM.name
+                                this.state.ALBUM.name.slice(0,17) + "..." : this.state.ALBUM.name 
                             : null}                            
                         </div> : <p>Brak albumu</p>
                 }
@@ -226,8 +209,7 @@ export default class SongForm extends Component {
                     min="0"
                     step="0.01" 
                     max="1"/>
-                <p 
-                    className="spotify-feature-numerical">
+                <p className="spotify-feature-numerical">
                         {this.state.danceability ? this.state.danceability : "0"}</p>    
                 <label id="lab_energy" htmlFor="energy" className="input-label">Energia</label>
                 <input aria-labelledby="lab_energy"
@@ -277,8 +259,7 @@ export default class SongForm extends Component {
                 {this.state.key ? 
                 <div className="selected-search-select-item narr">
                     {encodeMusicKey(this.state.key)}
-                </div> : 
-                "Nie określono klucza muzycznego utworu."}
+                </div> : "Nie określono klucza muzycznego utworu."}
                 <select aria-labelledby="lab_key"
                     onChange={this.handleChange}  
                     value={this.state.key}
@@ -293,8 +274,7 @@ export default class SongForm extends Component {
                 {this.state.mode ? 
                     parseInt(this.state.mode)===1 ?
                     <div className="selected-search-select-item narr">dur</div>
-                    : 
-                    <div className="selected-search-select-item narr">moll</div>
+                    : <div className="selected-search-select-item narr">moll</div>
                     : "Nie określono trybu utworu."}                        
                 <select aria-labelledby="lab_mode"
                     onChange={this.handleChange} 
