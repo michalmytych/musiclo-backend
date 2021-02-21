@@ -228,6 +228,7 @@ export default class List extends Component {
                             className="animate__animated animate__fadeIn blurred-form-background"></div>                           
                         <ItemForm
                             _editing={false}     
+                            _countries={this.state.COUNTRIES}
                             category={_ITEMS_LIST.category}
                             onSave={(created_object) => this._createItem(
                                 created_object

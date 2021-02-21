@@ -17,7 +17,7 @@
 
 .spotify-iframe{
     border-radius: 1rem;
-    width: 92%;
+    width: 22rem;
 }
 
 .item-data{
@@ -46,6 +46,6 @@
     }
 
     .spotify-iframe{
-        width: 80%;
-    }
+        width: 15rem;
+    }    
 }

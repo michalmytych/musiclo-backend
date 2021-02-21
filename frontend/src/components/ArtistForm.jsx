@@ -108,7 +108,7 @@ export default class ArtistForm extends Component {
     }
 
     render() {
-        var _COUNTRIES = uniqueArrayOfObjects(this.state.COUNTRIES, "iso_code");
+        var _COUNTRIES = uniqueArrayOfObjects(this.props._countries, "iso_code");
         var chosenCountry = this.encodeCountryByISO(this.state.country);
         var _ALBUMS = [];
         try{ 
@@ -185,8 +185,8 @@ export default class ArtistForm extends Component {
                                             key={"countryId_" + country.iso_code} >
                                             {country.name}
                                         </option>                        
-                                    )) : null
-                                : null
+                                    )) : "Brak treści"
+                                : "Brak treści"
                             }       
                         </select>
                     </Fragment>
