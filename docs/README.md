@@ -1,5 +1,5 @@
-# Dokumentacja projektu
+# Project docs
 
-* [Dokumentcja bazy danych](01_db.md)
-* [Dokumentcja api](02_api.md)
-* [Wróć](../README)
+* [Database docs](01_db.md)
+* [PHP API docs](02_api.md)
+* [Return to root](../README)

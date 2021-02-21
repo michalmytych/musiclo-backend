@@ -1,13 +1,15 @@
-# Projekt na zakończenie kursu Bazy Danych 2
+# Final project of Databases 2 university course
 
 * [Live version](https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-database/)
 
-Celem projektu było stworzenie bazy danych o minimum 3 tabelach połączonych relacjami oraz interfejsu graficznego do niej przy użyciu PHP oraz HTML i CSS.
+Goal of the project was to create relational database with at least 3 tables using
+MySQL engine and SQL DDL/DML, as well as PHP interface and web GUI for this database.
 
-* __/api__ - interfejs aplikacji serwerowej w PHP
-* __/database__ - przykładowe skrypty tworzenie struktury i insert SQL oraz skrypty których użyłem do tworzenia tabel z pliku CSV 
-* __/docs__ - dokumentacja projektu
-* __/frontend__ - aplikacja typu Single Page Application w React
+* __/api__ - simple api interface (use of procedural style PHP was one of requirements)
+* __/database__ - example SQL scripts for creating database structure and some inserts, also
+some Python scripts for extracting data from csvs and prepare them for relational database
+* __/docs__ - project documentation
+* __/frontend__ - Single Page Application created with React
 
-* [Dokumentacja](./docs/README.md)
+* [Go to documentation](./docs/README.md)
 
