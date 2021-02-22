@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 
 import SpotifyFeaturesChart from './SpotifyFeaturesChart';
 import YouTubeSearch from './YouTubeSearch';
+import GeniusPlugin from './genius/GeniusPlugin';
 import { 
     encodeMusicKey,
     formatDatetime, 
@@ -77,6 +78,13 @@ const SongDetails = (props) => {
                 </p>                
                 {musicKey || mode ? <p className="tiny-caption">TONACJA UTWORU</p> : null} 
                 <p className="mkey">{musicKey} {mode}</p>
+                <div>
+                    { props.item && props.item.name ? 
+                        _artists_names && _artists_names.length ?
+                        <GeniusPlugin searchQuery={`${_artists_names[0]} ${props.item.name}`}/>
+                        : <GeniusPlugin searchQuery={`${props.item.name}`}/>
+                    : null}
+                </div>
             </div>
             <div className="spotify-chart">
                 <SpotifyFeaturesChart DATASET={SPOTIFY_FEATURES_DATASET}/>

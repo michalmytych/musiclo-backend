@@ -28,7 +28,11 @@ function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-export async function viewAlert(message, success) {
+export async function viewAlert(message, success, duration) {
+    if (!duration) { duration = 1 };
+    if (!message) { message = "ALERT" };
+    let defaultFadeInDur = 2200 * duration;
+    let defaultFadeOutDur = 300;
     let _id;
     if (success) {
         _id = "success-alert-box";
@@ -40,11 +44,11 @@ export async function viewAlert(message, success) {
     alert_box.classList.add("animate__animated");
     alert_box.classList.add("animate__fadeInUp");
     alert_box.innerHTML = message;
-    await sleep(3000).then( () => {
+    await sleep(defaultFadeInDur).then( () => {
         alert_box.classList.remove("animate__fadeInUp") 
         alert_box.classList.add("animate__fadeOutDown") 
     });
-    await sleep(400).then( () => {
+    await sleep(defaultFadeOutDur).then( () => {
             setElementDisplay(_id, "none");
             alert_box.classList.remove("animate__fadeOutDown")
             alert_box.innerHTML = "";

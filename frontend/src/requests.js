@@ -1,7 +1,7 @@
 /**
  * 
  * All API http requests functions.
- * 
+ *
  */
 
 const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
