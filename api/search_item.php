@@ -49,14 +49,11 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         switch ($_GET['category']) {
             case 'songs':
-                $query = $_SEARCH_SONG;
-                break;         
+                $query = $_SEARCH_SONG; break;         
             case 'albums':
-                $query = $_SEARCH_ALBUM;
-                break;
+                $query = $_SEARCH_ALBUM; break;
             case 'artists':
-                $query = $_SEARCH_ARTIST;
-                break;
+                $query = $_SEARCH_ARTIST; break;
             default:
                 http_response_code(400);
         }
