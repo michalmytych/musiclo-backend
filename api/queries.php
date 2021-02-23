@@ -98,7 +98,7 @@ $_SEARCH_SONG = "SELECT songs.id, songs.name, songs.explicit, songs.key,
           ON songs.id = recorded_by.track_id
           LEFT JOIN artists
           ON artists.id = recorded_by.artist_id                        
-          WHERE songs.name LIKE ? GROUP BY songs.id LIMIT 80";
+          WHERE songs.name LIKE ? GROUP BY songs.id LIMIT 25";
 
 
 $_SEARCH_ALBUM = "SELECT albums.id, albums.name, 
@@ -118,7 +118,7 @@ $_SEARCH_ALBUM = "SELECT albums.id, albums.name,
           ON albums.id = belongs_to.album_id
           LEFT JOIN artists
           ON belongs_to.artist_id = artists.id
-          WHERE albums.name LIKE ? GROUP BY albums.id LIMIT 80";
+          WHERE albums.name LIKE ? GROUP BY albums.id LIMIT 25";
 
 
 $_SEARCH_ARTIST = "SELECT artists.id, artists.name, artists.spotify_link,
@@ -147,7 +147,7 @@ $_SEARCH_ARTIST = "SELECT artists.id, artists.name, artists.spotify_link,
           ON belongs_to.album_id = albums.id
           LEFT JOIN countries
           ON artists.country = countries.iso_code
-          WHERE artists.name LIKE ? GROUP BY artists.id LIMIT 80";
+          WHERE artists.name LIKE ? GROUP BY artists.id LIMIT 25";
 
 
 $_GET_SONGS_OF_ALBUM = "SELECT * FROM songs WHERE songs.album_id = ?";
