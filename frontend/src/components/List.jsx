@@ -264,9 +264,9 @@ export default class List extends Component {
                     </div>
                     {
                         dbCount ? 
-                        <p className="count-capt">Baza danych zawiera <div className="c-capt so">{dbCount.so}</div> 
+                        <div className="count-capt">Baza danych zawiera <div className="c-capt so">{dbCount.so}</div> 
                         utworów, <div className="c-capt al">{dbCount.al}</div> albumów i 
-                        <div className="c-capt ar">{dbCount.ar}</div> artystów.</p> : null
+                        <div className="c-capt ar">{dbCount.ar}</div> artystów.</div> : null
                     }                    
                     <ul>
                         {

@@ -50,7 +50,6 @@ input:active,
 textarea:active, 
 select:active {
   outline: none;
-  background-color: #ff206e32;
 }
 
 input:focus, 
@@ -121,6 +120,10 @@ ul, li{
   background-color: rgb(143, 0, 107);
   color: black;
   text-shadow: none;
+}
+
+option{
+  background-color: #131313;
 }
 
 option:hover{
@@ -288,12 +291,11 @@ option:checked{
 
 ::-webkit-scrollbar {
   -webkit-appearance: none;
-  width: 4px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar:hover {
   -webkit-appearance: none;
-  width: 4px;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;

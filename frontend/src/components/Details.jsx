@@ -39,8 +39,8 @@ const SongDetails = (props) => {
     var musicKey = false;
     var mode = false;
 
-    if (props.item.key) { musicKey = encodeMusicKey(parseInt(props.item.key)); }
-    if (props.item.mode) {
+    if (props.item.key!=null) { musicKey = encodeMusicKey(parseInt(props.item.key)); }
+    if (props.item.mode!=null) {
         if (parseInt(props.item.mode) === 0) {
             mode = 'moll';
         } else {
