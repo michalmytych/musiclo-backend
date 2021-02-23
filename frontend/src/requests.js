@@ -4,7 +4,7 @@
  *
  */
 
-const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api-dev/";
+const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
 
 
 export async function getItemsListRequest(args) { 
