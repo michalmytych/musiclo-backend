@@ -115,7 +115,10 @@ export default class List extends Component {
         var validArgs = validateItemBeforePost(args);
         if (!validArgs) { viewAlert("Niepoprawne dane!", false); return; }
         await createItemRequest(validArgs).then( res => {
-            if (res===201 || res===200) { viewAlert("Dodano!", true); return; } 
+            if (res===201 || res===200) {                  
+                this._getItemsList({category: this.state.category, page: 0}); 
+                viewAlert("Dodano!", true); return; 
+            } 
             viewAlert("Request nie powiódł się!", false);
         })
     }
