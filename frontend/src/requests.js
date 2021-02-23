@@ -4,7 +4,7 @@
  *
  */
 
-const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api/";
+const API_URL = "https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-db/api-dev/";
 
 
 export async function getItemsListRequest(args) { 
@@ -119,6 +119,7 @@ export async function getItemsCountDataRequest() {
     .then(response => { return response.json(); }) 
     .catch(err => { console.log('Request failed: ', err) });
 
+    if (!counts || !counts.length) { return; }
     var countsByCategory = {
         so  : counts.filter(c => (c.category === 'songs'))[0].count,
         al  : counts.filter(c => (c.category === 'albums'))[0].count,

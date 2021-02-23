@@ -47,7 +47,9 @@ export function formatDatetime(iso_str) {
         "grudnia"
     ];
     var datetime = new Date(iso_str);
-    return datetime.getDay() + ' ' + monthNames[datetime.getMonth()] + ' ' + datetime.getFullYear();
+    var day = datetime.getDay();
+    if (!parseInt(day)) { day="X" };    
+    return day + ' ' + monthNames[datetime.getMonth()] + ' ' + datetime.getFullYear();
 }
 
 export function onlyUniqueFilter(value, index, self) {
