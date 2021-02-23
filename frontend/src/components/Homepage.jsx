@@ -13,7 +13,7 @@ export default class Homepage extends Component {
                     <div className="crud-container">                    
                             <div className="list-wrapper">
                                 <div id="success-alert-box"></div>
-                                <div id="fail-alert-box"></div>                                
+                                <div id="fail-alert-box"></div>                                                                                               
                                 <List />
                                 
                             </div>                    
