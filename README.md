@@ -1,15 +1,19 @@
-# Final project of Databases 2 university course
+# Musiclo - Final project of Databases 2 university course
+
+API backend for [musiclo](https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-database/) webservice, which I created for my Databases 2 classes at University.
+
+### Features & solutions:
+* Viewing around 48,000 songs, albums and artists
+* BETA: Fetching lyrics link for every song
+* Adding new records
+* Editing existing records
+* Deleting records
+* Dynamic-view searching in all three categories
+* All data downloaded from Kaggle and processed for loading into relational database
+* Procedural API in pure PHP 7.4 (requirement of project)
 
 * [Live version](https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-database/)
 
-Goal of the project was to create relational database with at least 3 tables using
-MySQL engine and SQL DDL/DML, as well as PHP interface and web GUI for this database.
 
-* __/api__ - simple api interface (use of procedural style PHP was one of requirements)
-* __/database__ - example SQL scripts for creating database structure and some inserts, also
-some Python scripts for extracting data from csvs and prepare them for relational database
-* __/docs__ - project documentation
-* __/frontend__ - Single Page Application created with React
 
-* [Go to documentation](./docs/README.md)
 
