@@ -14,7 +14,7 @@ class CreateAlbumsTable extends Migration
     public function up()
     {
         Schema::create('albums', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->timestamps();
             $table->string('name')->nullable(false);
             $table->string('spotify_link', 160)->nullable();

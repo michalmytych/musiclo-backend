@@ -15,8 +15,8 @@ class CreateSongsArtistsTable extends Migration
     {
         Schema::create('songs_artists', function (Blueprint $table) {
             $table->id();
-            $table->integer('song_id')->unsigned();
-            $table->integer('artist_id')->unsigned();
+            $table->uuid('song_id');
+            $table->uuid('artist_id');
         });
     }
 

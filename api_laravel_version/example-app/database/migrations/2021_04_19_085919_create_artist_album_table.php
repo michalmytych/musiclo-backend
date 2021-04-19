@@ -15,8 +15,8 @@ class CreateArtistAlbumTable extends Migration
     {
         Schema::create('artist_album', function (Blueprint $table) {
             $table->id();
-            $table->integer('artist_id')->unsigned();
-            $table->integer('album_id')->unsigned();
+            $table->uuid('artist_id');
+            $table->uuid('album_id');
         });
     }
 

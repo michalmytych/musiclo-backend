@@ -113,6 +113,7 @@
       <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/league/commonmark" />
       <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/filp/whoops" />
       <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/symfony/var-dumper" />
+      <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/jeroenzwart/laravel-csv-seeder" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

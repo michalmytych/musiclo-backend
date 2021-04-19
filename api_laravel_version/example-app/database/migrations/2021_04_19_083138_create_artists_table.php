@@ -14,11 +14,11 @@ class CreateArtistsTable extends Migration
     public function up()
     {
         Schema::create('artists', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->timestamps();
             $table->string('name', 96)->nullable(false);
             $table->mediumText('description')->nullable();
-            $table->integer('country_id')->unsigned()->nullable();
+            $table->uuid('country_id')->nullable();
             $table->foreign('country_id')
                 ->references('id')
                 ->on('countries')

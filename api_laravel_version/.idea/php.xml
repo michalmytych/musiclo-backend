@@ -107,6 +107,7 @@
       <path value="$PROJECT_DIR$/example-app/vendor/league/commonmark" />
       <path value="$PROJECT_DIR$/example-app/vendor/filp/whoops" />
       <path value="$PROJECT_DIR$/example-app/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/example-app/vendor/jeroenzwart/laravel-csv-seeder" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
