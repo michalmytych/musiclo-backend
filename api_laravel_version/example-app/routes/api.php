@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SongController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,26 +19,33 @@ use App\Http\Controllers\CountryController;
 
 Route::get('/countries', [CountryController::class, 'index']);
 
-Route::get('/songs',   [SongController::class, 'index']);
+Route::group(['prefix' => 'songs'], function () {
+    Route::get('/', [SongController::class, 'index']);
+    Route::post('/', [SongController::class, 'store']);
+    Route::get('/{id}', [SongController::class, 'show']);
+    Route::put('/{id}', [SongController::class, 'update']);
+    Route::get('/search/{phrase}', [SongController::class, 'search']);
+});
+
 /*
 
-Route::get('/songs',   'SongController@getAll');            // paginacja,
-Route::get('/albums',  'AlbumController@getAll');           // paginacja,
-Route::get('/artists', 'ArtistController@getAll');          // paginacja,
+// @todo - implement this routes:
 
-Route::get('/songs/{id}',   'SongController@getSingle');
-Route::get('/albums/{id}',  'AlbumController@getSingle');
-Route::get('artists/{id}',  'ArtistController@getSingle');
+Route::group(['prefix' => 'albums'], function () {
+    Route::get('/', [AlbumController::class, 'index']);
+    Route::post('/', [AlbumController::class, 'store']);
+    Route::get('/{id}', [AlbumController::class, 'show']);
+    Route::put('/{id}', [AlbumController::class, 'update']);
+    Route::get('/search/{phrase}', [AlbumController::class, 'search']);
+});
 
-Route::put('/songs/{id}',   'SongController@update');
-Route::put('/albums/{id}',  'AlbumController@update');
-Route::put('artists/{id}',  'ArtistController@update');
-
-Route::delete('/songs/{id}',   'SongController@delete');
-Route::delete('/albums/{id}',  'AlbumController@delete');
-Route::delete('artists/{id}',  'ArtistController@delete');
-
-Route::get('countries', 'CountriesController@getAll');
+Route::group(['prefix' => 'artists'], function () {
+    Route::get('/', [ArtistController::class, 'index']);
+    Route::post('/', [ArtistController::class, 'store']);
+    Route::get('/{id}', [ArtistController::class, 'show']);
+    Route::put('/{id}', [ArtistController::class, 'update']);
+    Route::get('/search/{phrase}', [ArtistController::class, 'search']);
+});
 
  */
 

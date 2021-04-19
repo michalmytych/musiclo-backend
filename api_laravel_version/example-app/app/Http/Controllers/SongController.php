@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class SongController extends Controller
@@ -58,30 +59,103 @@ class SongController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($id) : JsonResponse
     {
-        return Song::where('id', $id);
+        try
+        {
+            $song = Song::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return new JsonResponse([
+                'status'  => Response::HTTP_NOT_FOUND,
+                'message' => 'Not found',
+            ]);
+        }
+
+        return new JsonResponse($song);
     }
 
-    public function update(Request $request, $id) : void
+    public function update(Request $request, $id) : JsonResponse
     {
-        $flight = Song::find(1);
+        try
+        {
+            $song = Song::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return new JsonResponse([
+                'status'  => Response::HTTP_NOT_FOUND,
+                'message' => 'Not found',
+            ]);
+        }
+        $request->validate($this->validationRules());
+        try {
+            $song->update($this->getFieldsFromRequest($request));
+            $song->save();
+        }
+        catch (Exception $e) {
+            Log::error('Error while storing to database', [
+                'exception'     => $e,
+                'request_data'  => $request->json()
+            ]);
+            return new JsonResponse([
+                'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => 'Internal server error while updating resource',
+            ]);
+        }
 
-        $flight->name = 'Paris to London';
-
-        $flight->save();
+        return new JsonResponse([
+            'status'  => Response::HTTP_OK,
+            'message' => 'Record was successfully updated',
+        ]);
     }
 
     public function search(Request $request, $phrase) : array
     {
-        return Country::all();
+        return array();
     }
 
-    public function destroy($id) : void
+    public function destroy($id) : JsonResponse
     {
+        try
+        {
+            $song = Song::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return new JsonResponse([
+                'status'  => Response::HTTP_NOT_FOUND,
+                'message' => 'Not found',
+            ]);
+        }
 
+        try {
+            $song->delete();
+        }
+        catch (Exception $e) {
+            Log::error('Error while deleting from database', [
+                'exception'   => $e,
+                'table'       => 'songs',
+                'resource_id' => $id
+            ]);
+            return new JsonResponse([
+                'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => 'Internal server error while deleting resource',
+            ]);
+        }
+
+        return new JsonResponse([
+            'status'  => Response::HTTP_NO_CONTENT,
+            'message' => 'Resource was successfully deleted',
+        ]);
     }
 
+    /**
+     * Returns rules of fields validation for Song instance
+     *
+     * @return array
+     */
     private function validationRules() : array
     {
         return [
@@ -100,6 +174,12 @@ class SongController extends Controller
         ];
     }
 
+    /**
+     * Returns fields of Song model from request
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     private function getFieldsFromRequest(Request $request) : array
     {
         return [
