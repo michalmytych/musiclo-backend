@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSongsArtistsTable extends Migration
+class CreateSongArtistTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSongsArtistsTable extends Migration
      */
     public function up()
     {
-        Schema::create('songs_artists', function (Blueprint $table) {
+        Schema::create('song_artist', function (Blueprint $table) {
             $table->id();
             $table->uuid('song_id');
             $table->uuid('artist_id');
@@ -27,6 +27,6 @@ class CreateSongsArtistsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('songs_artists');
+        Schema::dropIfExists('song_artist');
     }
 }

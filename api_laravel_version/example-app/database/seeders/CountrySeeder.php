@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class CountriesTableSeeder extends CsvSeeder
+class CountrySeeder extends CsvSeeder
 {
     public function __construct()
     {
