@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 
+/**
+ * @todo - maybe move whole JsonResponse returning to some trait?
+ *
+ * Class SongController
+ * @package App\Http\Controllers
+ */
 class SongController extends Controller
 {
     /**
@@ -24,6 +27,9 @@ class SongController extends Controller
      */
     public function index()
     {
+        /**
+         * @todo - implement pagination
+         */
         return Song::all();
     }
 
@@ -59,6 +65,12 @@ class SongController extends Controller
         ]);
     }
 
+    /**
+     * Fetch single song from database by id
+     *
+     * @param $id
+     * @return JsonResponse
+     */
     public function show($id) : JsonResponse
     {
         try
@@ -76,6 +88,13 @@ class SongController extends Controller
         return new JsonResponse($song);
     }
 
+    /**
+     * Update song resource by id, with validated data
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
     public function update(Request $request, $id) : JsonResponse
     {
         try
@@ -111,11 +130,26 @@ class SongController extends Controller
         ]);
     }
 
+    /**
+     * Search songs by phrase
+     * @todo - complete method implementation
+     * @todo - implement pagination
+     *
+     * @param Request $request
+     * @param $phrase
+     * @return array
+     */
     public function search(Request $request, $phrase) : array
     {
         return array();
     }
 
+    /**
+     * Delete song resource by id
+     *
+     * @param $id
+     * @return JsonResponse
+     */
     public function destroy($id) : JsonResponse
     {
         try
