@@ -5,13 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class Artist extends Model
 {
     use HasFactory;
 
-    protected $table = 'countries';
+    protected $table = 'artists';
 
-    protected $fillable = ['name', 'iso_code'];
+    protected $fillable = [
+        'name',
+        'country_code',
+        'description',
+        'spotify_link'
+    ];
 
     protected $primaryKey = 'id';
 }
