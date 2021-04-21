@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 /**
@@ -41,8 +42,16 @@ class SongController extends Controller
      */
     public function store(Request $request) : JsonResponse
     {
-        // Validation errors are handled by Laravel
-        $request->validate($this->validationRules());
+        $validator = Validator::make($request->all(), $this->validationRules());
+
+        if ($validator->fails()) {
+            $validationErrors = $validator->messages();
+            return new JsonResponse([
+                'status'  => Response::HTTP_BAD_REQUEST,
+                'message' => 'Bad request',
+                'errors'  => $validationErrors
+            ]);
+        }
 
         try {
             $song = new Song($this->getFieldsFromRequest($request));
@@ -55,7 +64,7 @@ class SongController extends Controller
             ]);
             return new JsonResponse([
                 'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Internal server error',
+                'message' => 'Internal server error'
             ]);
         }
 
@@ -134,14 +143,32 @@ class SongController extends Controller
      * Search songs by phrase
      * @todo - complete method implementation
      * @todo - implement pagination
-     *
      * @param Request $request
      * @param $phrase
-     * @return array
+     * @return array|JsonResponse
      */
-    public function search(Request $request, $phrase) : array
+    public function search(Request $request, $phrase)
     {
-        return array();
+        /**
+         * @todo - więcej reguł wyszukiwania
+         * @todo - dodać wyszukiwanie po nazwie albumu lub artysty
+         */
+        try
+        {
+            return Song::where('name', 'like', "%{$phrase}")->get();
+        }
+        catch(Exception $e)
+        {
+            Log::error('Error while searching in the database', [
+                'exception'     => $e,
+                'request_data'  => $request->json()
+            ]);
+            return new JsonResponse([
+                'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => 'Internal server error',
+                'exception' => $e
+            ]);
+        }
     }
 
     /**
@@ -198,11 +225,11 @@ class SongController extends Controller
             'explicit' => 'nullable|boolean',
             'album_id' => 'nullable|string|max:36',
             'mode' => 'nullable|boolean',
-            'danceability' => 'nullable|between:0,1',
-            'energy' => 'nullable|between:0,1',
-            'acousticness' => 'nullable|between:0,1',
-            'instrumentalness' => 'nullable|between:0,1',
-            'valence' => 'nullable|between:0,1',
+            'danceability' => 'nullable|numeric|between:0,1',
+            'energy' => 'nullable|numeric|between:0,1',
+            'acousticness' => 'nullable|numeric|between:0,1',
+            'instrumentalness' => 'nullable|numeric|between:0,1',
+            'valence' => 'nullable|numeric|between:0,1',
             'release_date' => 'nullable|date|date_format:Y-m-d',
             'spotify_link' => 'nullable|string|max:160',
         ];

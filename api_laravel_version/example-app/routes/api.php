@@ -24,6 +24,7 @@ Route::group(['prefix' => 'songs'], function () {
     Route::post('/', [SongController::class, 'store']);
     Route::get('/{id}', [SongController::class, 'show']);
     Route::put('/{id}', [SongController::class, 'update']);
+    Route::delete('/{id}', [SongController::class, 'destroy']);
     Route::get('/search/{phrase}', [SongController::class, 'search']);
 });
 
@@ -52,3 +53,4 @@ Route::group(['prefix' => 'artists'], function () {
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+

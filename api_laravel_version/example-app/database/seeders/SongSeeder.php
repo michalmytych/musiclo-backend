@@ -11,7 +11,7 @@ class SongSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
+     * @todo - write a better seeder
      * @return void
      */
     public function run()

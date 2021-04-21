@@ -41,8 +41,6 @@ class Song extends Model
         'spotify_link'
     ];
 
-    protected $hidden = ['id'];
-
     public function album() : BelongsTo
     {
         return $this->belongsTo(Album::class);

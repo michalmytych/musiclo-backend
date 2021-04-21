@@ -15,7 +15,6 @@ class CreateSongsTable extends Migration
     public function up()
     {
         Schema::create('songs', function (Blueprint $table) {
-            //$table->increments('id');
             $table->string('id', 36)->unique();
             $table->timestamps();
             $table->string('name', 96)->nullable(false);
