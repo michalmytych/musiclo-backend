@@ -21,17 +21,27 @@ use Illuminate\Validation\Rule;
  */
 class SongController extends Controller
 {
+    const PAGINATION_AMOUNT = 10;
     /**
      * Get all songs
      *
-     * @return Song[]|\Illuminate\Database\Eloquent\Collection
+     * @return JsonResponse
      */
     public function index()
     {
         /**
          * @todo - implement pagination
          */
-        return Song::all();
+        try {
+            return Song::paginate(self::PAGINATION_AMOUNT);
+        }
+        catch (Exception $e) {
+            Log::error('Error while storing to database', [ 'exception' => $e]);
+            return new JsonResponse([
+                'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => 'Internal server error'
+            ]);
+        }
     }
 
     /**
@@ -145,9 +155,9 @@ class SongController extends Controller
      * @todo - implement pagination
      * @param Request $request
      * @param $phrase
-     * @return array|JsonResponse
+     * @return JsonResponse
      */
-    public function search(Request $request, $phrase)
+    public function search(Request $request, $phrase) : JsonResponse
     {
         /**
          * @todo - więcej reguł wyszukiwania
@@ -165,8 +175,7 @@ class SongController extends Controller
             ]);
             return new JsonResponse([
                 'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Internal server error',
-                'exception' => $e
+                'message' => 'Internal server error'
             ]);
         }
     }
@@ -183,8 +192,7 @@ class SongController extends Controller
         {
             $song = Song::findOrFail($id);
         }
-        catch(ModelNotFoundException $e)
-        {
+        catch(ModelNotFoundException $e) {
             return new JsonResponse([
                 'status'  => Response::HTTP_NOT_FOUND,
                 'message' => 'Not found',
