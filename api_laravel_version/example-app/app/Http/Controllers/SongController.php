@@ -1,9 +1,9 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Song;
+use App\Traits\JsonApiResponsesTrait;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -14,20 +14,20 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 /**
- * @todo - maybe move whole JsonResponse returning to some trait?
- *
  * Class SongController
  * @package App\Http\Controllers
  */
 class SongController extends Controller
 {
+    use JsonApiResponsesTrait;
+
     const PAGINATION_AMOUNT = 10;
     /**
      * Get all songs
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         /**
          * @todo - implement pagination
@@ -36,11 +36,10 @@ class SongController extends Controller
             return Song::paginate(self::PAGINATION_AMOUNT);
         }
         catch (Exception $e) {
-            Log::error('Error while storing to database', [ 'exception' => $e]);
-            return new JsonResponse([
-                'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Internal server error'
-            ]);
+            Log::error('Error while fetching data from database',
+                [ 'exception' => $e]
+            );
+            return $this->jsonHttpInternalErrorResponse();
         }
     }
 
@@ -48,19 +47,15 @@ class SongController extends Controller
      * Save new song in database
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function store(Request $request) : JsonResponse
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->validationRules());
 
         if ($validator->fails()) {
             $validationErrors = $validator->messages();
-            return new JsonResponse([
-                'status'  => Response::HTTP_BAD_REQUEST,
-                'message' => 'Bad request',
-                'errors'  => $validationErrors
-            ]);
+            return $this->jsonHttpBadRequestResponse($validationErrors);
         }
 
         try {
@@ -72,16 +67,10 @@ class SongController extends Controller
                 'exception'     => $e,
                 'request_data'  => $request->json()
             ]);
-            return new JsonResponse([
-                'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Internal server error'
-            ]);
+            return $this->jsonHttpInternalErrorResponse();
         }
 
-        return new JsonResponse([
-            'status'  => Response::HTTP_CREATED,
-            'message' => 'Record was successfully created',
-        ]);
+        return $this->jsonHttpCreatedResponse();
     }
 
     /**
@@ -98,10 +87,7 @@ class SongController extends Controller
         }
         catch(ModelNotFoundException $e)
         {
-            return new JsonResponse([
-                'status'  => Response::HTTP_NOT_FOUND,
-                'message' => 'Not found',
-            ]);
+            return $this->jsonHttpNotFoundResponse();
         }
 
         return new JsonResponse($song);
@@ -122,10 +108,7 @@ class SongController extends Controller
         }
         catch(ModelNotFoundException $e)
         {
-            return new JsonResponse([
-                'status'  => Response::HTTP_NOT_FOUND,
-                'message' => 'Not found',
-            ]);
+            return $this->jsonHttpNotFoundResponse();
         }
         $request->validate($this->validationRules());
         try {
@@ -137,16 +120,10 @@ class SongController extends Controller
                 'exception'     => $e,
                 'request_data'  => $request->json()
             ]);
-            return new JsonResponse([
-                'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Internal server error while updating resource',
-            ]);
+            return $this->jsonHttpInternalErrorResponse();
         }
 
-        return new JsonResponse([
-            'status'  => Response::HTTP_OK,
-            'message' => 'Record was successfully updated',
-        ]);
+        return $this->jsonHttpOkResponse();
     }
 
     /**
@@ -165,7 +142,7 @@ class SongController extends Controller
          */
         try
         {
-            return Song::where('name', 'like', "%{$phrase}")->get();
+            return Song::where('name', 'like', "%{$phrase}")->get()->paginate(self::PAGINATION_AMOUNT);
         }
         catch(Exception $e)
         {
@@ -173,10 +150,7 @@ class SongController extends Controller
                 'exception'     => $e,
                 'request_data'  => $request->json()
             ]);
-            return new JsonResponse([
-                'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Internal server error'
-            ]);
+            return $this->jsonHttpInternalErrorResponse();
         }
     }
 
@@ -193,10 +167,7 @@ class SongController extends Controller
             $song = Song::findOrFail($id);
         }
         catch(ModelNotFoundException $e) {
-            return new JsonResponse([
-                'status'  => Response::HTTP_NOT_FOUND,
-                'message' => 'Not found',
-            ]);
+            return $this->jsonHttpNotFoundResponse();
         }
 
         try {
@@ -208,16 +179,10 @@ class SongController extends Controller
                 'table'       => 'songs',
                 'resource_id' => $id
             ]);
-            return new JsonResponse([
-                'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Internal server error while deleting resource',
-            ]);
+            return $this->jsonHttpInternalErrorResponse();
         }
 
-        return new JsonResponse([
-            'status'  => Response::HTTP_NO_CONTENT,
-            'message' => 'Resource was successfully deleted',
-        ]);
+        return $this->jsonHttpNoContentResponse();
     }
 
     /**
