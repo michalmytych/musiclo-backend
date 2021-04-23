@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\SongController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,17 +29,21 @@ Route::group(['prefix' => 'songs'], function () {
     Route::get('/search/{phrase}', [SongController::class, 'search']);
 });
 
-/*
 
-// @todo - implement this routes:
 
 Route::group(['prefix' => 'albums'], function () {
     Route::get('/', [AlbumController::class, 'index']);
     Route::post('/', [AlbumController::class, 'store']);
+    /*
     Route::get('/{id}', [AlbumController::class, 'show']);
     Route::put('/{id}', [AlbumController::class, 'update']);
     Route::get('/search/{phrase}', [AlbumController::class, 'search']);
+    */
 });
+
+/*
+
+// @todo - implement this routes:
 
 Route::group(['prefix' => 'artists'], function () {
     Route::get('/', [ArtistController::class, 'index']);
