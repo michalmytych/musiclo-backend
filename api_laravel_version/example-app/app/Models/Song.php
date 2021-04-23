@@ -27,6 +27,7 @@ class Song extends Model
     protected $table = 'songs';
 
     protected $fillable = [
+        'id',
         'name',
         'explicit',
         'album_id',

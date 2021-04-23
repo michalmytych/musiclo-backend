@@ -26,7 +26,7 @@ trait JsonApiResponsesTrait {
     {
         return response()->json([
             'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
-            'message' => 'Internal server error',
+            'message' => 'Internal server error'
         ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 

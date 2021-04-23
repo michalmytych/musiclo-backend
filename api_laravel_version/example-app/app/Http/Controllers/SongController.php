@@ -24,7 +24,6 @@ class SongController extends Controller
     const PAGINATION_AMOUNT = 10;
     /**
      * Get all songs
-     *
      * @return JsonResponse
      */
     public function index(): JsonResponse
@@ -33,7 +32,7 @@ class SongController extends Controller
          * @todo - implement pagination
          */
         try {
-            return Song::paginate(self::PAGINATION_AMOUNT);
+            return new JsonResponse(Song::paginate(self::PAGINATION_AMOUNT));
         }
         catch (Exception $e) {
             Log::error('Error while fetching data from database',
@@ -45,17 +44,14 @@ class SongController extends Controller
 
     /**
      * Save new song in database
-     *
      * @param \Illuminate\Http\Request $request
      * @return JsonResponse
      */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->validationRules());
-
         if ($validator->fails()) {
-            $validationErrors = $validator->messages();
-            return $this->jsonHttpBadRequestResponse($validationErrors);
+            return $this->jsonHttpBadRequestResponse($validator->messages());
         }
 
         try {
@@ -75,7 +71,6 @@ class SongController extends Controller
 
     /**
      * Fetch single song from database by id
-     *
      * @param $id
      * @return JsonResponse
      */
@@ -90,12 +85,11 @@ class SongController extends Controller
             return $this->jsonHttpNotFoundResponse();
         }
 
-        return new JsonResponse($song);
+        return new JsonResponse(['data' => $song]);
     }
 
     /**
      * Update song resource by id, with validated data
-     *
      * @param Request $request
      * @param $id
      * @return JsonResponse
@@ -110,7 +104,12 @@ class SongController extends Controller
         {
             return $this->jsonHttpNotFoundResponse();
         }
-        $request->validate($this->validationRules());
+
+        $validator = Validator::make($request->all(), $this->validationRules());
+        if ($validator->fails()) {
+            return $this->jsonHttpBadRequestResponse($validator->messages());
+        }
+
         try {
             $song->update($this->getFieldsFromRequest($request));
             $song->save();
@@ -142,7 +141,9 @@ class SongController extends Controller
          */
         try
         {
-            return Song::where('name', 'like', "%{$phrase}")->get()->paginate(self::PAGINATION_AMOUNT);
+            return new JsonResponse(
+                Song::where('name', 'like', "%{$phrase}")->get()->paginate(self::PAGINATION_AMOUNT)
+            );
         }
         catch(Exception $e)
         {
@@ -156,7 +157,6 @@ class SongController extends Controller
 
     /**
      * Delete song resource by id
-     *
      * @param $id
      * @return JsonResponse
      */
@@ -187,7 +187,6 @@ class SongController extends Controller
 
     /**
      * Returns rules of fields validation for Song instance
-     *
      * @return array
      */
     private function validationRules() : array
@@ -210,7 +209,6 @@ class SongController extends Controller
 
     /**
      * Returns fields of Song model from request
-     *
      * @param \Illuminate\Http\Request $request
      * @return array
      */
