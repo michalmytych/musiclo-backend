@@ -134,11 +134,11 @@ class SongController extends Controller
      * @return JsonResponse
      */
     public function search(Request $request, $phrase) : JsonResponse
-    {
         /**
-         * @todo - więcej reguł wyszukiwania
-         * @todo - dodać wyszukiwanie po nazwie albumu lub artysty
+         * @todo - implement SearchServiceProvider with:
+         * @link https://m.dotdev.co/writing-advanced-eloquent-search-query-filters-de8b6c2598db
          */
+    {
         try
         {
             return new JsonResponse(

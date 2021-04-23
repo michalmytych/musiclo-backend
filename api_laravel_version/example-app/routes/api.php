@@ -34,9 +34,10 @@ Route::group(['prefix' => 'songs'], function () {
 Route::group(['prefix' => 'albums'], function () {
     Route::get('/', [AlbumController::class, 'index']);
     Route::post('/', [AlbumController::class, 'store']);
-    /*
     Route::get('/{id}', [AlbumController::class, 'show']);
     Route::put('/{id}', [AlbumController::class, 'update']);
+    Route::delete('/{id}', [AlbumController::class, 'destroy']);
+    /*
     Route::get('/search/{phrase}', [AlbumController::class, 'search']);
     */
 });
@@ -50,6 +51,7 @@ Route::group(['prefix' => 'artists'], function () {
     Route::post('/', [ArtistController::class, 'store']);
     Route::get('/{id}', [ArtistController::class, 'show']);
     Route::put('/{id}', [ArtistController::class, 'update']);
+    Route::delete('/{id}', [ArtistController::class, 'destroy']);
     Route::get('/search/{phrase}', [ArtistController::class, 'search']);
 });
 
