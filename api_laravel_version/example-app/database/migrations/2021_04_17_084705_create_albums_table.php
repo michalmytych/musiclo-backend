@@ -18,6 +18,7 @@ class CreateAlbumsTable extends Migration
             $table->timestamps();
             $table->string('name')->nullable(false);
             $table->string('spotify_link', 160)->nullable();
+            $table->dateTime('release_date', $precision = 0)->nullable();
         });
     }
 
