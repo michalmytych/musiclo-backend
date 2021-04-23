@@ -6,6 +6,7 @@ use App\Models\Concerns\UsesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Artist extends Model
 {
@@ -28,5 +29,11 @@ class Artist extends Model
     public function country() : BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function albums(): belongsToMany
+    {
+        return $this->belongsToMany(Album::class)->
+            select('artist_id', 'name', 'albums.id');
     }
 }
