@@ -13,7 +13,11 @@ class Country extends Model
 
     protected $table = 'countries';
 
-    protected $fillable = ['name', 'iso_code', 'number'];
+    protected $fillable = [
+        'name',
+        'iso_code',
+        'number'
+    ];
 
     protected $hidden = ['id'];
 

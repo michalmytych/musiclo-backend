@@ -27,3 +27,4 @@ class CountrySeeder extends CsvSeeder
         parent::run();
     }
 }
+

@@ -10,7 +10,9 @@ API backend for [musiclo](https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/musi
 * Deleting records
 * Dynamic-view searching in all three categories
 * All data downloaded from Kaggle and processed for loading into relational database
-* Procedural API in pure PHP 7.4 (requirement of project)
+* REST API in Laravel
+* Procedural API in pure PHP 7.4 (requirement of univeristy project)
+
 
 * [Live version](https://wierzba.wzks.uj.edu.pl/~19_mytych/projekt/music-database/)
 

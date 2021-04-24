@@ -14,7 +14,6 @@ class Song extends Model
 
     /**
      * All possible musical keys (key signatures)
-     *
      * @var string[]
      */
     public static $MUSIC_KEYS = [
@@ -42,8 +41,13 @@ class Song extends Model
         'spotify_link'
     ];
 
+    /**
+     * Return relation with Album
+     * @return BelongsTo
+     */
     public function album() : BelongsTo
     {
         return $this->belongsTo(Album::class);
     }
 }
+
