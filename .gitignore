@@ -112,3 +112,9 @@ autoryzacja.php
 issues.md
 secrets.py
 .vscode/
+composer.lock
+/vendor
+/.idea
+
+
+
