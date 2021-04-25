@@ -25,3 +25,4 @@ class Country extends Model
 
     public $timestamps = true;
 }
+

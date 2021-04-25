@@ -19,7 +19,6 @@ class CountrySeeder extends CsvSeeder
 
     /**
      * Run the database seeds.
-     *
      * @return void
      */
     public function run()

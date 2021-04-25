@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // If csv seeder is installed
             // and countries.csv file is in seeds/csvs dir
-            // CountrySeeder::class,
-            SongSeeder::class
+            ArtistSeeder::class,
+            CountrySeeder::class
         ]);
     }
 }
