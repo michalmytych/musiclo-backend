@@ -16,7 +16,7 @@ class Country extends Model
     protected $fillable = [
         'name',
         'iso_code',
-        'number'
+        'number_code'
     ];
 
     protected $hidden = ['id'];

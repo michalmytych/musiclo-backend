@@ -2,15 +2,22 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Str;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
 class CountrySeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->delimiter = ',';
-        $this->mapping = ['iso_code','name','number'];
-        $defaults = [
+        $this->delimiter = '|';
+        $this->mapping = [
+            'id',
+            'iso_code',
+            'name',
+            'number_code'
+        ];
+        $this->defaults = [
+            'id' => '0',
             'created_at' => null,
             'updated_at' => null,
         ];

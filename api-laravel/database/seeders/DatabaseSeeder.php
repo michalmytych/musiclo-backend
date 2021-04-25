@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,12 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        /**
+         * Only for use in development env!
+         */
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         $this->call([
-            // If csv seeder is installed
-            // and countries.csv file is in seeds/csvs dir
-            ArtistSeeder::class,
-            CountrySeeder::class
+            CountrySeeder::class,
+            ArtistSeeder::class
         ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
 

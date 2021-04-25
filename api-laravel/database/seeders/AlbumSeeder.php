@@ -4,28 +4,28 @@ namespace Database\Seeders;
 
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class ArtistSeeder extends CsvSeeder
+class AlbumSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->delimiter = '|';
+        $this->delimiter = ',';
+        // id|name|artists_ids|songs_ids|release_date|spotify_link
         $this->mapping = [
             'id',
             'name',
-            'spotify_link',
-            'country_id'
+            'iso_code',
+            'name',
+            'number'
         ];
-        $this->defaults = [
-            'description' => null,
+        $defaults = [
             'created_at' => null,
             'updated_at' => null,
         ];
-        $this->file = __DIR__ . '/seeds/csvs/artists.csv';
+        $this->file = __DIR__ . '/seeds/csvs/albums.csv';
     }
 
     /**
      * Run the database seeds.
-     *
      * @return void
      */
     public function run()

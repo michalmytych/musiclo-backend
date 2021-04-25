@@ -17,7 +17,7 @@ class CreateCountriesTable extends Migration
             $table->timestamps();
             $table->uuid('id')->primary();
             $table->string('name', 96);
-            $table->smallInteger('number')->nullable();
+            $table->string('number_code', 3)->nullable();
             $table->string('iso_code', 2);
         });
     }

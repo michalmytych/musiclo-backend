@@ -23,7 +23,7 @@ class CreateArtistsTable extends Migration
             $table->foreign('country_id')
                 ->references('id')
                 ->on('countries')
-                ->onDelete('no action');
+                ->onDelete('set null');
         });
     }
 

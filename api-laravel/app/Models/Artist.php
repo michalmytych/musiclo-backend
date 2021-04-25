@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * Class Artist
+ * @package App\Models
+ * @todo - Implement repository pattern
+ * @link - https://itnext.io/repository-design-pattern-done-right-in-laravel-d177b5fa75d4
+ */
+
 class Artist extends Model
 {
     use HasFactory;
