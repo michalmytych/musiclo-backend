@@ -8,16 +8,15 @@ class AlbumSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->delimiter = ',';
-        // id|name|artists_ids|songs_ids|release_date|spotify_link
+        $this->delimiter = '|';
+        $this->skipper = [ 'artists_ids', 'songs_ids' ];
         $this->mapping = [
             'id',
             'name',
-            'iso_code',
-            'name',
-            'number'
+            'release_date',
+            'spotify_link'
         ];
-        $defaults = [
+        $this->defaults = [
             'created_at' => null,
             'updated_at' => null,
         ];

@@ -48,9 +48,6 @@ class Artist extends Model
      */
     public function albums(): belongsToMany
     {
-        /**
-         * @todo - delete pivot
-         */
         return $this->belongsToMany(
             Album::class,
             'album_artist',

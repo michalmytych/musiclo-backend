@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Str;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
 class CountrySeeder extends CsvSeeder

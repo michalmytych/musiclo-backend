@@ -1,250 +1,250 @@
-iso_code,name,number
-AF,Afghanistan,004
-AL,Albania,008
-DZ,Algeria,012
-AS,American Samoa,016s
-AD,Andorra,020
-AO,Angola,024
-AI,Anguilla,660
-AQ,Antarctica,010
-AG,Antigua and Barbuda,028
-AR,Argentina,032
-AM,Armenia,051
-AW,Aruba,533
-AU,Australia,036
-AT,Austria,040
-AZ,Azerbaijan,031
-BS,Bahamas (the),044
-BH,Bahrain,048
-BD,Bangladesh,050
-BB,Barbados,052
-BY,Belarus,112
-BE,Belgium,056
-BZ,Belize,084
-BJ,Benin,204
-BM,Bermuda,060
-BT,Bhutan,064
-BO,Bolivia (Plurinational State of),068
-BQ,"Bonaire, Sint Eustatius and Saba",535
-BA,Bosnia and Herzegovina,070
-BW,Botswana,072
-BV,Bouvet Island,074
-BR,Brazil,076
-IO,British Indian Ocean Territory (the),086
-BN,Brunei Darussalam,096
-BG,Bulgaria,100
-BF,Burkina Faso,854
-BI,Burundi,108
-CV,Cabo Verde,132
-KH,Cambodia,116
-CM,Cameroon,120
-CA,Canada,124
-KY,Cayman Islands (the),136
-CF,Central African Republic (the),140
-TD,Chad,148
-CL,Chile,152
-CN,China,156
-CX,Christmas Island,162
-CC,Cocos (Keeling) Islands (the),166
-CO,Colombia,170
-KM,Comoros (the),174
-CD,Congo (the Democratic Republic of the),180
-CG,Congo (the),178
-CK,Cook Islands (the),184
-CR,Costa Rica,188
-HR,Croatia,191
-CU,Cuba,192
-CW,Curaçao,531
-CY,Cyprus,196
-CZ,Czechia,203
-CI,Côte d'Ivoire,384
-DK,Denmark,208
-DJ,Djibouti,262
-DM,Dominica,212
-DO,Dominican Republic (the),214
-EC,Ecuador,218
-EG,Egypt,818
-SV,El Salvador,222
-GQ,Equatorial Guinea,226
-ER,Eritrea,232
-EE,Estonia,233
-SZ,Eswatini,748
-ET,Ethiopia,231
-FK,Falkland Islands (the) [Malvinas],238
-FO,Faroe Islands (the),234
-FJ,Fiji,242
-FI,Finland,246
-FR,France,250
-GF,French Guiana,254
-PF,French Polynesia,258
-TF,French Southern Territories (the),260
-GA,Gabon,266
-GM,Gambia (the),270
-GE,Georgia,268
-DE,Germany,276
-GH,Ghana,288
-GI,Gibraltar,292
-GR,Greece,300
-GL,Greenland,304
-GD,Grenada,308
-GP,Guadeloupe,312
-GU,Guam,316
-GT,Guatemala,320
-GG,Guernsey,831
-GN,Guinea,324
-GW,Guinea-Bissau,624
-GY,Guyana,328
-HT,Haiti,332
-HM,Heard Island and McDonald Islands,334
-VA,Holy See (the),336
-HN,Honduras,340
-HK,Hong Kong,344
-HU,Hungary,348
-IS,Iceland,352
-IN,India,356
-ID,Indonesia,360
-IR,Iran (Islamic Republic of),364
-IQ,Iraq,368
-IE,Ireland,372
-IM,Isle of Man,833
-IL,Israel,376
-IT,Italy,380
-JM,Jamaica,388
-JP,Japan,392
-JE,Jersey,832
-JO,Jordan,400
-KZ,Kazakhstan,398
-KE,Kenya,404
-KI,Kiribati,296
-KP,Korea (the Democratic People's Republic of),408
-KR,Korea (the Republic of),410
-KW,Kuwait,414
-KG,Kyrgyzstan,417
-LA,Lao People's Democratic Republic (the),418
-LV,Latvia,428
-LB,Lebanon,422
-LS,Lesotho,426
-LR,Liberia,430
-LY,Libya,434
-LI,Liechtenstein,438
-LT,Lithuania,440
-LU,Luxembourg,442
-MO,Macao,446
-MG,Madagascar,450
-MW,Malawi,454
-MY,Malaysia,458
-MV,Maldives,462
-ML,Mali,466
-MT,Malta,470
-MH,Marshall Islands (the),584
-MQ,Martinique,474
-MR,Mauritania,478
-MU,Mauritius,480
-YT,Mayotte,175
-MX,Mexico,484
-FM,Micronesia (Federated States of),583
-MD,Moldova (the Republic of),498
-MC,Monaco,492
-MN,Mongolia,496
-ME,Montenegro,499
-MS,Montserrat,500
-MA,Morocco,504
-MZ,Mozambique,508
-MM,Myanmar,104
-NA,Namibia,516
-NR,Nauru,520
-NP,Nepal,524
-NL,Netherlands (the),528
-NC,New Caledonia,540
-NZ,New Zealand,554
-NI,Nicaragua,558
-NE,Niger (the),562
-NG,Nigeria,566
-NU,Niue,570
-NF,Norfolk Island,574
-MP,Northern Mariana Islands (the),580
-NO,Norway,578
-OM,Oman,512
-PK,Pakistan,586
-PW,Palau,585
-PS,"Palestine, State of",275
-PA,Panama,591
-PG,Papua New Guinea,598
-PY,Paraguay,600
-PE,Peru,604
-PH,Philippines (the),608
-PN,Pitcairn,612
-PL,Poland,616
-PT,Portugal,620
-PR,Puerto Rico,630
-QA,Qatar,634
-MK,Republic of North Macedonia,807
-RO,Romania,642
-RU,Russian Federation (the),643
-RW,Rwanda,646
-RE,Réunion,638
-BL,Saint Barthélemy,652
-SH,"Saint Helena, Ascension and Tristan da Cunha",654
-KN,Saint Kitts and Nevis,659
-LC,Saint Lucia,662
-MF,Saint Martin (French part),663
-PM,Saint Pierre and Miquelon,666
-VC,Saint Vincent and the Grenadines,670
-WS,Samoa,882
-SM,San Marino,674
-ST,Sao Tome and Principe,678
-SA,Saudi Arabia,682
-SN,Senegal,686
-RS,Serbia,688
-SC,Seychelles,690
-SL,Sierra Leone,694
-SG,Singapore,702
-SX,Sint Maarten (Dutch part),534
-SK,Slovakia,703
-SI,Slovenia,705
-SB,Solomon Islands,090
-SO,Somalia,706
-ZA,South Africa,710
-GS,South Georgia and the South Sandwich Islands,239
-SS,South Sudan,728
-ES,Spain,724
-LK,Sri Lanka,144
-SD,Sudan (the),729
-SR,Suriname,740
-SJ,Svalbard and Jan Mayen,744
-SE,Sweden,752
-CH,Switzerland,756
-SY,Syrian Arab Republic,760
-TW,Taiwan,158
-TJ,Tajikistan,762
-TZ,"Tanzania, United Republic of",834
-TH,Thailand,764
-TL,Timor-Leste,626
-TG,Togo,768
-TK,Tokelau,772
-TO,Tonga,776
-TT,Trinidad and Tobago,780
-TN,Tunisia,788
-TR,Turkey,792
-TM,Turkmenistan,795
-TC,Turks and Caicos Islands (the),796
-TV,Tuvalu,798
-UG,Uganda,800
-UA,Ukraine,804
-AE,United Arab Emirates (the),784
-GB,United Kingdom of Great Britain and Northern Ireland (the),826
-UM,United States Minor Outlying Islands (the),581
-US,United States of America (the),840
-UY,Uruguay,858
-UZ,Uzbekistan,860
-VU,Vanuatu,548
-VE,Venezuela (Bolivarian Republic of),862
-VN,Viet Nam,704
-VG,Virgin Islands (British),092
-VI,Virgin Islands (U.S.),850
-WF,Wallis and Futuna,876
-EH,Western Sahara,732
-YE,Yemen,887
-ZM,Zambia,894
-ZW,Zimbabwe,716
-AX,Åland Islands,248
+id|iso_code|name|number_code
+2|AF|Afghanistan|004
+3|AL|Albania|008
+4|DZ|Algeria|012
+5|AS|American Samoa|016s
+6|AD|Andorra|020
+7|AO|Angola|024
+8|AI|Anguilla|660
+9|AQ|Antarctica|010
+10|AG|Antigua and Barbuda|028
+11|AR|Argentina|032
+12|AM|Armenia|051
+13|AW|Aruba|533
+14|AU|Australia|036
+15|AT|Austria|040
+16|AZ|Azerbaijan|031
+17|BS|Bahamas (the)|044
+18|BH|Bahrain|048
+19|BD|Bangladesh|050
+20|BB|Barbados|052
+21|BY|Belarus|112
+22|BE|Belgium|056
+23|BZ|Belize|084
+24|BJ|Benin|204
+25|BM|Bermuda|060
+26|BT|Bhutan|064
+27|BO|Bolivia (Plurinational State of)|068
+28|BQ|Bonaire, Sint Eustatius and Saba|535
+29|BA|Bosnia and Herzegovina|070
+30|BW|Botswana|072
+31|BV|Bouvet Island|074
+32|BR|Brazil|076
+33|IO|British Indian Ocean Territory (the)|086
+34|BN|Brunei Darussalam|096
+35|BG|Bulgaria|100
+36|BF|Burkina Faso|854
+37|BI|Burundi|108
+38|CV|Cabo Verde|132
+39|KH|Cambodia|116
+40|CM|Cameroon|120
+41|CA|Canada|124
+42|KY|Cayman Islands (the)|136
+43|CF|Central African Republic (the)|140
+44|TD|Chad|148
+45|CL|Chile|152
+46|CN|China|156
+47|CX|Christmas Island|162
+48|CC|Cocos (Keeling) Islands (the)|166
+49|CO|Colombia|170
+50|KM|Comoros (the)|174
+51|CD|Congo (the Democratic Republic of the)|180
+52|CG|Congo (the)|178
+53|CK|Cook Islands (the)|184
+54|CR|Costa Rica|188
+55|HR|Croatia|191
+56|CU|Cuba|192
+57|CW|Curaçao|531
+58|CY|Cyprus|196
+59|CZ|Czechia|203
+60|CI|Côte d'Ivoire|384
+61|DK|Denmark|208
+62|DJ|Djibouti|262
+63|DM|Dominica|212
+64|DO|Dominican Republic (the)|214
+65|EC|Ecuador|218
+66|EG|Egypt|818
+67|SV|El Salvador|222
+68|GQ|Equatorial Guinea|226
+69|ER|Eritrea|232
+70|EE|Estonia|233
+71|SZ|Eswatini|748
+72|ET|Ethiopia|231
+73|FK|Falkland Islands (the) [Malvinas]|238
+74|FO|Faroe Islands (the)|234
+75|FJ|Fiji|242
+76|FI|Finland|246
+77|FR|France|250
+78|GF|French Guiana|254
+79|PF|French Polynesia|258
+80|TF|French Southern Territories (the)|260
+81|GA|Gabon|266
+82|GM|Gambia (the)|270
+83|GE|Georgia|268
+84|DE|Germany|276
+85|GH|Ghana|288
+86|GI|Gibraltar|292
+87|GR|Greece|300
+88|GL|Greenland|304
+89|GD|Grenada|308
+90|GP|Guadeloupe|312
+91|GU|Guam|316
+92|GT|Guatemala|320
+93|GG|Guernsey|831
+94|GN|Guinea|324
+95|GW|Guinea-Bissau|624
+96|GY|Guyana|328
+97|HT|Haiti|332
+98|HM|Heard Island and McDonald Islands|334
+99|VA|Holy See (the)|336
+100|HN|Honduras|340
+101|HK|Hong Kong|344
+102|HU|Hungary|348
+103|IS|Iceland|352
+104|IN|India|356
+105|ID|Indonesia|360
+106|IR|Iran (Islamic Republic of)|364
+107|IQ|Iraq|368
+108|IE|Ireland|372
+109|IM|Isle of Man|833
+110|IL|Israel|376
+111|IT|Italy|380
+112|JM|Jamaica|388
+113|JP|Japan|392
+114|JE|Jersey|832
+115|JO|Jordan|400
+116|KZ|Kazakhstan|398
+117|KE|Kenya|404
+118|KI|Kiribati|296
+119|KP|Korea (the Democratic People's Republic of)|408
+120|KR|Korea (the Republic of)|410
+121|KW|Kuwait|414
+122|KG|Kyrgyzstan|417
+123|LA|Lao People's Democratic Republic (the)|418
+124|LV|Latvia|428
+125|LB|Lebanon|422
+126|LS|Lesotho|426
+127|LR|Liberia|430
+128|LY|Libya|434
+129|LI|Liechtenstein|438
+130|LT|Lithuania|440
+131|LU|Luxembourg|442
+132|MO|Macao|446
+133|MG|Madagascar|450
+134|MW|Malawi|454
+135|MY|Malaysia|458
+136|MV|Maldives|462
+137|ML|Mali|466
+138|MT|Malta|470
+139|MH|Marshall Islands (the)|584
+140|MQ|Martinique|474
+141|MR|Mauritania|478
+142|MU|Mauritius|480
+143|YT|Mayotte|175
+144|MX|Mexico|484
+145|FM|Micronesia (Federated States of)|583
+146|MD|Moldova (the Republic of)|498
+147|MC|Monaco|492
+148|MN|Mongolia|496
+149|ME|Montenegro|499
+150|MS|Montserrat|500
+151|MA|Morocco|504
+152|MZ|Mozambique|508
+153|MM|Myanmar|104
+154|NA|Namibia|516
+155|NR|Nauru|520
+156|NP|Nepal|524
+157|NL|Netherlands (the)|528
+158|NC|New Caledonia|540
+159|NZ|New Zealand|554
+160|NI|Nicaragua|558
+161|NE|Niger (the)|562
+162|NG|Nigeria|566
+163|NU|Niue|570
+164|NF|Norfolk Island|574
+165|MP|Northern Mariana Islands (the)|580
+166|NO|Norway|578
+167|OM|Oman|512
+168|PK|Pakistan|586
+169|PW|Palau|585
+170|PS|Palestine, State of|275
+171|PA|Panama|591
+172|PG|Papua New Guinea|598
+173|PY|Paraguay|600
+174|PE|Peru|604
+175|PH|Philippines (the)|608
+176|PN|Pitcairn|612
+177|PL|Poland|616
+178|PT|Portugal|620
+179|PR|Puerto Rico|630
+180|QA|Qatar|634
+181|MK|Republic of North Macedonia|807
+182|RO|Romania|642
+183|RU|Russian Federation (the)|643
+184|RW|Rwanda|646
+185|RE|Réunion|638
+186|BL|Saint Barthélemy|652
+187|SH|Saint Helena, Ascension and Tristan da Cunha|654
+188|KN|Saint Kitts and Nevis|659
+189|LC|Saint Lucia|662
+190|MF|Saint Martin (French part)|663
+191|PM|Saint Pierre and Miquelon|666
+192|VC|Saint Vincent and the Grenadines|670
+193|WS|Samoa|882
+194|SM|San Marino|674
+195|ST|Sao Tome and Principe|678
+196|SA|Saudi Arabia|682
+197|SN|Senegal|686
+198|RS|Serbia|688
+199|SC|Seychelles|690
+200|SL|Sierra Leone|694
+201|SG|Singapore|702
+202|SX|Sint Maarten (Dutch part)|534
+203|SK|Slovakia|703
+204|SI|Slovenia|705
+205|SB|Solomon Islands|090
+206|SO|Somalia|706
+207|ZA|South Africa|710
+208|GS|South Georgia and the South Sandwich Islands|239
+209|SS|South Sudan|728
+210|ES|Spain|724
+211|LK|Sri Lanka|144
+212|SD|Sudan (the)|729
+213|SR|Suriname|740
+214|SJ|Svalbard and Jan Mayen|744
+215|SE|Sweden|752
+216|CH|Switzerland|756
+217|SY|Syrian Arab Republic|760
+218|TW|Taiwan|158
+219|TJ|Tajikistan|762
+220|TZ|Tanzania, United Republic of|834
+221|TH|Thailand|764
+222|TL|Timor-Leste|626
+223|TG|Togo|768
+224|TK|Tokelau|772
+225|TO|Tonga|776
+226|TT|Trinidad and Tobago|780
+227|TN|Tunisia|788
+228|TR|Turkey|792
+229|TM|Turkmenistan|795
+230|TC|Turks and Caicos Islands (the)|796
+231|TV|Tuvalu|798
+232|UG|Uganda|800
+233|UA|Ukraine|804
+234|AE|United Arab Emirates (the)|784
+235|GB|United Kingdom of Great Britain and Northern Ireland (the)|826
+236|UM|United States Minor Outlying Islands (the)|581
+237|US|United States of America (the)|840
+238|UY|Uruguay|858
+239|UZ|Uzbekistan|860
+240|VU|Vanuatu|548
+241|VE|Venezuela (Bolivarian Republic of)|862
+242|VN|Viet Nam|704
+243|VG|Virgin Islands (British)|092
+244|VI|Virgin Islands (U.S.)|850
+245|WF|Wallis and Futuna|876
+246|EH|Western Sahara|732
+247|YE|Yemen|887
+248|ZM|Zambia|894
+249|ZW|Zimbabwe|716
+250|AX|Åland Islands|248
